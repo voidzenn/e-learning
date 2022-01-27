@@ -1,8 +1,11 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 import SignIn from './SignIn';
 import Dashboard from './contents/Dashboard';
+import MainContent from './layouts/MainContent';
 
 function Main() {
     return (
