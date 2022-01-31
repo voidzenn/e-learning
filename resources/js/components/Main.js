@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Button from '@mui/material/Button';
 
 import SignIn from './SignIn';
-import MainContent from './layouts/MainContent';
 
 function Main() {
     return (
