@@ -1,23 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import SignIn from './SignIn';
+import Dashboard from './contents/Dashboard';
 
 function Main() {
     return (
         <div className="container">
-            <Router>
-                <Routes>
-                    <Route path="/" element={<SignIn />}></Route>
-                </Routes>
-            </Router>
+          <Routes>
+            <Route path="/" element={<SignIn />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
+          </Routes>
         </div>
     );
 }
 
 export default Main;
-
-if (document.getElementById('root')) {
-    ReactDOM.render(<Main />, document.getElementById('root'));
-}
