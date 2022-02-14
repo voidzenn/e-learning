@@ -1,77 +1,240 @@
-import userApi from '../apis/userApi';
-import { SIGN_IN } from './types';
-
-export const signIn = (formData) => async dispatch => {
+import userApi from "../apis/userApi";
+import {
+    SIGN_IN,
+    SIGN_UP,
+    VALIDATE_EMAIL,
+    VALIDATE_PASSWORD,
+    VALIDATE_CONFIRMPASS,
+    VALIDATE_FNAME,
+    VALIDATE_LNAME,
+    FRESH_STATE,
+    SHOW_PASSWORD,
+    SHOW_CONFIRMPASSWORD,
+    TOGGLE_SUBMITBTN,
+} from "./types";
+/*
+    When you navigate to the Sign In Page
+    The state has data already which was not cleared. 
+    refreshPage function helps in re-initialize
+    your state
+*/
+export const freshState = () => (dispatch) => {
+    dispatch({
+        type: FRESH_STATE,
+        password: "",
+    });
+};
+/*  
+    Sign In
+*/
+export const signIn = (formData) => async (dispatch) => {
     var data = {};
-    var submitDisabled = true;
-    const email = formData.get('email');
-    const password = formData.get('password');
-    const users = {
-        email: email,
-        password: password
-    }
-    // if all fields are not blank 
-    if (users.email != '' && users.password != '') {
-        await userApi.post('/sign-in', users)
-        .then(response => {
-            // this is used for error checking display
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    // Check both the email and password field are not empty
+    if (email !== "" && password !== "") {
+        // Check if user exists
+        await userApi.post("/sign-in", users).then((response) => {
             data = {
-                submitDisabled: false,
-                errors: response.data.errors,
-                message: response.data.message
-            }
-        })
-    }else if (users.email == '' && users.password != '') {
-        data = { submitDisabled ,email: 'Email should not be empty' }
-    }else if (users.email != ''  && users.password == '') {
-        data = { submitDisabled ,password: 'Email should not be empty' }
-    }else {
+                requestError: response.data.errors,
+                requestErrorMessage: response.data.message,
+            };
+        });
+    } else {
+        /*
+            The input validation is handled already and this
+            is for safe measures, if ever the email or the 
+            password fields are empty. 
+        */
         data = {
-            submitDisabled,
-            email: 'Email should not be empty',
-            password: 'Password should not be empty'
-        }
+            requestError: true,
+            requestErrorMessage: "Error...Please, Try Again",
+        };
     }
 
     dispatch({
         type: SIGN_IN,
-        payload: data
+        requestError: data.requestError,
+        requestErrorMessage: data.requestErrorMessage,
     });
-}
+};
+/*  
+    Sign Up
+*/
+export const signUp = (formData) => (dispatch) => {
+    var data = {};
+    const fname = formData.get("firstName");
+    const lname = formData.get("lastName");
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const confirmPass = formData.get("confirmPass");
 
-// check if in email format
-export const validateEmail = email => dispatch => {
-    var submitDisabled = true;
-    var check = /\S+@\S+\.\S+/;
-    const validation = check.test(email) == true ? '' : 'Invalid Email';
+    // Display an error if password and confirm password is mismatched
+    if (password !== confirmPass) {
+        dispatch({
+            type: VALIDATE_CONFIRMPASS,
+            confirmPassError: "Password Mismatch",
+            isValidConfirmPass: false,
+        });
+    } else {
+        if (
+            fname !== "" &&
+            lname !== "" &&
+            email !== "" &&
+            password !== "" &&
+            confirmPass !== ""
+        ) {
+            data = {
+                requestError: true,
+                requestErrorMessage: "Success",
+            };
+        } else {
+            /*
+            The input validation is handled already and this
+            is for safe measures, if ever some of the fields
+            are empty. 
+        */
+            data = {
+                requestError: true,
+                requestErrorMessage: "Error...Please, Try Again",
+            };
+        }
+        dispatch({
+            type: SIGN_UP,
+            requestError: data.requestError,
+            requestErrorMessage: data.requestErrorMessage,
+        });
+    }
+};
+/*  
+    Validate Email
+*/
+export const validateEmail = (email) => (dispatch) => {
+    var isValid = false;
+    var message = "";
 
-    if (validation == true) {
-        submitDisabled = false;
+    if (email === "") {
+        message = "This field should not be empty";
+    } else {
+        const check = /\S+@\S+\.\S+/;
+        const validation = check.test(email);
+
+        if (validation === true) {
+            isValid = true;
+        } else {
+            message = "Invalid Email Format";
+        }
     }
 
     dispatch({
-        type: SIGN_IN,
-        payload: {
-            submitDisabled,
-            email: validation
-        }
+        type: VALIDATE_EMAIL,
+        emailError: message,
+        isValidEmail: isValid,
     });
-}
+};
+/*  
+    Validate Password
+*/
+export const validatePassword = (password) => (dispatch) => {
+    var isValid = false;
+    var message = "";
 
-// check if password is blank
-export const validatePassword = password => dispatch => {
-    var submitDisabled = true;
-    const validation = password != '' ? '' : 'Password should not be empty';
-
-    if (validation == '') {
-        submitDisabled = false;
+    if (password === "") {
+        message = "This field should not be empty";
+    } else {
+        isValid = true;
     }
 
     dispatch({
-        type: SIGN_IN,
-        payload: {
-            submitDisabled,
-            password: validation
-        }
+        type: VALIDATE_PASSWORD,
+        password: password,
+        passwordError: message,
+        isValidPassword: isValid,
     });
-}
+};
+/*  
+    Validate Confirm Password
+*/
+export const validateConfirmPass = (confirmPass) => (dispatch) => {
+    var isValid = false;
+    var message = "";
+
+    if (confirmPass === "") {
+        message = "This field should not be empty";
+    } else {
+        isValid = true;
+    }
+
+    dispatch({
+        type: VALIDATE_CONFIRMPASS,
+        confirmPass: confirmPass,
+        confirmPassError: message,
+        isValidConfirmPass: isValid,
+    });
+};
+/*  
+    Validate First Name
+*/
+export const validateFname = (fname) => (dispatch) => {
+    var isValid = false;
+    var message = "";
+
+    if (fname === "") {
+        message = "Should not be empty";
+    } else {
+        isValid = true;
+    }
+
+    dispatch({
+        type: VALIDATE_FNAME,
+        fnameError: message,
+        isValidFname: isValid,
+    });
+};
+/*  
+    Validate Last Name
+*/
+export const validateLname = (lname) => (dispatch) => {
+    var isValid = false;
+    var message = "";
+
+    if (lname === "") {
+        message = "Should not be empty";
+    } else {
+        isValid = true;
+    }
+
+    dispatch({
+        type: VALIDATE_LNAME,
+        lnameError: message,
+        isValidLname: isValid,
+    });
+};
+/*  
+    Toggle Password Visibility
+*/
+export const showPassword = (isShown) => (dispatch) => {
+    dispatch({
+        type: SHOW_PASSWORD,
+        isShownPass: isShown === true ? false : true,
+    });
+};
+/*  
+    Toggle Confirm Password Visibility
+*/
+export const showConfirmPass = (isShown) => (dispatch) => {
+    dispatch({
+        type: SHOW_CONFIRMPASSWORD,
+        isShownConfirmPass: isShown === true ? false : true,
+    });
+};
+/*  
+    Handle enable/disable of submit button
+*/
+export const disableSubmit = (isDisabled) => (dispatch) => {
+    dispatch({
+        type: TOGGLE_SUBMITBTN,
+        isSubmitDisabled: isDisabled,
+    });
+};
