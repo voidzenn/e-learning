@@ -294,14 +294,10 @@ const mapToStateProps = (state) => {
 };
 
 export default connect(mapToStateProps, {
-<<<<<<< Updated upstream
-   signIn, validateEmail, validatePassword 
-=======
     freshState,
     signIn,
     validateEmail,
     validatePassword,
     showPassword,
     disableSubmit,
->>>>>>> Stashed changes
 })(SignIn);
