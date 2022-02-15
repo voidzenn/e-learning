@@ -97,7 +97,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isSubmitDisabled: action.isSubmitDisabled,
-            }
+            };
         default:
             return state;
     }
