@@ -25756,7 +25756,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "baseURL": () => (/* binding */ baseURL)
 /* harmony export */ });
-var baseURL = 'http://127.0.0.1:8000/api/v1';
+var baseURL = "http://127.0.0.1:8000/api/v1";
 
 /***/ }),
 
@@ -25779,9 +25779,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: _config__WEBPACK_IMPORTED_MODULE_1__.baseURL,
   headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Accept': 'application/json'
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    Accept: "application/json"
   }
 }));
 
@@ -25818,7 +25818,7 @@ react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime
   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.BrowserRouter, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_Main__WEBPACK_IMPORTED_MODULE_3__["default"], {})
   })
-}), document.querySelector('#root'));
+}), document.querySelector("#root"));
 
 /***/ }),
 
@@ -25939,11 +25939,11 @@ var SignIn = function SignIn(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.freshState();
     /* 
-        When navigated to this component, the password should be cleared
-        but when you put password in this component and try to navigate to
-        Sign Up, the password field has values. This checks if password has
-        values on first render then clear the values.
-    */
+              When navigated to this component, the password should be cleared
+              but when you put password in this component and try to navigate to
+              Sign Up, the password field has values. This checks if password has
+              values on first render then clear the values.
+          */
   }, []); // Check requestError, if false then navigate to dashboard page
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -26543,7 +26543,7 @@ function Footer(props) {
     color: "text.secondary",
     align: "center"
   }, props), {}, {
-    children: ['Copyright © ', new Date().getFullYear(), '.']
+    children: ["Copyright © ", new Date().getFullYear(), "."]
   }));
 }
 

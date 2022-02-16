@@ -9,10 +9,10 @@ import Main from "./components/Main";
 import reducers from "./reducers";
 
 ReactDOM.render(
-	<Provider store={createStore(reducers, applyMiddleware(thunk))}>
-		<Router>
-			<Main />
-		</Router>
-	</Provider>,
-	document.querySelector("#root")
+    <Provider store={createStore(reducers, applyMiddleware(thunk))}>
+        <Router>
+            <Main />
+        </Router>
+    </Provider>,
+    document.querySelector("#root")
 );
