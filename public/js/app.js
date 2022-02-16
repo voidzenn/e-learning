@@ -25485,21 +25485,25 @@ var freshState = function freshState() {
 var signIn = function signIn(formData) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
-      var data, email, password;
+      var data, email, password, users;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               data = {};
               email = formData.get("email");
-              password = formData.get("password"); // Check both the email and password field are not empty
+              password = formData.get("password");
+              users = {
+                email: email,
+                password: password
+              }; // Check both the email and password field are not empty
 
               if (!(email !== "" && password !== "")) {
-                _context.next = 8;
+                _context.next = 9;
                 break;
               }
 
-              _context.next = 6;
+              _context.next = 7;
               return _apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"].post("/sign-in", users).then(function (response) {
                 data = {
                   requestError: response.data.errors,
@@ -25507,11 +25511,11 @@ var signIn = function signIn(formData) {
                 };
               });
 
-            case 6:
-              _context.next = 9;
+            case 7:
+              _context.next = 10;
               break;
 
-            case 8:
+            case 9:
               /*
                   The input validation is handled already and this
                   is for safe measures, if ever the email or the 
@@ -25522,14 +25526,14 @@ var signIn = function signIn(formData) {
                 requestErrorMessage: "Error...Please, Try Again"
               };
 
-            case 9:
+            case 10:
               dispatch({
                 type: _types__WEBPACK_IMPORTED_MODULE_2__.SIGN_IN,
                 requestError: data.requestError,
                 requestErrorMessage: data.requestErrorMessage
               });
 
-            case 10:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -25939,11 +25943,11 @@ var SignIn = function SignIn(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.freshState();
     /* 
-              When navigated to this component, the password should be cleared
-              but when you put password in this component and try to navigate to
-              Sign Up, the password field has values. This checks if password has
-              values on first render then clear the values.
-          */
+        When navigated to this component, the password should be cleared
+        but when you put password in this component and try to navigate to
+        Sign Up, the password field has values. This checks if password has
+        values on first render then clear the values.
+    */
   }, []); // Check requestError, if false then navigate to dashboard page
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {

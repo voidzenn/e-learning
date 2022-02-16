@@ -31,6 +31,10 @@ export const signIn = (formData) => async (dispatch) => {
     var data = {};
     const email = formData.get("email");
     const password = formData.get("password");
+    const users = {
+        email: email,
+        password: password,
+    };
 
     // Check both the email and password field are not empty
     if (email !== "" && password !== "") {
