@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Link as LinkRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -29,12 +29,7 @@ import {
 } from "../actions/userAuthActions";
 
 const SignUp = (props) => {
-    // When navigated to this component, re-initialize this component
-    useEffect(() => {
-        props.freshState();
-        console.log("sign up");
-        console.log(props.password);
-    }, []);
+    const navigate = useNavigate();
 
     // This will run, if there is changes in the state
     useEffect(() => {
@@ -48,13 +43,40 @@ const SignUp = (props) => {
         ) {
             props.disableSubmit(false);
         }
-    }, [props]);
+    }, [
+        props.isValidEmail,
+        props.isValidPassword,
+        props.isValidConfirmPass,
+        props.isValidFname,
+        props.isValidLname,
+    ]);
+
+    useEffect(() => {
+        // If successfully registered, navigate to Sign In page
+        if (props.requestError === false) {
+            props.disableSubmit(true);
+            const timer = setTimeout(() => {
+                // Re-initialize the state before navigating to the component
+                props.freshState();
+
+                navigate("/");
+            }, 2500);
+            return () => clearTimeout(timer);
+        }
+    }, [props.requestError]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         props.signUp(data);
+    };
+
+    const navigateToSignIn = (e) => {
+        e.preventDefault();
+
+        props.freshState();
+        navigate("/");
     };
 
     // Toggle Show Password
@@ -82,7 +104,14 @@ const SignUp = (props) => {
                 <Typography
                     component="h6"
                     variant="h6"
-                    style={{ color: "red" }}
+                    style={{
+                        color: `${
+                            props.requestError === true ? "red" : "green"
+                        }`,
+                        fontWeight: `${
+                            props.requestError === true ? "" : "bold"
+                        }`,
+                    }}
                 >
                     {props.requestErrorMessage}
                     &nbsp;
@@ -159,7 +188,10 @@ const SignUp = (props) => {
                         <Grid item xs={12}>
                             <TextField
                                 onKeyUp={(e) => {
-                                    props.validatePassword(e.target.value);
+                                    props.validatePassword(
+                                        "signUp",
+                                        e.target.value
+                                    );
                                 }}
                                 helperText={
                                     props.passwordError === ""
@@ -216,10 +248,10 @@ const SignUp = (props) => {
                                 }
                                 required
                                 fullWidth
-                                name="confirmPass"
+                                name="confirm_password"
                                 label="Confirm Password"
                                 type="password"
-                                id="confirmPass"
+                                id="confirm_password"
                                 autoComplete="new-password"
                                 InputLabelProps={{ required: false }}
                                 autoComplete="off"
@@ -262,9 +294,8 @@ const SignUp = (props) => {
                         <Grid item>
                             <Link
                                 href=""
-                                component={LinkRouter}
-                                to="/"
                                 variant="body2"
+                                onClick={navigateToSignIn}
                             >
                                 Already have an account? Sign in
                             </Link>
