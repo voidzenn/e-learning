@@ -1,10 +1,3 @@
-<<<<<<< Updated upstream
-import React from "react";
-import Dashboard from "../contents/Dashboard";
-import { Routes, Route } from "react-router-dom";
-
-export default () => <div></div>;
-=======
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
@@ -80,4 +73,3 @@ const mapToStateProps = (state, ownProps) => {
 export default withCookies(
     connect(mapToStateProps, { setUserAuthDetails })(MainContent)
 );
->>>>>>> Stashed changes

@@ -9,10 +9,6 @@ export const VALIDATE_LNAME = "VALIDATE_LNAME";
 export const FRESH_STATE = "FRESH_STATE";
 export const SHOW_PASSWORD = "SHOW_PASSWORD";
 export const SHOW_CONFIRMPASSWORD = "SHOW_CONFIRMPASSWORD";
-<<<<<<< Updated upstream
-export const TOGGLE_SUBMITBTN = "TOGGLE_SUBMITBTN";
-//
-=======
 export const TOGGLE_SUBMITBTN = "TOGGLE_SUBMITBTN"
 export const USER_AUTH_DETAILS = "USER_AUTH_DETAILS";
->>>>>>> Stashed changes
+
