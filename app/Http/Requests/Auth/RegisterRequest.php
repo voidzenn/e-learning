@@ -24,9 +24,22 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email:rfc,dns','unique:users,email'],
-            'passowrd' => ['required']
+            'fname' => ['required', 'max:40'],
+            'lname' => ['required', 'max:40'],
+            // You can use email:rfc,dns to check if an email is legit
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'min:8'],
+            'confirm_password' => ['required', 'min:8']
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'fname.required' => 'First name should not be empty',
+            'lname.required' => 'Last name should not be empty',
+            'email.required' => 'Email should not be empty',
+            'password.required' => 'Password should not be empty',
+        ];
+    }
 }

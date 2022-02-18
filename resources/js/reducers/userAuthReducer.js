@@ -14,7 +14,9 @@ import {
 
 const initialState = {
     emailError: "",
+    emailErrorSignUp: "",
     password: "",
+    passwordSignIn: "",
     passwordError: "",
     confirmPass: "",
     confirmPassError: "",
@@ -89,9 +91,23 @@ export default (state = initialState, action) => {
                 isShownConfirmPass: action.isShownConfirmPass,
             };
         case FRESH_STATE:
+            /*
+                Navigating to Sign In or Sign Up when you input in the email or
+                password field, the values will be the same when you go to the Sign
+                Up page.There were problems in re-initializing the state into initial state.
+                So this is a fix to force the states to be re-initialize.
+            */
             return {
                 ...state,
-                password: action.password,
+                emailError: "",
+                password: "",
+                passwordError: "",
+                confirmPass: "",
+                confirmPassError: "",
+                isShownPass: false,
+                isShownConfirmPass: false,
+                requestError: "",
+                requestErrorMessage: "",
             };
         case TOGGLE_SUBMITBTN:
             return {
