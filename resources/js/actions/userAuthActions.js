@@ -102,7 +102,6 @@ export const signUp = (formData) => async (dispatch) => {
             requestError: response.data.error,
             requestErrorMessage: response.data.message
           };
-          console.log(data);
         })
         .catch((error) => {
           data = {

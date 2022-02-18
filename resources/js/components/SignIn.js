@@ -46,7 +46,7 @@ const SignIn = (props) => {
   // This will run, if there is changes in the state
   useEffect(() => {
     // Enable the submit button if no errors in fields
-    if (props.isValidEmail === true && props.isValidPassword === true) {
+    if (props.isValidEmail && props.isValidPassword ) {
       props.disableSubmit(false);
     }
   }, [props]);
