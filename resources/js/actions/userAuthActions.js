@@ -1,5 +1,6 @@
 import userApi from '../apis/userApi';
 import {
+<<<<<<< Updated upstream
   SIGN_IN,
   SIGN_UP,
   VALIDATE_EMAIL,
@@ -12,6 +13,22 @@ import {
   SHOW_CONFIRMPASSWORD,
   TOGGLE_SUBMITBTN
 } from './types';
+=======
+    SIGN_IN,
+    SIGN_UP,
+    VALIDATE_EMAIL,
+    VALIDATE_PASSWORD,
+    VALIDATE_CONFIRMPASS,
+    VALIDATE_FNAME,
+    VALIDATE_LNAME,
+    FRESH_STATE,
+    SHOW_PASSWORD,
+    SHOW_CONFIRMPASSWORD,
+    TOGGLE_SUBMITBTN,
+    USER_AUTH_DETAILS,
+} from "./types";
+
+>>>>>>> Stashed changes
 /*
     When you navigate to the Sign In Page
     The state has data already which was not cleared. 
@@ -35,6 +52,7 @@ export const signIn = (formData) => async (dispatch) => {
     password: password
   };
 
+<<<<<<< Updated upstream
   // Check both the email and password field are not empty
   if (email !== '' && password !== '') {
     await userApi.post('/sign-in', users).then((response) => {
@@ -45,6 +63,26 @@ export const signIn = (formData) => async (dispatch) => {
     });
   } else {
     /*
+=======
+    // Check both the email and password field are not empty
+    if (email !== "" && password !== "") {
+        await userApi.post("/sign-in", users).then((response) => {
+            data = {
+                requestError: response.data.errors,
+                requestErrorMessage: response.data.message,
+                userAuth: response.data.user_auth,
+            };
+        });
+        // Assigns the userAuth with auth values 
+        if (data.requestError === false) {
+            dispatch({
+                type: USER_AUTH_DETAILS,
+                userAuth: data.userAuth,
+            })
+        }
+    } else {
+        /*
+>>>>>>> Stashed changes
             The input validation is handled already and this
             is for safe measures, if ever the email or the 
             password fields are empty. 
@@ -267,3 +305,12 @@ export const disableSubmit = (isDisabled) => (dispatch) => {
     isSubmitDisabled: isDisabled
   });
 };
+/*  
+    Assign user auth details value with cookie values
+*/
+export const setUserAuthDetails = (userAuth) => (dispatch) => {
+    dispatch({
+        type: USER_AUTH_DETAILS,
+        userAuth: userAuth,
+    })
+}

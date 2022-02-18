@@ -20,5 +20,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@test.com',
             'password' => Hash::make('test')
         ]);
+
+        \App\Models\User::create([
+            'fname' => 'Admin',
+            'lname' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('admin'),
+            'is_admin' => '1'
+        ]);
     }
 }

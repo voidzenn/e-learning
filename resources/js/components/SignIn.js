@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +22,34 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Footer from './layouts/Footer';
+=======
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { withCookies } from "react-cookie";
+
+import {
+    Avatar,
+    Button,
+    Box,
+    Checkbox,
+    CircularProgress,
+    Dialog,
+    DialogTitle,
+    FormControlLabel,
+    Grid,
+    IconButton,
+    InputAdornment,
+    Link,
+    Paper,
+    Typography,
+    TextField,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import Footer from "./layouts/Footer";
+
+>>>>>>> Stashed changes
 import {
   freshState,
   signIn,
@@ -33,6 +62,7 @@ import {
 const SignIn = (props) => {
   const navigate = useNavigate();
 
+<<<<<<< Updated upstream
   // Check requestError, if false then navigate to dashboard page
   useEffect(() => {
     if (props.requestError === false) {
@@ -42,6 +72,27 @@ const SignIn = (props) => {
       return () => clearTimeout(timer);
     }
   }, [props.requestError]);
+=======
+    useEffect(() => {
+        const { cookies } = props;
+        // Make a cookie for userAuth, so that the values can be retrieved on site refresh
+        cookies.set("userAuth", props.userAuth , { path: "/" });
+    }, [props.userAuth]);
+
+    // Check requestError, if false then navigate to dashboard page
+    useEffect(() => {
+        if (props.requestError === false) {
+            const timer = setTimeout(() => {
+                if (props.userAuth.is_admin === "1") {
+                    navigate("/categories");
+                }else {
+                    navigate("/dashboard");
+                }
+            }, 2500);
+            return () => clearTimeout(timer);
+        }
+    }, [props.requestError]);
+>>>>>>> Stashed changes
 
   // This will run, if there is changes in the state
   useEffect(() => {
@@ -71,6 +122,7 @@ const SignIn = (props) => {
     props.showPassword(props.isShownPass);
   };
 
+<<<<<<< Updated upstream
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       {props.requestError === false ? (
@@ -186,6 +238,85 @@ const SignIn = (props) => {
                       aria-label="toggle password visibility"
                       onClick={handleShowPassword}
                       edge="end"
+=======
+    return (
+        <Grid container component="main" sx={{ height: "100vh" }}>
+            {props.requestError === false ? (
+                <Dialog
+                    fullWidth
+                    open={true}
+                    maxWidth="xs"
+                    sx={{ marginTop: "-5%", backdropFilter: "blur(5px)" }}
+                    align="center"
+                >
+                    <DialogTitle>
+                        Signing In...
+                        <CircularProgress
+                            color="primary"
+                            sx={{
+                                float: "right",
+                                marginRight: "90px",
+                                marginTop: "-5px",
+                            }}
+                        ></CircularProgress>
+                    </DialogTitle>
+                </Dialog>
+            ) : null}
+            <Grid
+                item
+                xs={false}
+                sm={4}
+                md={7}
+                sx={{
+                    backgroundImage: "url(images/bg-6.jpeg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundColor: (t) =>
+                        t.palette.mode === "light"
+                            ? t.palette.grey[50]
+                            : t.palette.grey[900],
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            ></Grid>
+            <Grid
+                item
+                xs={12}
+                sm={8}
+                md={5}
+                component={Paper}
+                elevation={6}
+                square
+            >
+                <Box
+                    sx={{
+                        my: 8,
+                        mx: 4,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                >
+                    <Avatar
+                        sx={{
+                            width: "200px",
+                            height: "200px",
+                            marginBottom: "-30px",
+                            marginTop: "-50px",
+                        }}
+                        src="images/e-learning.png"
+                    ></Avatar>
+                    <Typography
+                        component="h5"
+                        variant="h5"
+                        sx={{ marginTop: "-40px" }}
+                    >
+                        Sign in
+                    </Typography>
+                    <Typography
+                        component="h6"
+                        variant="h6"
+                        style={{ color: "red" }}
+>>>>>>> Stashed changes
                     >
                       {props.isShownPass ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
@@ -226,6 +357,7 @@ const SignIn = (props) => {
   );
 };
 
+<<<<<<< Updated upstream
 const mapToStateProps = (state) => {
   return {
     emailError: state.auth.emailError,
@@ -248,3 +380,31 @@ export default connect(mapToStateProps, {
   showPassword,
   disableSubmit
 })(SignIn);
+=======
+const mapToStateProps = (state, ownProps) => {
+    return {
+        emailError: state.auth.emailError,
+        password: state.auth.password,
+        passwordError: state.auth.passwordError,
+        isValidEmail: state.auth.isValidEmail,
+        isValidPassword: state.auth.isValidPassword,
+        requestError: state.auth.requestError,
+        requestErrorMessage: state.auth.requestErrorMessage,
+        isShownPass: state.auth.isShownPass,
+        isSubmitDisabled: state.auth.isSubmitDisabled,
+        userAuth: state.auth.userAuth,
+        cookies: ownProps.cookies,
+    };
+};
+
+export default withCookies(
+    connect(mapToStateProps, {
+        freshState,
+        signIn,
+        validateEmail,
+        validatePassword,
+        showPassword,
+        disableSubmit,
+    })(SignIn)
+);
+>>>>>>> Stashed changes
