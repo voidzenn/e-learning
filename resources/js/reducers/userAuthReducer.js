@@ -10,9 +10,11 @@ import {
     SHOW_PASSWORD,
     SHOW_CONFIRMPASSWORD,
     TOGGLE_SUBMITBTN,
+    USER_AUTH_DETAILS,
 } from "../actions/types";
 
 const initialState = {
+    userAuth: [],
     emailError: "",
     emailErrorSignUp: "",
     password: "",
@@ -114,6 +116,11 @@ export default (state = initialState, action) => {
                 ...state,
                 isSubmitDisabled: action.isSubmitDisabled,
             };
+        case USER_AUTH_DETAILS:
+            return {
+                ...state,
+                userAuth: action.userAuth,
+            }
         default:
             return state;
     }

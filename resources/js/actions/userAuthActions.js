@@ -1,17 +1,20 @@
 import userApi from '../apis/userApi';
+
 import {
-  SIGN_IN,
-  SIGN_UP,
-  VALIDATE_EMAIL,
-  VALIDATE_PASSWORD,
-  VALIDATE_CONFIRMPASS,
-  VALIDATE_FNAME,
-  VALIDATE_LNAME,
-  FRESH_STATE,
-  SHOW_PASSWORD,
-  SHOW_CONFIRMPASSWORD,
-  TOGGLE_SUBMITBTN
-} from './types';
+    SIGN_IN,
+    SIGN_UP,
+    VALIDATE_EMAIL,
+    VALIDATE_PASSWORD,
+    VALIDATE_CONFIRMPASS,
+    VALIDATE_FNAME,
+    VALIDATE_LNAME,
+    FRESH_STATE,
+    SHOW_PASSWORD,
+    SHOW_CONFIRMPASSWORD,
+    TOGGLE_SUBMITBTN,
+    USER_AUTH_DETAILS,
+} from "./types";
+
 /*
     When you navigate to the Sign In Page
     The state has data already which was not cleared. 
@@ -267,3 +270,12 @@ export const disableSubmit = (isDisabled) => (dispatch) => {
     isSubmitDisabled: isDisabled
   });
 };
+/*  
+    Assign user auth details value with cookie values
+*/
+export const setUserAuthDetails = (userAuth) => (dispatch) => {
+    dispatch({
+        type: USER_AUTH_DETAILS,
+        userAuth: userAuth,
+    })
+}
