@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { withCookies } from "react-cookie";
 
 import {
-    Avatar,
-    Button,
-    Box,
-    Checkbox,
-    CircularProgress,
-    Dialog,
-    DialogTitle,
-    FormControlLabel,
-    Grid,
-    IconButton,
-    InputAdornment,
-    Link,
-    Paper,
-    Typography,
-    TextField,
+  Avatar,
+  Button,
+  Box,
+  Checkbox,
+  CircularProgress,
+  Dialog,
+  DialogTitle,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Link,
+  Paper,
+  Typography,
+  TextField,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -30,31 +30,31 @@ import {
   validateEmail,
   validatePassword,
   showPassword,
-  disableSubmit
-} from '../actions/userAuthActions';
+  disableSubmit,
+} from "../actions/authentication/userAuthActions";
 
 const SignIn = (props) => {
+  const [dialog, setDialog] = useState(false);
   const navigate = useNavigate();
+  /*
+        Check requestError is false and check if userAuth ( userAuth is for successfully signed
+        in user ) data is not empty, then navigate to dashboard page
+    */
+  useEffect(() => {
+    if (props.requestError === false && props.userAuth.length !== 0) {
+      // Display signing in dialog
+      setDialog(true);
 
-    useEffect(() => {
-        const { cookies } = props;
-        // Make a cookie for userAuth, so that the values can be retrieved on site refresh
-        cookies.set("userAuth", props.userAuth , { path: "/" });
-    }, [props.userAuth]);
-
-    // Check requestError, if false then navigate to dashboard page
-    useEffect(() => {
-        if (props.requestError === false) {
-            const timer = setTimeout(() => {
-                if (props.userAuth.is_admin === "1") {
-                    navigate("/categories");
-                }else {
-                    navigate("/dashboard");
-                }
-            }, 2500);
-            return () => clearTimeout(timer);
+      const timer = setTimeout(() => {
+        if (props.userAuth.is_admin === 1) {
+          navigate("/categories");
+        } else {
+          navigate("/dashboard");
         }
-    }, [props.requestError]);
+      }, 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [props.requestError, props.userAuth]);
 
   // This will run, if there is changes in the state
   useEffect(() => {
@@ -62,19 +62,19 @@ const SignIn = (props) => {
     if (props.isValidEmail && props.isValidPassword ) {
       props.disableSubmit(false);
     }
-  }, [props]);
+  }, [props.isValidEmail, props.isValidPassword]);
 
   const navigateToSignUp = (e) => {
     e.preventDefault();
 
     props.freshState();
-    navigate('/sign-up');
+    navigate("/sign-up");
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     // This is for the email and password inputted data
-    const data = new FormData(event.currentTarget);
+    const data = new FormData(e.currentTarget);
 
     props.signIn(data);
   };
@@ -85,13 +85,13 @@ const SignIn = (props) => {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: "100vh" }}>
       {props.requestError === false ? (
         <Dialog
           fullWidth
           open={true}
           maxWidth="xs"
-          sx={{ marginTop: '-5%', backdropFilter: 'blur(5px)' }}
+          sx={{ marginTop: "-5%", backdropFilter: "blur(5px)" }}
           align="center"
         >
           <DialogTitle>
@@ -99,9 +99,9 @@ const SignIn = (props) => {
             <CircularProgress
               color="primary"
               sx={{
-                float: 'right',
-                marginRight: '90px',
-                marginTop: '-5px'
+                float: "right",
+                marginRight: "90px",
+                marginTop: "-5px",
               }}
             ></CircularProgress>
           </DialogTitle>
@@ -113,14 +113,14 @@ const SignIn = (props) => {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: 'url(images/bg-6.jpeg)',
-          backgroundRepeat: 'no-repeat',
+          backgroundImage: "url(images/bg-6.jpeg)",
+          backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
-            t.palette.mode === 'light'
+            t.palette.mode === "light"
               ? t.palette.grey[50]
               : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       ></Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -128,24 +128,24 @@ const SignIn = (props) => {
           sx={{
             my: 8,
             mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <Avatar
             sx={{
-              width: '200px',
-              height: '200px',
-              marginBottom: '-30px',
-              marginTop: '-50px'
+              width: "200px",
+              height: "200px",
+              marginBottom: "-30px",
+              marginTop: "-50px",
             }}
             src="images/e-learning.png"
           ></Avatar>
-          <Typography component="h1" variant="h5" sx={{ marginTop: '-40px' }}>
+          <Typography component="h1" variant="h5" sx={{ marginTop: "-40px" }}>
             Sign in
           </Typography>
-          <Typography component="h6" variant="h6" style={{ color: 'red' }}>
+          <Typography component="h6" variant="h6" style={{ color: "red" }}>
             {props.requestErrorMessage}
             &nbsp;
           </Typography>
@@ -153,7 +153,7 @@ const SignIn = (props) => {
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            sx={{ marginTop: '10px' }}
+            sx={{ marginTop: "10px" }}
           >
             <TextField
               onKeyUp={(e) => {
@@ -161,8 +161,8 @@ const SignIn = (props) => {
               }}
               id="email"
               type="email"
-              helperText={props.emailError === '' ? ' ' : props.emailError}
-              error={props.emailError === '' ? false : true}
+              helperText={props.emailError === "" ? " " : props.emailError}
+              error={props.emailError === "" ? false : true}
               margin="dense"
               required
               fullWidth
@@ -174,12 +174,12 @@ const SignIn = (props) => {
             />
             <TextField
               onKeyUp={(e) => {
-                props.validatePassword('signIn', e.target.value);
+                props.validatePassword("signIn", e.target.value);
               }}
               helperText={
-                props.passwordError === '' ? ' ' : props.passwordError
+                props.passwordError === "" ? " " : props.passwordError
               }
-              error={props.passwordError === '' ? false : true}
+              error={props.passwordError === "" ? false : true}
               margin="normal"
               required
               fullWidth
@@ -190,7 +190,7 @@ const SignIn = (props) => {
               autoComplete="current-password"
               InputLabelProps={{ required: false }}
               autoComplete="off"
-              type={props.isShownPass === false ? 'password' : 'text'}
+              type={props.isShownPass === false ? "password" : "text"}
               defaultValue={props.password}
               InputProps={{
                 endAdornment: (
@@ -203,7 +203,7 @@ const SignIn = (props) => {
                       {props.isShownPass ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
-                )
+                ),
               }}
             />
             <FormControlLabel
@@ -231,7 +231,7 @@ const SignIn = (props) => {
                 </Link>
               </Grid>
             </Grid>
-            <Footer sx={{ mt: 5, mb: '-30px', pt: 0, pb: 0 }} />
+            <Footer sx={{ mt: 5, mb: "-30px", pt: 0, pb: 0 }} />
           </Box>
         </Box>
       </Grid>
@@ -240,28 +240,28 @@ const SignIn = (props) => {
 };
 
 const mapToStateProps = (state, ownProps) => {
-    return {
-        emailError: state.auth.emailError,
-        password: state.auth.password,
-        passwordError: state.auth.passwordError,
-        isValidEmail: state.auth.isValidEmail,
-        isValidPassword: state.auth.isValidPassword,
-        requestError: state.auth.requestError,
-        requestErrorMessage: state.auth.requestErrorMessage,
-        isShownPass: state.auth.isShownPass,
-        isSubmitDisabled: state.auth.isSubmitDisabled,
-        userAuth: state.auth.userAuth,
-        cookies: ownProps.cookies,
-    };
+  return {
+    emailError: state.auth.emailError,
+    password: state.auth.password,
+    passwordError: state.auth.passwordError,
+    isValidEmail: state.auth.isValidEmail,
+    isValidPassword: state.auth.isValidPassword,
+    requestError: state.auth.requestError,
+    requestErrorMessage: state.auth.requestErrorMessage,
+    isShownPass: state.auth.isShownPass,
+    isSubmitDisabled: state.auth.isSubmitDisabled,
+    userAuth: state.auth.userAuth,
+    cookies: ownProps.cookies,
+  };
 };
 
 export default withCookies(
-    connect(mapToStateProps, {
-        freshState,
-        signIn,
-        validateEmail,
-        validatePassword,
-        showPassword,
-        disableSubmit,
-    })(SignIn)
+  connect(mapToStateProps, {
+    freshState,
+    signIn,
+    validateEmail,
+    validatePassword,
+    showPassword,
+    disableSubmit,
+  })(SignIn)
 );

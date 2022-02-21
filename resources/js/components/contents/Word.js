@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const Word = () => {
-    return (
-        <div>
-            Word
-        </div>
-    );
+  return <div>Word</div>;
 };
 
 export default Word;

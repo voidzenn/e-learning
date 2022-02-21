@@ -28,5 +28,80 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin'),
             'is_admin' => '1'
         ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 50',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 100',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 150',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 200',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 250',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 300',
+            'description' => 'Lorem Ipsum',
+        ]);
+        
+        \App\Models\Category::create([
+            'name' => 'Basic 350',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 400',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 450',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 500',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 550',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 600',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 650',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 700',
+            'description' => 'Lorem Ipsum',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Basic 750',
+            'description' => 'Lorem Ipsum',
+        ]);
     }
 }
