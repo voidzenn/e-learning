@@ -1,4 +1,3 @@
-import { Add } from "@mui/icons-material";
 import {
   FETCH_CATEGORIES,
   CAT_DIALOG_DATA,
@@ -9,7 +8,7 @@ import {
   VALIDATE_CAT_DESCRIPTION,
   TOGGLE_CAT_SUBMIT,
   FRESH_STATE_CATEGORY,
-} from "../actions/types";
+} from "../actions/category/types";
 
 const initialState = {
   categories: [],

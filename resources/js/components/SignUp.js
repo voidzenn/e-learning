@@ -27,7 +27,7 @@ import {
   showPassword,
   showConfirmPass,
   disableSubmit,
-} from "../actions/userAuthActions";
+} from "../actions/authentication/userAuthActions";
 
 const SignUp = (props) => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import userApi from "../apis/userApi";
+import userApi from "../../apis/userApi";
 
 import {
   SIGN_IN,

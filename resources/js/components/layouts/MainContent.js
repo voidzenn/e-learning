@@ -16,7 +16,7 @@ import {
   signOut,
   setUserAuthDetails,
   freshState,
-} from "../../actions/userAuthActions";
+} from "../../actions/authentication/userAuthActions";
 
 const MainContent = (props) => {
   //  Retrieve data from storage

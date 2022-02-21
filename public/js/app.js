@@ -34468,425 +34468,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/actions/categoryActions.js":
-/*!*************************************************!*\
-  !*** ./resources/js/actions/categoryActions.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchCategories": () => (/* binding */ fetchCategories),
-/* harmony export */   "addCatDialogData": () => (/* binding */ addCatDialogData),
-/* harmony export */   "addCategory": () => (/* binding */ addCategory),
-/* harmony export */   "editCategory": () => (/* binding */ editCategory),
-/* harmony export */   "deleteCategory": () => (/* binding */ deleteCategory),
-/* harmony export */   "validateName": () => (/* binding */ validateName),
-/* harmony export */   "validateDescription": () => (/* binding */ validateDescription),
-/* harmony export */   "disableSubmit": () => (/* binding */ disableSubmit),
-/* harmony export */   "freshStateCategory": () => (/* binding */ freshStateCategory)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _apis_userApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../apis/userApi */ "./resources/js/apis/userApi.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
- // This will be assigned in the actions
-
-var data = {};
-/*
-    Fetch the categories data. 
-    The second parameter page is for
-    jumping to differenct pages. 
-*/
-
-var fetchCategories = function fetchCategories(token, page) {
-  return /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"].get("/categories".concat(page !== "" ? "?page=" + page : ""), {
-                headers: {
-                  Authorization: "Bearer ".concat(token)
-                }
-              }).then(function (response) {
-                data = {
-                  categories: response.data,
-                  categoryError: false
-                };
-              })["catch"](function () {
-                data = {
-                  categories: [],
-                  categoryError: true
-                };
-              });
-
-            case 2:
-              dispatch({
-                type: _types__WEBPACK_IMPORTED_MODULE_2__.FETCH_CATEGORIES,
-                categories: data.categories,
-                categoryError: data.categoryError
-              });
-
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
-/*
-    Add/Store category
-*/
-
-var addCatDialogData = function addCatDialogData(item) {
-  return function (dispatch) {
-    dispatch({
-      type: _types__WEBPACK_IMPORTED_MODULE_2__.CAT_DIALOG_DATA,
-      dialogData: item
-    });
-  };
-};
-/*
-    Add/Store category
-*/
-
-var addCategory = function addCategory(token, formData) {
-  return /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
-      var name, description;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              name = formData.get("name");
-              description = formData.get("description");
-
-              if (!(token !== "")) {
-                _context2.next = 11;
-                break;
-              }
-
-              if (!(name !== "" && description !== "")) {
-                _context2.next = 8;
-                break;
-              }
-
-              _context2.next = 6;
-              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/categories/store", {
-                method: "post",
-                headers: {
-                  Authorization: "Bearer ".concat(token)
-                },
-                data: {
-                  name: name,
-                  description: description
-                }
-              }).then(function (response) {
-                data = {
-                  requestError: response.data.error,
-                  requestErrorMessage: response.data.message
-                };
-              })["catch"](function (error) {
-                data = {
-                  requestError: true,
-                  requestErrorMessage: error.response.data.message
-                };
-              });
-
-            case 6:
-              _context2.next = 9;
-              break;
-
-            case 8:
-              data = {
-                requestError: true,
-                requestErrorMessage: "Some fields are empty"
-              };
-
-            case 9:
-              _context2.next = 12;
-              break;
-
-            case 11:
-              data = {
-                requestError: true,
-                requestErrorMessage: "Unauthorized Action"
-              };
-
-            case 12:
-              dispatch({
-                type: _types__WEBPACK_IMPORTED_MODULE_2__.ADD_CATEGORY,
-                requestError: data.requestError,
-                requestErrorMessage: data.requestErrorMessage
-              });
-
-            case 13:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-};
-/*
-    Edit category
-*/
-
-var editCategory = function editCategory(token, formData) {
-  return /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
-      var indexId, id, name, description;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              indexId = formData.get("index_id");
-              id = formData.get("idd");
-              name = formData.get("name");
-              description = formData.get("description");
-
-              if (!(token !== "")) {
-                _context3.next = 13;
-                break;
-              }
-
-              if (!(name !== "")) {
-                _context3.next = 10;
-                break;
-              }
-
-              _context3.next = 8;
-              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/categories/".concat(id, "/update"), {
-                method: "put",
-                headers: {
-                  Authorization: "Bearer ".concat(token)
-                },
-                data: {
-                  name: name,
-                  description: description
-                }
-              }).then(function (response) {
-                data = {
-                  requestError: response.data.error,
-                  requestErrorMessage: response.data.message
-                };
-              })["catch"](function (error) {
-                data = {
-                  requestError: true,
-                  requestErrorMessage: error.response.data.message
-                };
-              });
-
-            case 8:
-              _context3.next = 11;
-              break;
-
-            case 10:
-              data = {
-                requestError: true,
-                requestErrorMessage: "Name field is empty"
-              };
-
-            case 11:
-              _context3.next = 14;
-              break;
-
-            case 13:
-              data = {
-                requestError: true,
-                requestErrorMessage: "Unauthorized Action"
-              };
-
-            case 14:
-              dispatch({
-                type: _types__WEBPACK_IMPORTED_MODULE_2__.UPDATE_CATEGORY,
-                requestError: data.requestError,
-                requestErrorMessage: data.requestErrorMessage,
-                indexId: indexId,
-                newName: name,
-                newDescription: description
-              });
-
-            case 15:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-};
-/*
-    Delete category
-*/
-
-var deleteCategory = function deleteCategory(token, id) {
-  return /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              if (!(token !== "")) {
-                _context4.next = 9;
-                break;
-              }
-
-              if (!(id !== "")) {
-                _context4.next = 6;
-                break;
-              }
-
-              _context4.next = 4;
-              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/categories/".concat(id, "/delete"), {
-                method: "delete",
-                headers: {
-                  Authorization: "Bearer ".concat(token)
-                }
-              }).then(function (response) {
-                data = {
-                  requestError: response.data.error,
-                  requestErrorMessage: response.data.message
-                };
-              })["catch"](function (error) {
-                data = {
-                  requestError: true,
-                  requestErrorMessage: error.response.data.message
-                };
-              });
-
-            case 4:
-              _context4.next = 7;
-              break;
-
-            case 6:
-              data = {
-                requestError: true,
-                requestErrorMessage: "Missing Item Id"
-              };
-
-            case 7:
-              _context4.next = 10;
-              break;
-
-            case 9:
-              data = {
-                requestError: true,
-                requestErrorMessage: "Unauthorized Action"
-              };
-
-            case 10:
-              dispatch({
-                type: _types__WEBPACK_IMPORTED_MODULE_2__.DELETE_CATEGORY,
-                requestError: data.requestError,
-                requestErrorMessage: data.requestErrorMessage
-              });
-
-            case 11:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-
-    return function (_x4) {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-};
-/*
-    Validate category name
-*/
-
-var validateName = function validateName(name) {
-  return function (dispatch) {
-    if (name !== "") {
-      dispatch({
-        type: _types__WEBPACK_IMPORTED_MODULE_2__.VAILDATE_CAT_NAME,
-        categoryNameError: "",
-        isValidCatName: true
-      });
-    } else {
-      dispatch({
-        type: _types__WEBPACK_IMPORTED_MODULE_2__.VAILDATE_CAT_NAME,
-        categoryNameError: "This field should not be empty"
-      });
-    }
-  };
-};
-/*
-    Validate category description
-*/
-
-var validateDescription = function validateDescription(description) {
-  return function (dispatch) {
-    if (description !== "") {
-      dispatch({
-        type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_CAT_DESCRIPTION,
-        categoryDescriptionError: "",
-        isValidCatDescription: true
-      });
-    } else {
-      dispatch({
-        type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_CAT_DESCRIPTION,
-        categoryDescriptionError: "This field should not be empty"
-      });
-    }
-  };
-};
-var disableSubmit = function disableSubmit(isDisabled) {
-  return function (dispatch) {
-    dispatch({
-      type: _types__WEBPACK_IMPORTED_MODULE_2__.TOGGLE_CAT_SUBMIT,
-      isSubmitDisabled: isDisabled ? true : false
-    });
-  };
-};
-/*
-    Re-initiaze some specific category state values
-*/
-
-var freshStateCategory = function freshStateCategory() {
-  return function (dispatch) {
-    dispatch({
-      type: _types__WEBPACK_IMPORTED_MODULE_2__.FRESH_STATE_CATEGORY
-    });
-  };
-};
-
-/***/ }),
-
-/***/ "./resources/js/actions/types.js":
-/*!***************************************!*\
-  !*** ./resources/js/actions/types.js ***!
-  \***************************************/
+/***/ "./resources/js/actions/authentication/types.js":
+/*!******************************************************!*\
+  !*** ./resources/js/actions/authentication/types.js ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -34904,21 +34489,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SHOW_PASSWORD": () => (/* binding */ SHOW_PASSWORD),
 /* harmony export */   "SHOW_CONFIRMPASSWORD": () => (/* binding */ SHOW_CONFIRMPASSWORD),
 /* harmony export */   "TOGGLE_SUBMITBTN": () => (/* binding */ TOGGLE_SUBMITBTN),
-/* harmony export */   "USER_AUTH_DETAILS": () => (/* binding */ USER_AUTH_DETAILS),
-/* harmony export */   "FETCH_CATEGORIES": () => (/* binding */ FETCH_CATEGORIES),
-/* harmony export */   "CAT_DIALOG_DATA": () => (/* binding */ CAT_DIALOG_DATA),
-/* harmony export */   "ADD_CATEGORY": () => (/* binding */ ADD_CATEGORY),
-/* harmony export */   "UPDATE_CATEGORY": () => (/* binding */ UPDATE_CATEGORY),
-/* harmony export */   "DELETE_CATEGORY": () => (/* binding */ DELETE_CATEGORY),
-/* harmony export */   "TOGGLE_ACTIVE": () => (/* binding */ TOGGLE_ACTIVE),
-/* harmony export */   "VAILDATE_CAT_NAME": () => (/* binding */ VAILDATE_CAT_NAME),
-/* harmony export */   "VALIDATE_CAT_DESCRIPTION": () => (/* binding */ VALIDATE_CAT_DESCRIPTION),
-/* harmony export */   "TOGGLE_CAT_SUBMIT": () => (/* binding */ TOGGLE_CAT_SUBMIT),
-/* harmony export */   "FRESH_STATE_CATEGORY": () => (/* binding */ FRESH_STATE_CATEGORY)
+/* harmony export */   "USER_AUTH_DETAILS": () => (/* binding */ USER_AUTH_DETAILS)
 /* harmony export */ });
-/*
-    Authentication
-*/
 var SIGN_IN = "SIGN_IN";
 var SIGN_UP = "SIGN_UP";
 var SIGN_OUT = "SIGN_OUT";
@@ -34932,28 +34504,13 @@ var SHOW_PASSWORD = "SHOW_PASSWORD";
 var SHOW_CONFIRMPASSWORD = "SHOW_CONFIRMPASSWORD";
 var TOGGLE_SUBMITBTN = "TOGGLE_SUBMITBTN";
 var USER_AUTH_DETAILS = "USER_AUTH_DETAILS";
-/*
-    Category actions
-*/
-
-var FETCH_CATEGORIES = "FETCH_CATEGORIES"; // Assign category dialog data with the item selected e.g. editing, deleting
-
-var CAT_DIALOG_DATA = "CAT_DIALOG_DATA";
-var ADD_CATEGORY = "ADD_CATEGORY";
-var UPDATE_CATEGORY = "UPDATE_CATEGORY";
-var DELETE_CATEGORY = "DELETE_CATEGORY";
-var TOGGLE_ACTIVE = "TOGGLE_ACTICE";
-var VAILDATE_CAT_NAME = "VALIDATE_CAT_NAME";
-var VALIDATE_CAT_DESCRIPTION = "VALIDATE_CAT_DESCRIPTION";
-var TOGGLE_CAT_SUBMIT = "TOGGLE_CAT_SUBMIT";
-var FRESH_STATE_CATEGORY = "FRESH_STATE_CATEGORY";
 
 /***/ }),
 
-/***/ "./resources/js/actions/userAuthActions.js":
-/*!*************************************************!*\
-  !*** ./resources/js/actions/userAuthActions.js ***!
-  \*************************************************/
+/***/ "./resources/js/actions/authentication/userAuthActions.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/actions/authentication/userAuthActions.js ***!
+  \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -34975,8 +34532,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _apis_userApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../apis/userApi */ "./resources/js/apis/userApi.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
+/* harmony import */ var _apis_userApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../apis/userApi */ "./resources/js/apis/userApi.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./resources/js/actions/authentication/types.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -35427,6 +34984,455 @@ var setUserAuthDetails = function setUserAuthDetails(userAuth) {
 
 /***/ }),
 
+/***/ "./resources/js/actions/category/categoryActions.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/actions/category/categoryActions.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchCategories": () => (/* binding */ fetchCategories),
+/* harmony export */   "addCatDialogData": () => (/* binding */ addCatDialogData),
+/* harmony export */   "addCategory": () => (/* binding */ addCategory),
+/* harmony export */   "editCategory": () => (/* binding */ editCategory),
+/* harmony export */   "deleteCategory": () => (/* binding */ deleteCategory),
+/* harmony export */   "validateName": () => (/* binding */ validateName),
+/* harmony export */   "validateDescription": () => (/* binding */ validateDescription),
+/* harmony export */   "disableSubmit": () => (/* binding */ disableSubmit),
+/* harmony export */   "freshStateCategory": () => (/* binding */ freshStateCategory)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _apis_userApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../apis/userApi */ "./resources/js/apis/userApi.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./resources/js/actions/category/types.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+ // This will be assigned in the actions
+
+var data = {};
+/*
+    Fetch the categories data. 
+    The second parameter page is for
+    jumping to differenct pages. 
+*/
+
+var fetchCategories = function fetchCategories(token, page) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"].get("/categories".concat(page !== "" ? "?page=" + page : ""), {
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                }
+              }).then(function (response) {
+                data = {
+                  categories: response.data,
+                  categoryError: false
+                };
+              })["catch"](function () {
+                data = {
+                  categories: [],
+                  categoryError: true
+                };
+              });
+
+            case 2:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_2__.FETCH_CATEGORIES,
+                categories: data.categories,
+                categoryError: data.categoryError
+              });
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+/*
+    Add/Store category
+*/
+
+var addCatDialogData = function addCatDialogData(item) {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.CAT_DIALOG_DATA,
+      dialogData: item
+    });
+  };
+};
+/*
+    Add/Store category
+*/
+
+var addCategory = function addCategory(token, formData) {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
+      var name, description;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              name = formData.get("name");
+              description = formData.get("description");
+
+              if (!(token !== "")) {
+                _context2.next = 11;
+                break;
+              }
+
+              if (!(name !== "" && description !== "")) {
+                _context2.next = 8;
+                break;
+              }
+
+              _context2.next = 6;
+              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/categories/store", {
+                method: "post",
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                },
+                data: {
+                  name: name,
+                  description: description
+                }
+              }).then(function (response) {
+                data = {
+                  requestError: response.data.error,
+                  requestErrorMessage: response.data.message
+                };
+              })["catch"](function (error) {
+                data = {
+                  requestError: true,
+                  requestErrorMessage: error.response.data.message
+                };
+              });
+
+            case 6:
+              _context2.next = 9;
+              break;
+
+            case 8:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Some fields are empty"
+              };
+
+            case 9:
+              _context2.next = 12;
+              break;
+
+            case 11:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Unauthorized Action"
+              };
+
+            case 12:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_2__.ADD_CATEGORY,
+                requestError: data.requestError,
+                requestErrorMessage: data.requestErrorMessage
+              });
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+/*
+    Edit category
+*/
+
+var editCategory = function editCategory(token, formData) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
+      var indexId, id, name, description;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              indexId = formData.get("index_id");
+              id = formData.get("idd");
+              name = formData.get("name");
+              description = formData.get("description");
+
+              if (!(token !== "")) {
+                _context3.next = 13;
+                break;
+              }
+
+              if (!(name !== "")) {
+                _context3.next = 10;
+                break;
+              }
+
+              _context3.next = 8;
+              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/categories/".concat(id, "/update"), {
+                method: "put",
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                },
+                data: {
+                  name: name,
+                  description: description
+                }
+              }).then(function (response) {
+                data = {
+                  requestError: response.data.error,
+                  requestErrorMessage: response.data.message
+                };
+              })["catch"](function (error) {
+                data = {
+                  requestError: true,
+                  requestErrorMessage: error.response.data.message
+                };
+              });
+
+            case 8:
+              _context3.next = 11;
+              break;
+
+            case 10:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Name field is empty"
+              };
+
+            case 11:
+              _context3.next = 14;
+              break;
+
+            case 13:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Unauthorized Action"
+              };
+
+            case 14:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_2__.UPDATE_CATEGORY,
+                requestError: data.requestError,
+                requestErrorMessage: data.requestErrorMessage,
+                indexId: indexId,
+                newName: name,
+                newDescription: description
+              });
+
+            case 15:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+};
+/*
+    Delete category
+*/
+
+var deleteCategory = function deleteCategory(token, id) {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!(token !== "")) {
+                _context4.next = 9;
+                break;
+              }
+
+              if (!(id !== "")) {
+                _context4.next = 6;
+                break;
+              }
+
+              _context4.next = 4;
+              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/categories/".concat(id, "/delete"), {
+                method: "delete",
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                }
+              }).then(function (response) {
+                data = {
+                  requestError: response.data.error,
+                  requestErrorMessage: response.data.message
+                };
+              })["catch"](function (error) {
+                data = {
+                  requestError: true,
+                  requestErrorMessage: error.response.data.message
+                };
+              });
+
+            case 4:
+              _context4.next = 7;
+              break;
+
+            case 6:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Missing Item Id"
+              };
+
+            case 7:
+              _context4.next = 10;
+              break;
+
+            case 9:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Unauthorized Action"
+              };
+
+            case 10:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_2__.DELETE_CATEGORY,
+                requestError: data.requestError,
+                requestErrorMessage: data.requestErrorMessage
+              });
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
+/*
+    Validate category name
+*/
+
+var validateName = function validateName(name) {
+  return function (dispatch) {
+    if (name !== "") {
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_2__.VAILDATE_CAT_NAME,
+        categoryNameError: "",
+        isValidCatName: true
+      });
+    } else {
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_2__.VAILDATE_CAT_NAME,
+        categoryNameError: "This field should not be empty"
+      });
+    }
+  };
+};
+/*
+    Validate category description
+*/
+
+var validateDescription = function validateDescription(description) {
+  return function (dispatch) {
+    if (description !== "") {
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_CAT_DESCRIPTION,
+        categoryDescriptionError: "",
+        isValidCatDescription: true
+      });
+    } else {
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_CAT_DESCRIPTION,
+        categoryDescriptionError: "This field should not be empty"
+      });
+    }
+  };
+};
+var disableSubmit = function disableSubmit(isDisabled) {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.TOGGLE_CAT_SUBMIT,
+      isSubmitDisabled: isDisabled ? true : false
+    });
+  };
+};
+/*
+    Re-initiaze some specific category state values
+*/
+
+var freshStateCategory = function freshStateCategory() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.FRESH_STATE_CATEGORY
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/actions/category/types.js":
+/*!************************************************!*\
+  !*** ./resources/js/actions/category/types.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FETCH_CATEGORIES": () => (/* binding */ FETCH_CATEGORIES),
+/* harmony export */   "CAT_DIALOG_DATA": () => (/* binding */ CAT_DIALOG_DATA),
+/* harmony export */   "ADD_CATEGORY": () => (/* binding */ ADD_CATEGORY),
+/* harmony export */   "UPDATE_CATEGORY": () => (/* binding */ UPDATE_CATEGORY),
+/* harmony export */   "DELETE_CATEGORY": () => (/* binding */ DELETE_CATEGORY),
+/* harmony export */   "TOGGLE_ACTIVE": () => (/* binding */ TOGGLE_ACTIVE),
+/* harmony export */   "VAILDATE_CAT_NAME": () => (/* binding */ VAILDATE_CAT_NAME),
+/* harmony export */   "VALIDATE_CAT_DESCRIPTION": () => (/* binding */ VALIDATE_CAT_DESCRIPTION),
+/* harmony export */   "TOGGLE_CAT_SUBMIT": () => (/* binding */ TOGGLE_CAT_SUBMIT),
+/* harmony export */   "FRESH_STATE_CATEGORY": () => (/* binding */ FRESH_STATE_CATEGORY)
+/* harmony export */ });
+var FETCH_CATEGORIES = "FETCH_CATEGORIES"; // Assign category dialog data with the item selected e.g. editing, deleting
+
+var CAT_DIALOG_DATA = "CAT_DIALOG_DATA";
+var ADD_CATEGORY = "ADD_CATEGORY";
+var UPDATE_CATEGORY = "UPDATE_CATEGORY";
+var DELETE_CATEGORY = "DELETE_CATEGORY";
+var TOGGLE_ACTIVE = "TOGGLE_ACTICE";
+var VAILDATE_CAT_NAME = "VALIDATE_CAT_NAME";
+var VALIDATE_CAT_DESCRIPTION = "VALIDATE_CAT_DESCRIPTION";
+var TOGGLE_CAT_SUBMIT = "TOGGLE_CAT_SUBMIT";
+var FRESH_STATE_CATEGORY = "FRESH_STATE_CATEGORY";
+
+/***/ }),
+
 /***/ "./resources/js/apis/userApi.js":
 /*!**************************************!*\
   !*** ./resources/js/apis/userApi.js ***!
@@ -35603,7 +35609,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/VisibilityOff.js");
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Visibility.js");
 /* harmony import */ var _layouts_Footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layouts/Footer */ "./resources/js/components/layouts/Footer.js");
-/* harmony import */ var _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/userAuthActions */ "./resources/js/actions/userAuthActions.js");
+/* harmony import */ var _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/authentication/userAuthActions */ "./resources/js/actions/authentication/userAuthActions.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -35880,12 +35886,12 @@ var mapToStateProps = function mapToStateProps(state, ownProps) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_23__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapToStateProps, {
-  freshState: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.freshState,
-  signIn: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.signIn,
-  validateEmail: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateEmail,
-  validatePassword: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validatePassword,
-  showPassword: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showPassword,
-  disableSubmit: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.disableSubmit
+  freshState: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.freshState,
+  signIn: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.signIn,
+  validateEmail: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateEmail,
+  validatePassword: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validatePassword,
+  showPassword: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showPassword,
+  disableSubmit: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.disableSubmit
 })(SignIn)));
 
 /***/ }),
@@ -35916,7 +35922,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/VisibilityOff.js");
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Visibility.js");
 /* harmony import */ var _layouts_Footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layouts/Footer */ "./resources/js/components/layouts/Footer.js");
-/* harmony import */ var _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/userAuthActions */ "./resources/js/actions/userAuthActions.js");
+/* harmony import */ var _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/authentication/userAuthActions */ "./resources/js/actions/authentication/userAuthActions.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -36187,16 +36193,16 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, {
-  freshState: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.freshState,
-  signUp: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.signUp,
-  validateEmail: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateEmail,
-  validatePassword: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validatePassword,
-  validateConfirmPass: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateConfirmPass,
-  validateFname: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateFname,
-  validateLname: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateLname,
-  showPassword: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showPassword,
-  showConfirmPass: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showConfirmPass,
-  disableSubmit: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.disableSubmit
+  freshState: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.freshState,
+  signUp: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.signUp,
+  validateEmail: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateEmail,
+  validatePassword: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validatePassword,
+  validateConfirmPass: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateConfirmPass,
+  validateFname: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateFname,
+  validateLname: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateLname,
+  showPassword: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showPassword,
+  showConfirmPass: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showConfirmPass,
+  disableSubmit: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.disableSubmit
 })(SignUp));
 
 /***/ }),
@@ -36385,7 +36391,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableBody/TableBody.js");
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Edit.js");
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Delete.js");
-/* harmony import */ var _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/categoryActions */ "./resources/js/actions/categoryActions.js");
+/* harmony import */ var _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/category/categoryActions */ "./resources/js/actions/category/categoryActions.js");
 /* harmony import */ var _subcontents_AlertContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../subcontents/AlertContent */ "./resources/js/components/contents/subcontents/AlertContent.js");
 /* harmony import */ var _subcontents_CategoryAdminDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../subcontents/CategoryAdminDialog */ "./resources/js/components/contents/subcontents/CategoryAdminDialog.js");
 /* harmony import */ var _subcontents_Pagination__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../subcontents/Pagination */ "./resources/js/components/contents/subcontents/Pagination.js");
@@ -36658,9 +36664,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_19__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, {
-  fetchCategories: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.fetchCategories,
-  addCatDialogData: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.addCatDialogData,
-  freshStateCategory: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.freshStateCategory
+  fetchCategories: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.fetchCategories,
+  addCatDialogData: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.addCatDialogData,
+  freshStateCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.freshStateCategory
 })(CategoryAdmin)));
 
 /***/ }),
@@ -36725,7 +36731,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/DialogActions/DialogActions.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
-/* harmony import */ var _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/categoryActions */ "./resources/js/actions/categoryActions.js");
+/* harmony import */ var _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/category/categoryActions */ "./resources/js/actions/category/categoryActions.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -36988,13 +36994,13 @@ var mapToStateProps = function mapToStateProps(state, ownProps) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapToStateProps, {
-  addCategory: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.addCategory,
-  editCategory: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.editCategory,
-  deleteCategory: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.deleteCategory,
-  validateName: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.validateName,
-  validateDescription: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.validateDescription,
-  disableSubmit: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.disableSubmit,
-  freshStateCategory: _actions_categoryActions__WEBPACK_IMPORTED_MODULE_2__.freshStateCategory
+  addCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.addCategory,
+  editCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.editCategory,
+  deleteCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.deleteCategory,
+  validateName: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.validateName,
+  validateDescription: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.validateDescription,
+  disableSubmit: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.disableSubmit,
+  freshStateCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.freshStateCategory
 })(CategoryDialog));
 
 /***/ }),
@@ -37359,7 +37365,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _contents_admin_CategoryAdmin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../contents/admin/CategoryAdmin */ "./resources/js/components/contents/admin/CategoryAdmin.js");
 /* harmony import */ var _contents_Word__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../contents/Word */ "./resources/js/components/contents/Word.js");
 /* harmony import */ var _contents_User__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../contents/User */ "./resources/js/components/contents/User.js");
-/* harmony import */ var _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/userAuthActions */ "./resources/js/actions/userAuthActions.js");
+/* harmony import */ var _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/authentication/userAuthActions */ "./resources/js/actions/authentication/userAuthActions.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -37444,9 +37450,9 @@ var mapToStateProps = function mapToStateProps(state, ownProps) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_14__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapToStateProps, {
-  signOut: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.signOut,
-  setUserAuthDetails: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.setUserAuthDetails,
-  freshState: _actions_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.freshState
+  signOut: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.signOut,
+  setUserAuthDetails: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.setUserAuthDetails,
+  freshState: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.freshState
 })(MainContent)));
 
 /***/ }),
@@ -37480,7 +37486,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./resources/js/actions/types.js");
+/* harmony import */ var _actions_category_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/category/types */ "./resources/js/actions/category/types.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -37500,7 +37506,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
 var initialState = {
   categories: [],
   dialogData: [],
@@ -37517,24 +37522,24 @@ var initialState = {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.FETCH_CATEGORIES:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.FETCH_CATEGORIES:
       return _objectSpread(_objectSpread({}, state), {}, {
         categories: action.categories,
         categoryError: action.categoryError
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.CAT_DIALOG_DATA:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.CAT_DIALOG_DATA:
       return _objectSpread(_objectSpread({}, state), {}, {
         dialogData: action.dialogData
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.ADD_CATEGORY:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.ADD_CATEGORY:
       return _objectSpread(_objectSpread({}, state), {}, {
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.UPDATE_CATEGORY:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.UPDATE_CATEGORY:
       return _objectSpread(_objectSpread({}, state), {}, {
         // In categories go to the child object data
         categories: {
@@ -37564,30 +37569,30 @@ var initialState = {
         requestErrorMessage: action.requestErrorMessage
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.DELETE_CATEGORY:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.DELETE_CATEGORY:
       return _objectSpread(_objectSpread({}, state), {}, {
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.VAILDATE_CAT_NAME:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.VAILDATE_CAT_NAME:
       return _objectSpread(_objectSpread({}, state), {}, {
         categoryNameError: action.categoryNameError,
         isValidCatName: action.isValidCatName
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_CAT_DESCRIPTION:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_CAT_DESCRIPTION:
       return _objectSpread(_objectSpread({}, state), {}, {
         categoryDescriptionError: action.categoryDescriptionError,
         isValidCatDescription: action.isValidCatDescription
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.TOGGLE_CAT_SUBMIT:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.TOGGLE_CAT_SUBMIT:
       return _objectSpread(_objectSpread({}, state), {}, {
         isSubmitDisabled: action.isSubmitDisabled
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.FRESH_STATE_CATEGORY:
+    case _actions_category_types__WEBPACK_IMPORTED_MODULE_0__.FRESH_STATE_CATEGORY:
       return _objectSpread(_objectSpread({}, state), {}, {
         requestErrorMessage: "",
         categoryNameError: "",
@@ -37639,7 +37644,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./resources/js/actions/types.js");
+/* harmony import */ var _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/authentication/types */ "./resources/js/actions/authentication/types.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -37675,19 +37680,19 @@ var initialState = {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_IN:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_IN:
       return _objectSpread(_objectSpread({}, state), {}, {
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_UP:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_UP:
       return _objectSpread(_objectSpread({}, state), {}, {
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_OUT:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_OUT:
       return _objectSpread(_objectSpread({}, state), {}, {
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage,
@@ -37702,49 +37707,49 @@ var initialState = {
         isLoggedOut: true
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_EMAIL:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_EMAIL:
       return _objectSpread(_objectSpread({}, state), {}, {
         emailError: action.emailError,
         isValidEmail: action.isValidEmail
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_PASSWORD:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_PASSWORD:
       return _objectSpread(_objectSpread({}, state), {}, {
         password: action.password,
         passwordError: action.passwordError,
         isValidPassword: action.isValidPassword
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_FNAME:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_FNAME:
       return _objectSpread(_objectSpread({}, state), {}, {
         fnameError: action.fnameError,
         isValidFname: action.isValidFname
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_CONFIRMPASS:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_CONFIRMPASS:
       return _objectSpread(_objectSpread({}, state), {}, {
         confirmPass: action.confirmPass,
         confirmPassError: action.confirmPassError,
         isValidConfirmPass: action.isValidConfirmPass
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_LNAME:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_LNAME:
       return _objectSpread(_objectSpread({}, state), {}, {
         lnameError: action.lnameError,
         isValidLname: action.isValidLname
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.SHOW_PASSWORD:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SHOW_PASSWORD:
       return _objectSpread(_objectSpread({}, state), {}, {
         isShownPass: action.isShownPass
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.SHOW_CONFIRMPASSWORD:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SHOW_CONFIRMPASSWORD:
       return _objectSpread(_objectSpread({}, state), {}, {
         isShownConfirmPass: action.isShownConfirmPass
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.FRESH_STATE:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.FRESH_STATE:
       /*
                 On navigating to Sign In or Sign Up, when you input in the email or
                 password field, the values will be the same when you go to the Sign
@@ -37763,12 +37768,12 @@ var initialState = {
         requestErrorMessage: ""
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.TOGGLE_SUBMITBTN:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.TOGGLE_SUBMITBTN:
       return _objectSpread(_objectSpread({}, state), {}, {
         isSubmitDisabled: action.isSubmitDisabled
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.USER_AUTH_DETAILS:
+    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.USER_AUTH_DETAILS:
       return _objectSpread(_objectSpread({}, state), {}, {
         userAuth: action.userAuth
       });

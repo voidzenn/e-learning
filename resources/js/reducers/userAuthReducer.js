@@ -12,7 +12,7 @@ import {
   SHOW_CONFIRMPASSWORD,
   TOGGLE_SUBMITBTN,
   USER_AUTH_DETAILS,
-} from "../actions/types";
+} from "../actions/authentication/types";
 
 const initialState = {
   userAuth: [],

@@ -24,16 +24,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,30 +35,8 @@ class CategoryController extends Controller
             Category::create($request->validated());
             return response()->json(['error' => false, 'message' => 'Successfully Saved']);
         } catch (QueryException $e) {
-            return response()->json(['error' => true, 'message' => 'Error...Please, Try Again', 'error_message' => $e]);
+            return response()->json(['error' => true, 'message' => 'Error in saving Category. Try Again', 'error_message' => $e]);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -85,7 +53,7 @@ class CategoryController extends Controller
 
             return response()->json(['error' => false, 'message' => 'Successfully Updated']);
         } catch (QueryException $e) {
-            return response()->json(['error' => true, 'message' => 'Error...Please, Try Again', 'error_message' => $e]);
+            return response()->json(['error' => true, 'message' => 'Error in updating Category. Try Again', 'error_message' => $e]);
         }
     }
 
@@ -102,7 +70,7 @@ class CategoryController extends Controller
 
             return response()->json(['error' => false, 'message' => 'Successfully Deleted']);
         } catch (QueryException $e) {
-            return response()->json(['error' => true, 'message' => 'Error...Please, Try Again', 'error_message' => $e]);
+            return response()->json(['error' => true, 'message' => 'Error in deleting Category. Try Again', 'error_message' => $e]);
         }
     }
 }

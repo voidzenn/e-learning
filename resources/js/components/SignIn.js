@@ -31,7 +31,7 @@ import {
   validatePassword,
   showPassword,
   disableSubmit,
-} from "../actions/userAuthActions";
+} from "../actions/authentication/userAuthActions";
 
 const SignIn = (props) => {
   const [dialog, setDialog] = useState(false);

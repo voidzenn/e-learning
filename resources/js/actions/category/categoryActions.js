@@ -1,4 +1,4 @@
-import userApi from "../apis/userApi";
+import userApi from "../../apis/userApi";
 import {
   FETCH_CATEGORIES,
   CAT_DIALOG_DATA,

@@ -21,7 +21,7 @@ import {
   validateDescription,
   disableSubmit,
   freshStateCategory,
-} from "../../../actions/categoryActions";
+} from "../../../actions/category/categoryActions";
 
 const CategoryDialog = (props) => {
   // Handles the opening and closng of the Dialog

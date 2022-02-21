@@ -20,7 +20,7 @@ import {
   addCatDialogData,
   fetchCategories,
   freshStateCategory,
-} from "../../../actions/categoryActions";
+} from "../../../actions/category/categoryActions";
 import AlertContent from "../subcontents/AlertContent";
 import CategoryAdminDialog from "../subcontents/CategoryAdminDialog";
 import Pagination from "../subcontents/Pagination";
