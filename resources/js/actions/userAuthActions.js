@@ -1,51 +1,66 @@
-import userApi from '../apis/userApi';
+import userApi from "../apis/userApi";
 
 import {
-    SIGN_IN,
-    SIGN_UP,
-    VALIDATE_EMAIL,
-    VALIDATE_PASSWORD,
-    VALIDATE_CONFIRMPASS,
-    VALIDATE_FNAME,
-    VALIDATE_LNAME,
-    FRESH_STATE,
-    SHOW_PASSWORD,
-    SHOW_CONFIRMPASSWORD,
-    TOGGLE_SUBMITBTN,
-    USER_AUTH_DETAILS,
+  SIGN_IN,
+  SIGN_UP,
+  SIGN_OUT,
+  VALIDATE_EMAIL,
+  VALIDATE_PASSWORD,
+  VALIDATE_CONFIRMPASS,
+  VALIDATE_FNAME,
+  VALIDATE_LNAME,
+  FRESH_STATE,
+  SHOW_PASSWORD,
+  SHOW_CONFIRMPASSWORD,
+  TOGGLE_SUBMITBTN,
+  USER_AUTH_DETAILS,
 } from "./types";
 
+// This will be change in the action creators
+var data = {};
+
 /*
-    When you navigate to the Sign In Page
-    The state has data already which was not cleared. 
-    refreshPage function helps in re-initialize
+    When you navigate to the Sign In Page, the
+    state has data already which was not cleared. 
+    refreshPage function helps in re-initializing
     your state
 */
 export const freshState = () => (dispatch) => {
   dispatch({
-    type: FRESH_STATE
+    type: FRESH_STATE,
   });
 };
 /*  
     Sign In
 */
 export const signIn = (formData) => async (dispatch) => {
-  var data = {};
-  const email = formData.get('email');
-  const password = formData.get('password');
+  const email = formData.get("email");
+  const password = formData.get("password");
+
   const users = {
     email: email,
-    password: password
+    password: password,
   };
 
   // Check both the email and password field are not empty
-  if (email !== '' && password !== '') {
-    await userApi.post('/sign-in', users).then((response) => {
+  if (email !== "" && password !== "") {
+    await userApi.post("/sign-in", users).then((response) => {
       data = {
         requestError: response.data.errors,
-        requestErrorMessage: response.data.message
+        requestErrorMessage: response.data.message,
+        token: response.data.token,
+        userAuth: response.data.user_auth,
       };
     });
+    // Assigns the userAuth with auth values
+    if (data.requestError === false) {
+      // Iterate the token to userAuth data
+      const token = data.token;
+      dispatch({
+        type: USER_AUTH_DETAILS,
+        userAuth: { ...data.userAuth, token },
+      });
+    }
   } else {
     /*
             The input validation is handled already and this
@@ -54,106 +69,137 @@ export const signIn = (formData) => async (dispatch) => {
         */
     data = {
       requestError: true,
-      requestErrorMessage: 'Error...Please, Try Again'
+      requestErrorMessage: "Error...Please, Try Again",
     };
   }
 
   dispatch({
     type: SIGN_IN,
     requestError: data.requestError,
-    requestErrorMessage: data.requestErrorMessage
+    requestErrorMessage: data.requestErrorMessage,
   });
 };
 /*  
     Sign Up
 */
 export const signUp = (formData) => async (dispatch) => {
-  var data = {};
-  const fname = formData.get('firstName');
-  const lname = formData.get('lastName');
-  const email = formData.get('email');
-  const password = formData.get('password');
-  const confirmPass = formData.get('confirm_password');
+  const fname = formData.get("firstName");
+  const lname = formData.get("lastName");
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const confirmPass = formData.get("confirm_password");
 
   const users = {
     fname: fname,
     lname: lname,
     email: email,
     password: password,
-    confirm_password: confirmPass
+    confirm_password: confirmPass,
   };
 
   // Display an error if password and confirm password is mismatched
   if (password !== confirmPass) {
     dispatch({
       type: VALIDATE_CONFIRMPASS,
-      confirmPassError: 'Password Mismatch',
-      isValidConfirmPass: false
+      confirmPassError: "Password Mismatch",
+      isValidConfirmPass: false,
     });
   } else {
     if (
-      fname !== '' &&
-      lname !== '' &&
-      email !== '' &&
-      password !== '' &&
-      confirmPass !== ''
+      fname !== "" &&
+      lname !== "" &&
+      email !== "" &&
+      password !== "" &&
+      confirmPass !== ""
     ) {
       await userApi
-        .post('/sign-up', users)
+        .post("/sign-up", users)
         .then((response) => {
           data = {
             requestError: response.data.error,
-            requestErrorMessage: response.data.message
+            requestErrorMessage: response.data.message,
           };
         })
         .catch((error) => {
           data = {
             requestError: true,
-            requestErrorMessage: error.response.data.errors.email[0]
+            requestErrorMessage: error.response.data.errors.email[0],
           };
         });
     } else {
       /*
-            The input validation is handled already and this
-            is for safe measures, if ever some of the fields
-            are empty. 
-        */
+        The input validation is handled already and this
+        is for safe measures, if ever some of the fields
+        are empty. 
+      */
       data = {
         requestError: true,
-        requestErrorMessage: 'Error...Please, Try Again'
+        requestErrorMessage: "Error...Please, Try Again",
       };
     }
     dispatch({
       type: SIGN_UP,
       requestError: data.requestError,
-      requestErrorMessage: data.requestErrorMessage
+      requestErrorMessage: data.requestErrorMessage,
     });
   }
+};
+/*  
+    Sign Out
+*/
+export const signOut = (id) => async (dispatch) => {
+  if (id !== "") {
+    await userApi
+      .post(`${id}/sign-out`)
+      .then((response) => {
+        data = {
+          requestError: false,
+          requestErrorMessage: response.data.requestErrorMessage,
+        };
+      })
+      .catch((error) => {
+        data = {
+          requestError: true,
+          requestErrorMessage: response.data.requestErrorMessage,
+        };
+      });
+  } else {
+    data = {
+      requestError: true,
+      requestErrorMessage: "Unauthorized Action",
+    };
+  }
+
+  dispatch({
+    type: SIGN_OUT,
+    requestError: data.requestError,
+    requestErrorMessage: data.requestErrorMessage,
+  });
 };
 /*  
     Validate Email
 */
 export const validateEmail = (email) => (dispatch) => {
   var isValid = false;
-  var message = '';
+  var message = "";
 
-  if (email === '') {
-    message = 'This field should not be empty';
+  if (email === "") {
+    message = "This field should not be empty";
   } else {
     const check = /\S+@\S+\.\S+/;
     const validation = check.test(email);
 
-    if (validation === true) {
+    if (validation) {
       isValid = true;
     } else {
-      message = 'Invalid Email Format';
+      message = "Invalid Email Format";
     }
   }
 
   dispatch({
     type: VALIDATE_EMAIL,
     emailError: message,
-    isValidEmail: isValid
+    isValidEmail: isValid,
   });
 };
 /*  
@@ -161,20 +207,29 @@ export const validateEmail = (email) => (dispatch) => {
 */
 export const validatePassword = (type, password) => (dispatch) => {
   var isValid = false;
-  var message = '';
+  var message = "";
 
-  if (password === '') {
-    message = 'This field should not be empty';
+  if (password === "") {
+    message = "This field should not be empty";
   } else {
     // If Sign Up Page display error if password does not meet requirements
-    if (type === 'signUp') {
+    if (type === "signUp") {
       if (password.length < 8) {
-        message = 'Minimum of 8 characters';
+        message = "Minimum of 8 characters";
       } else {
         isValid = true;
       }
     } else {
-      isValid = true;
+      // Displays error if password does not meet requirements
+      if (type === "signUp") {
+        if (password.length < 8) {
+          message = "Minimum of 8 characters";
+        } else {
+          isValid = true;
+        }
+      } else {
+        isValid = true;
+      }
     }
   }
 
@@ -182,7 +237,7 @@ export const validatePassword = (type, password) => (dispatch) => {
     type: VALIDATE_PASSWORD,
     password: password,
     passwordError: message,
-    isValidPassword: isValid
+    isValidPassword: isValid,
   });
 };
 /*  
@@ -190,10 +245,10 @@ export const validatePassword = (type, password) => (dispatch) => {
 */
 export const validateConfirmPass = (confirmPass) => (dispatch) => {
   var isValid = false;
-  var message = '';
+  var message = "";
 
-  if (confirmPass === '') {
-    message = 'This field should not be empty';
+  if (confirmPass === "") {
+    message = "This field should not be empty";
   } else {
     isValid = true;
   }
@@ -202,7 +257,7 @@ export const validateConfirmPass = (confirmPass) => (dispatch) => {
     type: VALIDATE_CONFIRMPASS,
     confirmPass: confirmPass,
     confirmPassError: message,
-    isValidConfirmPass: isValid
+    isValidConfirmPass: isValid,
   });
 };
 /*  
@@ -210,10 +265,10 @@ export const validateConfirmPass = (confirmPass) => (dispatch) => {
 */
 export const validateFname = (fname) => (dispatch) => {
   var isValid = false;
-  var message = '';
+  var message = "";
 
-  if (fname === '') {
-    message = 'Should not be empty';
+  if (fname === "") {
+    message = "Should not be empty";
   } else {
     isValid = true;
   }
@@ -221,7 +276,7 @@ export const validateFname = (fname) => (dispatch) => {
   dispatch({
     type: VALIDATE_FNAME,
     fnameError: message,
-    isValidFname: isValid
+    isValidFname: isValid,
   });
 };
 /*  
@@ -229,10 +284,10 @@ export const validateFname = (fname) => (dispatch) => {
 */
 export const validateLname = (lname) => (dispatch) => {
   var isValid = false;
-  var message = '';
+  var message = "";
 
-  if (lname === '') {
-    message = 'Should not be empty';
+  if (lname === "") {
+    message = "Should not be empty";
   } else {
     isValid = true;
   }
@@ -240,7 +295,7 @@ export const validateLname = (lname) => (dispatch) => {
   dispatch({
     type: VALIDATE_LNAME,
     lnameError: message,
-    isValidLname: isValid
+    isValidLname: isValid,
   });
 };
 /*  
@@ -249,7 +304,7 @@ export const validateLname = (lname) => (dispatch) => {
 export const showPassword = (isShown) => (dispatch) => {
   dispatch({
     type: SHOW_PASSWORD,
-    isShownPass: isShown === true ? false : true
+    isShownPass: isShown ? false : true,
   });
 };
 /*  
@@ -258,7 +313,7 @@ export const showPassword = (isShown) => (dispatch) => {
 export const showConfirmPass = (isShown) => (dispatch) => {
   dispatch({
     type: SHOW_CONFIRMPASSWORD,
-    isShownConfirmPass: isShown === true ? false : true
+    isShownConfirmPass: isShown ? false : true,
   });
 };
 /*  
@@ -267,15 +322,15 @@ export const showConfirmPass = (isShown) => (dispatch) => {
 export const disableSubmit = (isDisabled) => (dispatch) => {
   dispatch({
     type: TOGGLE_SUBMITBTN,
-    isSubmitDisabled: isDisabled
+    isSubmitDisabled: isDisabled,
   });
 };
 /*  
     Assign user auth details value with cookie values
 */
 export const setUserAuthDetails = (userAuth) => (dispatch) => {
-    dispatch({
-        type: USER_AUTH_DETAILS,
-        userAuth: userAuth,
-    })
-}
+  dispatch({
+    type: USER_AUTH_DETAILS,
+    userAuth: userAuth,
+  });
+};
