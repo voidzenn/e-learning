@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryStoreRequest;
-use Exception;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CategoryController extends Controller
 {
+    use HasFactory;
+
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +34,16 @@ class CategoryController extends Controller
     {
         try {
             Category::create($request->validated());
-            return response()->json(['error' => false, 'message' => 'Successfully Saved']);
+            return response()->json([
+                "error" => false,
+                "message" => "Successfully Saved",
+            ]);
         } catch (QueryException $e) {
-            return response()->json(['error' => true, 'message' => 'Error in saving Category. Try Again', 'error_message' => $e]);
+            return response()->json([
+                "error" => true,
+                "message" => "Error in saving Category. Try Again.",
+                "error_message" => $e,
+            ]);
         }
     }
 
@@ -51,9 +59,16 @@ class CategoryController extends Controller
         try {
             $category->update($request->validated());
 
-            return response()->json(['error' => false, 'message' => 'Successfully Updated']);
+            return response()->json([
+                "error" => false,
+                "message" => "Successfully Updated",
+            ]);
         } catch (QueryException $e) {
-            return response()->json(['error' => true, 'message' => 'Error in updating Category. Try Again', 'error_message' => $e]);
+            return response()->json([
+                "error" => true,
+                "message" => "Error in updating Category. Try again.",
+                "error_message" => $e,
+            ]);
         }
     }
 
@@ -66,11 +81,23 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         try {
+            // Delete choices
+            $category->choices()->delete();
+            // Delete words
+            $category->words()->delete();
+            // Delete category
             $category->delete();
 
-            return response()->json(['error' => false, 'message' => 'Successfully Deleted']);
+            return response()->json([
+                "error" => false,
+                "message" => "Successfully Deleted",
+            ]);
         } catch (QueryException $e) {
-            return response()->json(['error' => true, 'message' => 'Error in deleting Category. Try Again', 'error_message' => $e]);
+            return response()->json([
+                "error" => true,
+                "message" => "Error in deleting Category. Try again.",
+                "error_message" => $e,
+            ]);
         }
     }
 }

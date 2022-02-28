@@ -15,9 +15,9 @@ import {
 var data = {};
 
 /*
-    Fetch the categories data. 
-    The second parameter page is for
-    jumping to differenct pages. 
+  Fetch the categories data. 
+  The second parameter page is for
+  jumping to differenct pages. 
 */
 export const fetchCategories = (token, page) => async (dispatch) => {
   await userApi
@@ -46,7 +46,7 @@ export const fetchCategories = (token, page) => async (dispatch) => {
   });
 };
 /*
-    Add/Store category
+  Add/Store category
 */
 export const addCatDialogData = (item) => (dispatch) => {
   dispatch({
@@ -55,7 +55,7 @@ export const addCatDialogData = (item) => (dispatch) => {
   });
 };
 /*
-    Add/Store category
+  Add/Store category
 */
 export const addCategory = (token, formData) => async (dispatch) => {
   const name = formData.get("name");
@@ -106,7 +106,7 @@ export const addCategory = (token, formData) => async (dispatch) => {
   });
 };
 /*
-    Edit category
+  Edit category
 */
 export const editCategory = (token, formData) => async (dispatch) => {
   const indexId = formData.get("index_id");
@@ -161,7 +161,7 @@ export const editCategory = (token, formData) => async (dispatch) => {
   });
 };
 /*
-    Delete category
+  Delete category
 */
 export const deleteCategory = (token, id) => async (dispatch) => {
   if (token !== "") {
@@ -205,7 +205,7 @@ export const deleteCategory = (token, id) => async (dispatch) => {
   });
 };
 /*
-    Validate category name
+  Validate category name
 */
 export const validateName = (name) => (dispatch) => {
   if (name !== "") {
@@ -222,7 +222,7 @@ export const validateName = (name) => (dispatch) => {
   }
 };
 /*
-    Validate category description
+  Validate category description
 */
 export const validateDescription = (description) => (dispatch) => {
   if (description !== "") {
@@ -242,11 +242,11 @@ export const validateDescription = (description) => (dispatch) => {
 export const disableSubmit = (isDisabled) => (dispatch) => {
   dispatch({
     type: TOGGLE_CAT_SUBMIT,
-    isSubmitDisabled: isDisabled ? true : false,
+    isSubmitDisabled: isDisabled === true ? true : false,
   });
 };
 /*
-    Re-initiaze some specific category state values
+  Re-initiaze some specific category state values
 */
 export const freshStateCategory = () => (dispatch) => {
   dispatch({

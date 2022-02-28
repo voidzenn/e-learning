@@ -1,5 +1,4 @@
 import userApi from "../../apis/userApi";
-
 import {
   SIGN_IN,
   SIGN_UP,
@@ -20,10 +19,10 @@ import {
 var data = {};
 
 /*
-    When you navigate to the Sign In Page, the
-    state has data already which was not cleared. 
-    refreshPage function helps in re-initializing
-    your state
+  When you navigate to the Sign In Page, the
+  state has data already which was not cleared. 
+  refreshPage function helps in re-initializing
+  your state
 */
 export const freshState = () => (dispatch) => {
   dispatch({
@@ -63,10 +62,10 @@ export const signIn = (formData) => async (dispatch) => {
     }
   } else {
     /*
-            The input validation is handled already and this
-            is for safe measures, if ever the email or the 
-            password fields are empty. 
-        */
+      The input validation is handled already and this
+      is for safe measures, if ever the email or the 
+      password fields are empty. 
+    */
     data = {
       requestError: true,
       requestErrorMessage: "Error...Please, Try Again",
@@ -145,7 +144,7 @@ export const signUp = (formData) => async (dispatch) => {
   }
 };
 /*  
-    Sign Out
+  Sign Out
 */
 export const signOut = (id) => async (dispatch) => {
   if (id !== "") {
@@ -177,7 +176,7 @@ export const signOut = (id) => async (dispatch) => {
   });
 };
 /*  
-    Validate Email
+  Validate Email
 */
 export const validateEmail = (email) => (dispatch) => {
   var isValid = false;
@@ -189,7 +188,7 @@ export const validateEmail = (email) => (dispatch) => {
     const check = /\S+@\S+\.\S+/;
     const validation = check.test(email);
 
-    if (validation) {
+    if (validation === true) {
       isValid = true;
     } else {
       message = "Invalid Email Format";
@@ -203,7 +202,7 @@ export const validateEmail = (email) => (dispatch) => {
   });
 };
 /*  
-    Validate Password
+  Validate Password
 */
 export const validatePassword = (type, password) => (dispatch) => {
   var isValid = false;
@@ -212,7 +211,7 @@ export const validatePassword = (type, password) => (dispatch) => {
   if (password === "") {
     message = "This field should not be empty";
   } else {
-    // If Sign Up Page display error if password does not meet requirements
+    // Displays error if password does not meet requirements
     if (type === "signUp") {
       if (password.length < 8) {
         message = "Minimum of 8 characters";
@@ -220,16 +219,7 @@ export const validatePassword = (type, password) => (dispatch) => {
         isValid = true;
       }
     } else {
-      // Displays error if password does not meet requirements
-      if (type === "signUp") {
-        if (password.length < 8) {
-          message = "Minimum of 8 characters";
-        } else {
-          isValid = true;
-        }
-      } else {
-        isValid = true;
-      }
+      isValid = true;
     }
   }
 
@@ -241,7 +231,7 @@ export const validatePassword = (type, password) => (dispatch) => {
   });
 };
 /*  
-    Validate Confirm Password
+  Validate Confirm Password
 */
 export const validateConfirmPass = (confirmPass) => (dispatch) => {
   var isValid = false;
@@ -261,7 +251,7 @@ export const validateConfirmPass = (confirmPass) => (dispatch) => {
   });
 };
 /*  
-    Validate First Name
+  Validate First Name
 */
 export const validateFname = (fname) => (dispatch) => {
   var isValid = false;
@@ -280,7 +270,7 @@ export const validateFname = (fname) => (dispatch) => {
   });
 };
 /*  
-    Validate Last Name
+  Validate Last Name
 */
 export const validateLname = (lname) => (dispatch) => {
   var isValid = false;
@@ -299,25 +289,25 @@ export const validateLname = (lname) => (dispatch) => {
   });
 };
 /*  
-    Toggle Password Visibility
+  Toggle Password Visibility
 */
 export const showPassword = (isShown) => (dispatch) => {
   dispatch({
     type: SHOW_PASSWORD,
-    isShownPass: isShown ? false : true,
+    isShownPass: isShown === true ? false : true,
   });
 };
 /*  
-    Toggle Confirm Password Visibility
+  Toggle Confirm Password Visibility
 */
 export const showConfirmPass = (isShown) => (dispatch) => {
   dispatch({
     type: SHOW_CONFIRMPASSWORD,
-    isShownConfirmPass: isShown ? false : true,
+    isShownConfirmPass: isShown === true ? false : true,
   });
 };
 /*  
-    Handle enable/disable of submit button
+  Handle enable/disable of submit button
 */
 export const disableSubmit = (isDisabled) => (dispatch) => {
   dispatch({
@@ -326,7 +316,7 @@ export const disableSubmit = (isDisabled) => (dispatch) => {
   });
 };
 /*  
-    Assign user auth details value with cookie values
+  Assign user auth details value with cookie values
 */
 export const setUserAuthDetails = (userAuth) => (dispatch) => {
   dispatch({

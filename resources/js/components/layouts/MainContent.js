@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 
@@ -10,13 +10,12 @@ import Header from "./Header";
 import Dashboard from "../contents/Dashboard";
 import Category from "../contents/Category";
 import CategoryAdmin from "../contents/admin/CategoryAdmin";
-import Word from "../contents/Word";
 import User from "../contents/User";
 import {
   signOut,
   setUserAuthDetails,
   freshState,
-} from "../../actions/authentication/userAuthActions";
+} from "../../actions/auth";
 
 const MainContent = (props) => {
   //  Retrieve data from storage
@@ -42,6 +41,12 @@ const MainContent = (props) => {
     props.signOut(props.userAuth.id);
     // Remove the userAuth ( userAuth is the user authenticated details ) data
     props.cookies.remove("userAuth");
+    /*
+      Remove the wordContent data ( wordContent is when the user clicks on the add word 
+      in the categories, the word component will be opened. )
+    */
+    props.cookies.remove("wordContent");
+    
   };
 
   return (
@@ -58,7 +63,7 @@ const MainContent = (props) => {
                     <Route path="/dashboard" element={<Dashboard />}></Route>
                   ) : null}
                   <Route
-                    path="/categories"
+                    path="/categories/*"
                     element={
                       props.userAuth.is_admin === 1 ? (
                         <CategoryAdmin />
@@ -67,7 +72,6 @@ const MainContent = (props) => {
                       )
                     }
                   ></Route>
-                  <Route path="/words" element={<Word />}></Route>
                   <Route path="/users" element={<User />}></Route>
                 </Routes>
               </Container>

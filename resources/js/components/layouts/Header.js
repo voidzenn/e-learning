@@ -23,8 +23,9 @@ const Header = (props) => {
   const menuSettings = ["Profile", "Dashboard", "Sign Out"];
   // Style for active link buttons
   const activeBtnStyle = {
-    color: "#00587B",
-    fontWeight: "600",
+    color: "white",
+    fontWeight: "900",
+    fontSize: "15px",
   };
   // Style for inactive link buttons
   const inActiveBtnStyle = {
@@ -42,7 +43,7 @@ const Header = (props) => {
             Admin has no dashboard that is why we need to check if admin.
             If admin then navigate to category otherwise dashboard.
         */
-    if (props.userAuth.is_admin === "0") {
+    if (props.userAuth.is_admin === 0) {
       navigate("/dashboard");
     } else {
       navigate("/categories");
@@ -90,17 +91,18 @@ const Header = (props) => {
       <AppBar position="relative">
         <Toolbar>
           <Grid justify="space-between" container spacing={12}>
-            <Grid item xs={1}>
+            <Grid item lg={4} xs={2}>
               <Link href="" onClick={navigateToHome}>
                 <Avatar
                   sx={{
-                    width: "100px",
-                    height: "100px",
-                    mt: 0,
-                    mb: -3,
+                    width: "150px",
+                    height: "150px",
+                    mt: -5,
+                    mb: -5,
                     ml: 1,
+                    p: 0,
                   }}
-                  src="images/e-learning.png"
+                  src="images/e-learning-2.png"
                 ></Avatar>
               </Link>
             </Grid>
@@ -128,21 +130,6 @@ const Header = (props) => {
                 }}
               >
                 Categories
-              </Link>
-              <Link
-                variant="button"
-                href=""
-                onClick={(e) => {
-                  navigateToWord(e);
-                }}
-                sx={{
-                  my: 1,
-                  mx: 1.5,
-                  textDecoration: "none",
-                  ...(URI === "/words" ? activeBtnStyle : inActiveBtnStyle),
-                }}
-              >
-                Words
               </Link>
               <Link
                 variant="button"

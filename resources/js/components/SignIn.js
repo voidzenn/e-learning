@@ -31,7 +31,7 @@ import {
   validatePassword,
   showPassword,
   disableSubmit,
-} from "../actions/authentication/userAuthActions";
+} from "../actions/auth";
 
 const SignIn = (props) => {
   const [dialog, setDialog] = useState(false);
@@ -59,8 +59,10 @@ const SignIn = (props) => {
   // This will run, if there is changes in the state
   useEffect(() => {
     // Enable the submit button if no errors in fields
-    if (props.isValidEmail && props.isValidPassword ) {
+    if (props.isValidEmail && props.isValidPassword) {
       props.disableSubmit(false);
+    } else {
+      props.disableSubmit(true);
     }
   }, [props.isValidEmail, props.isValidPassword]);
 
@@ -86,7 +88,7 @@ const SignIn = (props) => {
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
-      {props.requestError === false ? (
+      {dialog ? (
         <Dialog
           fullWidth
           open={true}
@@ -107,6 +109,7 @@ const SignIn = (props) => {
           </DialogTitle>
         </Dialog>
       ) : null}
+
       <Grid
         item
         xs={false}
@@ -135,19 +138,15 @@ const SignIn = (props) => {
         >
           <Avatar
             sx={{
-              width: "200px",
-              height: "200px",
-              marginBottom: "-30px",
+              width: "180px",
+              height: "180px",
+              marginBottom: "5px",
               marginTop: "-50px",
             }}
             src="images/e-learning.png"
           ></Avatar>
-          <Typography component="h1" variant="h5" sx={{ marginTop: "-40px" }}>
+          <Typography component="h5" variant="h5" sx={{ marginTop: "-40px" }}>
             Sign in
-          </Typography>
-          <Typography component="h6" variant="h6" style={{ color: "red" }}>
-            {props.requestErrorMessage}
-            &nbsp;
           </Typography>
           <Box
             component="form"
@@ -210,6 +209,10 @@ const SignIn = (props) => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            <Typography component="h6" variant="h6" style={{ color: "red", fontSize: "18px", textAlign: "center" }}>
+              {props.requestErrorMessage}
+              &nbsp;
+            </Typography>
             <Button
               type="submit"
               fullWidth
