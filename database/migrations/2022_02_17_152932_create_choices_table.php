@@ -16,7 +16,11 @@ class CreateChoicesTable extends Migration
         Schema::create("choices", function (Blueprint $table) {
             $table->id();
             $table->foreignId("word_id");
-            $table->foreign("word_id")->references("word")->on("id")->onDelete("cascade");
+            $table
+                ->foreign("word_id")
+                ->references("id")
+                ->on("words")
+                ->onDelete("cascade");
             $table->string("name");
             $table->boolean("is_correct_answer")->default("0");
             $table->timestamps();
