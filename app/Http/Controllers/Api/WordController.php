@@ -135,35 +135,28 @@ class WordController extends Controller
                 // Update choices.name first row
                 $answer = $request->correct_answer;
                 $word
-                    ->choices()
-                    ->first()
+                    ->choices[0]
                     ->update([
                         "name" => $request->choices[0],
                         "is_correct_answer" => $answer === "1" ? 1 : 0,
                     ]);
                 // Update choices.name second row
                 $word
-                    ->choices()
-                    ->skip(1)
-                    ->first()
+                    ->choices[1]
                     ->update([
                         "name" => $request->choices[1],
                         "is_correct_answer" => $answer === "2" ? 1 : 0,
                     ]);
                 // Update choices.name third row
                 $word
-                    ->choices()
-                    ->skip(2)
-                    ->first()
+                    ->choices[2]
                     ->update([
                         "name" => $request->choices[2],
                         "is_correct_answer" => $answer === "3" ? 1 : 0,
                     ]);
                 // Update choices.name fourth row
                 $word
-                    ->choices()
-                    ->skip(3)
-                    ->first()
+                    ->choices[3]
                     ->update([
                         "name" => $request->choices[3],
                         "is_correct_answer" => $answer === "4" ? 1 : 0,
