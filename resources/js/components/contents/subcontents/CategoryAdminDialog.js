@@ -21,7 +21,7 @@ import {
   validateDescription,
   disableSubmit,
   freshStateCategory,
-} from "../../../actions/category/categoryActions";
+} from "../../../actions/category";
 
 const CategoryDialog = (props) => {
   // Handles the opening and closng of the Dialog
@@ -36,7 +36,7 @@ const CategoryDialog = (props) => {
 
   useEffect(() => {
     // This handles the enabling and disabling the submit button
-    if (props.isValidCatName && props.isValidCatDescription ) {
+    if (props.isValidCatName && props.isValidCatDescription) {
       props.disableSubmit(false);
     } else {
       props.disableSubmit(true);
@@ -72,6 +72,14 @@ const CategoryDialog = (props) => {
     // Close dialog after submit and re-initialize the type
     onClose();
   };
+  // This delete function is for the WordContent word list delete
+  const handleDeleteWordChoice = (e, id) => {
+    e.preventDefault();
+    // Close dialog after clicking delete and re-initialize the type
+    onClose();
+    // Pass the id to Category Admin parent component
+    props.handleDeleteWordChoice(id);
+  };
 
   const onClose = () => {
     // When the Dialog is close then re-initialize type as empty
@@ -80,6 +88,22 @@ const CategoryDialog = (props) => {
     setOpen(false);
     // Re-initialize the error messages to empty
     props.freshStateCategory();
+  };
+
+  const CancelButton = () => {
+    return (
+      <Button
+        sx={{ mr: 2, mt: 1, mb: 1 }}
+        onClick={() => {
+          // Close dialog
+          setOpen(false);
+          // Set type to empty
+          props.setType("");
+        }}
+      >
+        Cancel
+      </Button>
+    );
   };
 
   return (
@@ -133,6 +157,7 @@ const CategoryDialog = (props) => {
               </DialogContent>
               <Divider />
               <DialogActions>
+                <CancelButton />
                 <Button
                   type="submit"
                   variant="outlined"
@@ -161,7 +186,7 @@ const CategoryDialog = (props) => {
                 <TextField
                   id="idd"
                   name="idd"
-                  defaultValue={props.dialogData.id}
+                  defaultValue={props.dialogData.categoryId}
                   sx={{ display: "none" }}
                 />
                 <TextField
@@ -208,6 +233,7 @@ const CategoryDialog = (props) => {
               </DialogContent>
               <Divider />
               <DialogActions>
+                <CancelButton />
                 <Button
                   type="submit"
                   variant="outlined"
@@ -228,7 +254,7 @@ const CategoryDialog = (props) => {
               <TextField
                 id="idd"
                 name="idd"
-                defaultValue={props.dialogData.id}
+                defaultValue={props.dialogData.categoryId}
                 sx={{ display: "none" }}
               />
               <DialogContent>
@@ -242,6 +268,49 @@ const CategoryDialog = (props) => {
               </DialogContent>
               <Divider />
               <DialogActions>
+                <CancelButton />
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  color="error"
+                  sx={{ mr: 2, mt: 1, mb: 1 }}
+                >
+                  Delete
+                </Button>
+              </DialogActions>
+            </Box>
+          </React.Fragment>
+        ) : null}
+
+        {props.type === "deleteWord" ? (
+          <React.Fragment>
+            <DialogTitle>Delete Word and Choices</DialogTitle>
+            <Divider />
+            <Box
+              component="form"
+              noValidate
+              onSubmit={(e) => {
+                handleDeleteWordChoice(e, props.dialogData.wordId);
+              }}
+            >
+              <TextField
+                id="idd"
+                name="idd"
+                defaultValue={props.dialogData.wordId}
+                sx={{ display: "none" }}
+              />
+              <DialogContent>
+                <Typography>
+                  Are you sure you want to delete{" "}
+                  <span style={{ fontWeight: "600" }}>
+                    {props.dialogData.wordName}
+                  </span>{" "}
+                  and it's choices ?
+                </Typography>
+              </DialogContent>
+              <Divider />
+              <DialogActions>
+                <CancelButton />
                 <Button
                   type="submit"
                   variant="outlined"

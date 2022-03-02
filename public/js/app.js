@@ -4279,6 +4279,27 @@ function isHostComponent(element) {
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/esm/Add.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@mui/icons-material/esm/Add.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/material/utils/createSvgIcon.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+  d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+}), 'Add'));
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/esm/Delete.js":
 /*!********************************************************!*\
   !*** ./node_modules/@mui/icons-material/esm/Delete.js ***!
@@ -34468,49 +34489,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/actions/authentication/types.js":
-/*!******************************************************!*\
-  !*** ./resources/js/actions/authentication/types.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SIGN_IN": () => (/* binding */ SIGN_IN),
-/* harmony export */   "SIGN_UP": () => (/* binding */ SIGN_UP),
-/* harmony export */   "SIGN_OUT": () => (/* binding */ SIGN_OUT),
-/* harmony export */   "VALIDATE_EMAIL": () => (/* binding */ VALIDATE_EMAIL),
-/* harmony export */   "VALIDATE_PASSWORD": () => (/* binding */ VALIDATE_PASSWORD),
-/* harmony export */   "VALIDATE_CONFIRMPASS": () => (/* binding */ VALIDATE_CONFIRMPASS),
-/* harmony export */   "VALIDATE_FNAME": () => (/* binding */ VALIDATE_FNAME),
-/* harmony export */   "VALIDATE_LNAME": () => (/* binding */ VALIDATE_LNAME),
-/* harmony export */   "FRESH_STATE": () => (/* binding */ FRESH_STATE),
-/* harmony export */   "SHOW_PASSWORD": () => (/* binding */ SHOW_PASSWORD),
-/* harmony export */   "SHOW_CONFIRMPASSWORD": () => (/* binding */ SHOW_CONFIRMPASSWORD),
-/* harmony export */   "TOGGLE_SUBMITBTN": () => (/* binding */ TOGGLE_SUBMITBTN),
-/* harmony export */   "USER_AUTH_DETAILS": () => (/* binding */ USER_AUTH_DETAILS)
-/* harmony export */ });
-var SIGN_IN = "SIGN_IN";
-var SIGN_UP = "SIGN_UP";
-var SIGN_OUT = "SIGN_OUT";
-var VALIDATE_EMAIL = "VALIDATE_EMAIL";
-var VALIDATE_PASSWORD = "VALIDATE_PASSWORD";
-var VALIDATE_CONFIRMPASS = "VALIDATE_CONFIRMPASS";
-var VALIDATE_FNAME = "VALIDATE_FNAME";
-var VALIDATE_LNAME = "VALIDATE_LNAME";
-var FRESH_STATE = "FRESH_STATE";
-var SHOW_PASSWORD = "SHOW_PASSWORD";
-var SHOW_CONFIRMPASSWORD = "SHOW_CONFIRMPASSWORD";
-var TOGGLE_SUBMITBTN = "TOGGLE_SUBMITBTN";
-var USER_AUTH_DETAILS = "USER_AUTH_DETAILS";
-
-/***/ }),
-
-/***/ "./resources/js/actions/authentication/userAuthActions.js":
-/*!****************************************************************!*\
-  !*** ./resources/js/actions/authentication/userAuthActions.js ***!
-  \****************************************************************/
+/***/ "./resources/js/actions/auth/index.js":
+/*!********************************************!*\
+  !*** ./resources/js/actions/auth/index.js ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -34533,7 +34515,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _apis_userApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../apis/userApi */ "./resources/js/apis/userApi.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./resources/js/actions/authentication/types.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./resources/js/actions/auth/types.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -34551,10 +34533,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var data = {};
 /*
-    When you navigate to the Sign In Page, the
-    state has data already which was not cleared. 
-    refreshPage function helps in re-initializing
-    your state
+  When you navigate to the Sign In Page, the
+  state has data already which was not cleared. 
+  refreshPage function helps in re-initializing
+  your state
 */
 
 var freshState = function freshState() {
@@ -34616,10 +34598,10 @@ var signIn = function signIn(formData) {
 
             case 9:
               /*
-                      The input validation is handled already and this
-                      is for safe measures, if ever the email or the 
-                      password fields are empty. 
-                  */
+                The input validation is handled already and this
+                is for safe measures, if ever the email or the 
+                password fields are empty. 
+              */
               data = {
                 requestError: true,
                 requestErrorMessage: "Error...Please, Try Again"
@@ -34738,7 +34720,7 @@ var signUp = function signUp(formData) {
   }();
 };
 /*  
-    Sign Out
+  Sign Out
 */
 
 var signOut = function signOut(id) {
@@ -34797,7 +34779,7 @@ var signOut = function signOut(id) {
   }();
 };
 /*  
-    Validate Email
+  Validate Email
 */
 
 var validateEmail = function validateEmail(email) {
@@ -34811,7 +34793,7 @@ var validateEmail = function validateEmail(email) {
       var check = /\S+@\S+\.\S+/;
       var validation = check.test(email);
 
-      if (validation) {
+      if (validation === true) {
         isValid = true;
       } else {
         message = "Invalid Email Format";
@@ -34826,7 +34808,7 @@ var validateEmail = function validateEmail(email) {
   };
 };
 /*  
-    Validate Password
+  Validate Password
 */
 
 var validatePassword = function validatePassword(type, password) {
@@ -34837,7 +34819,7 @@ var validatePassword = function validatePassword(type, password) {
     if (password === "") {
       message = "This field should not be empty";
     } else {
-      // If Sign Up Page display error if password does not meet requirements
+      // Displays error if password does not meet requirements
       if (type === "signUp") {
         if (password.length < 8) {
           message = "Minimum of 8 characters";
@@ -34845,16 +34827,7 @@ var validatePassword = function validatePassword(type, password) {
           isValid = true;
         }
       } else {
-        // Displays error if password does not meet requirements
-        if (type === "signUp") {
-          if (password.length < 8) {
-            message = "Minimum of 8 characters";
-          } else {
-            isValid = true;
-          }
-        } else {
-          isValid = true;
-        }
+        isValid = true;
       }
     }
 
@@ -34867,7 +34840,7 @@ var validatePassword = function validatePassword(type, password) {
   };
 };
 /*  
-    Validate Confirm Password
+  Validate Confirm Password
 */
 
 var validateConfirmPass = function validateConfirmPass(confirmPass) {
@@ -34890,7 +34863,7 @@ var validateConfirmPass = function validateConfirmPass(confirmPass) {
   };
 };
 /*  
-    Validate First Name
+  Validate First Name
 */
 
 var validateFname = function validateFname(fname) {
@@ -34912,7 +34885,7 @@ var validateFname = function validateFname(fname) {
   };
 };
 /*  
-    Validate Last Name
+  Validate Last Name
 */
 
 var validateLname = function validateLname(lname) {
@@ -34934,31 +34907,31 @@ var validateLname = function validateLname(lname) {
   };
 };
 /*  
-    Toggle Password Visibility
+  Toggle Password Visibility
 */
 
 var showPassword = function showPassword(isShown) {
   return function (dispatch) {
     dispatch({
       type: _types__WEBPACK_IMPORTED_MODULE_2__.SHOW_PASSWORD,
-      isShownPass: isShown ? false : true
+      isShownPass: isShown === true ? false : true
     });
   };
 };
 /*  
-    Toggle Confirm Password Visibility
+  Toggle Confirm Password Visibility
 */
 
 var showConfirmPass = function showConfirmPass(isShown) {
   return function (dispatch) {
     dispatch({
       type: _types__WEBPACK_IMPORTED_MODULE_2__.SHOW_CONFIRMPASSWORD,
-      isShownConfirmPass: isShown ? false : true
+      isShownConfirmPass: isShown === true ? false : true
     });
   };
 };
 /*  
-    Handle enable/disable of submit button
+  Handle enable/disable of submit button
 */
 
 var disableSubmit = function disableSubmit(isDisabled) {
@@ -34970,7 +34943,7 @@ var disableSubmit = function disableSubmit(isDisabled) {
   };
 };
 /*  
-    Assign user auth details value with cookie values
+  Assign user auth details value with cookie values
 */
 
 var setUserAuthDetails = function setUserAuthDetails(userAuth) {
@@ -34984,10 +34957,49 @@ var setUserAuthDetails = function setUserAuthDetails(userAuth) {
 
 /***/ }),
 
-/***/ "./resources/js/actions/category/categoryActions.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/actions/category/categoryActions.js ***!
-  \**********************************************************/
+/***/ "./resources/js/actions/auth/types.js":
+/*!********************************************!*\
+  !*** ./resources/js/actions/auth/types.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SIGN_IN": () => (/* binding */ SIGN_IN),
+/* harmony export */   "SIGN_UP": () => (/* binding */ SIGN_UP),
+/* harmony export */   "SIGN_OUT": () => (/* binding */ SIGN_OUT),
+/* harmony export */   "VALIDATE_EMAIL": () => (/* binding */ VALIDATE_EMAIL),
+/* harmony export */   "VALIDATE_PASSWORD": () => (/* binding */ VALIDATE_PASSWORD),
+/* harmony export */   "VALIDATE_CONFIRMPASS": () => (/* binding */ VALIDATE_CONFIRMPASS),
+/* harmony export */   "VALIDATE_FNAME": () => (/* binding */ VALIDATE_FNAME),
+/* harmony export */   "VALIDATE_LNAME": () => (/* binding */ VALIDATE_LNAME),
+/* harmony export */   "FRESH_STATE": () => (/* binding */ FRESH_STATE),
+/* harmony export */   "SHOW_PASSWORD": () => (/* binding */ SHOW_PASSWORD),
+/* harmony export */   "SHOW_CONFIRMPASSWORD": () => (/* binding */ SHOW_CONFIRMPASSWORD),
+/* harmony export */   "TOGGLE_SUBMITBTN": () => (/* binding */ TOGGLE_SUBMITBTN),
+/* harmony export */   "USER_AUTH_DETAILS": () => (/* binding */ USER_AUTH_DETAILS)
+/* harmony export */ });
+var SIGN_IN = "SIGN_IN";
+var SIGN_UP = "SIGN_UP";
+var SIGN_OUT = "SIGN_OUT";
+var VALIDATE_EMAIL = "VALIDATE_EMAIL";
+var VALIDATE_PASSWORD = "VALIDATE_PASSWORD";
+var VALIDATE_CONFIRMPASS = "VALIDATE_CONFIRMPASS";
+var VALIDATE_FNAME = "VALIDATE_FNAME";
+var VALIDATE_LNAME = "VALIDATE_LNAME";
+var FRESH_STATE = "FRESH_STATE";
+var SHOW_PASSWORD = "SHOW_PASSWORD";
+var SHOW_CONFIRMPASSWORD = "SHOW_CONFIRMPASSWORD";
+var TOGGLE_SUBMITBTN = "TOGGLE_SUBMITBTN";
+var USER_AUTH_DETAILS = "USER_AUTH_DETAILS";
+
+/***/ }),
+
+/***/ "./resources/js/actions/category/index.js":
+/*!************************************************!*\
+  !*** ./resources/js/actions/category/index.js ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -35018,9 +35030,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var data = {};
 /*
-    Fetch the categories data. 
-    The second parameter page is for
-    jumping to differenct pages. 
+  Fetch the categories data. 
+  The second parameter page is for
+  jumping to differenct pages. 
 */
 
 var fetchCategories = function fetchCategories(token, page) {
@@ -35068,7 +35080,7 @@ var fetchCategories = function fetchCategories(token, page) {
   }();
 };
 /*
-    Add/Store category
+  Add/Store category
 */
 
 var addCatDialogData = function addCatDialogData(item) {
@@ -35080,7 +35092,7 @@ var addCatDialogData = function addCatDialogData(item) {
   };
 };
 /*
-    Add/Store category
+  Add/Store category
 */
 
 var addCategory = function addCategory(token, formData) {
@@ -35167,7 +35179,7 @@ var addCategory = function addCategory(token, formData) {
   }();
 };
 /*
-    Edit category
+  Edit category
 */
 
 var editCategory = function editCategory(token, formData) {
@@ -35259,7 +35271,7 @@ var editCategory = function editCategory(token, formData) {
   }();
 };
 /*
-    Delete category
+  Delete category
 */
 
 var deleteCategory = function deleteCategory(token, id) {
@@ -35338,7 +35350,7 @@ var deleteCategory = function deleteCategory(token, id) {
   }();
 };
 /*
-    Validate category name
+  Validate category name
 */
 
 var validateName = function validateName(name) {
@@ -35358,7 +35370,7 @@ var validateName = function validateName(name) {
   };
 };
 /*
-    Validate category description
+  Validate category description
 */
 
 var validateDescription = function validateDescription(description) {
@@ -35381,12 +35393,12 @@ var disableSubmit = function disableSubmit(isDisabled) {
   return function (dispatch) {
     dispatch({
       type: _types__WEBPACK_IMPORTED_MODULE_2__.TOGGLE_CAT_SUBMIT,
-      isSubmitDisabled: isDisabled ? true : false
+      isSubmitDisabled: isDisabled === true ? true : false
     });
   };
 };
 /*
-    Re-initiaze some specific category state values
+  Re-initiaze some specific category state values
 */
 
 var freshStateCategory = function freshStateCategory() {
@@ -35433,6 +35445,616 @@ var FRESH_STATE_CATEGORY = "FRESH_STATE_CATEGORY";
 
 /***/ }),
 
+/***/ "./resources/js/actions/word/index.js":
+/*!********************************************!*\
+  !*** ./resources/js/actions/word/index.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchChoicesWords": () => (/* binding */ fetchChoicesWords),
+/* harmony export */   "changeSubmitType": () => (/* binding */ changeSubmitType),
+/* harmony export */   "addWordChoice": () => (/* binding */ addWordChoice),
+/* harmony export */   "editWordChoiceData": () => (/* binding */ editWordChoiceData),
+/* harmony export */   "removeEditWord": () => (/* binding */ removeEditWord),
+/* harmony export */   "removeEditFirstChoice": () => (/* binding */ removeEditFirstChoice),
+/* harmony export */   "removeEditSecondChoice": () => (/* binding */ removeEditSecondChoice),
+/* harmony export */   "removeEditThirdChoice": () => (/* binding */ removeEditThirdChoice),
+/* harmony export */   "removeEditFourthChoice": () => (/* binding */ removeEditFourthChoice),
+/* harmony export */   "removeEditIsCorrectAnswer": () => (/* binding */ removeEditIsCorrectAnswer),
+/* harmony export */   "updateWordChoice": () => (/* binding */ updateWordChoice),
+/* harmony export */   "deleteWordChoice": () => (/* binding */ deleteWordChoice),
+/* harmony export */   "setWordContentData": () => (/* binding */ setWordContentData),
+/* harmony export */   "validateWord": () => (/* binding */ validateWord),
+/* harmony export */   "validateFirst": () => (/* binding */ validateFirst),
+/* harmony export */   "validateSecond": () => (/* binding */ validateSecond),
+/* harmony export */   "validateThird": () => (/* binding */ validateThird),
+/* harmony export */   "validateFourth": () => (/* binding */ validateFourth),
+/* harmony export */   "createNewWordChoice": () => (/* binding */ createNewWordChoice),
+/* harmony export */   "freshWordChoice": () => (/* binding */ freshWordChoice)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _apis_userApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../apis/userApi */ "./resources/js/apis/userApi.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "./resources/js/actions/word/types.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var data = {};
+var fetchChoicesWords = function fetchChoicesWords(token) {
+  var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"].get("/words/".concat(id, "/show"), {
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                }
+              }).then(function (response) {
+                data = {
+                  wordsChoices: response.data
+                };
+              });
+
+            case 2:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_2__.FETCH_WORD_CHOICE,
+                wordsChoices: data.wordsChoices
+              });
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+var changeSubmitType = function changeSubmitType(submitType) {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.CHANGE_SUBMIT_TYPE,
+      submitType: submitType
+    });
+  };
+};
+var addWordChoice = function addWordChoice(token, formData) {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
+      var categoryId, name, firstChoice, secondChoice, thirdChoice, fourthChoice, correctAnswer;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              categoryId = formData.get("categoryId"); // Get category id
+
+              name = formData.get("word");
+              firstChoice = formData.get("firstChoice");
+              secondChoice = formData.get("secondChoice");
+              thirdChoice = formData.get("thirdChoice");
+              fourthChoice = formData.get("fourthChoice");
+              correctAnswer = formData.get("correctAnswer");
+
+              if (!(token !== "")) {
+                _context2.next = 16;
+                break;
+              }
+
+              if (!(categoryId != "" && name !== "" && firstChoice !== "" && secondChoice !== "" && thirdChoice !== "" && fourthChoice !== "" && correctAnswer !== "")) {
+                _context2.next = 13;
+                break;
+              }
+
+              _context2.next = 11;
+              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/words/store", {
+                method: "post",
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                },
+                data: {
+                  name: name,
+                  category_id: categoryId,
+                  choices: [firstChoice, secondChoice, thirdChoice, fourthChoice],
+                  correct_answer: correctAnswer
+                }
+              }).then(function (response) {
+                data = {
+                  requestError: response.data.error,
+                  requestErrorMessage: response.data.message,
+                  wordError: ""
+                };
+              })["catch"](function (error) {
+                data = {
+                  requestError: true,
+                  requestErrorMessage: error.response.data.message,
+                  wordError: error.response.data.errors.name[0]
+                };
+              });
+
+            case 11:
+              _context2.next = 14;
+              break;
+
+            case 13:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Some fields are empty",
+                wordError: ""
+              };
+
+            case 14:
+              _context2.next = 17;
+              break;
+
+            case 16:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Unauthorized action"
+              };
+
+            case 17:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_2__.ADD_WORD_CHOICE,
+                requestError: data.requestError,
+                requestErrorMessage: data.requestErrorMessage,
+                wordError: data.wordError
+              });
+
+            case 18:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+/*
+  Edit choice data
+*/
+
+var editWordChoiceData = function editWordChoiceData(data) {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.EDIT_WORD_CHOICE_DATA,
+      editData: data,
+      editDataWord: data.word,
+      editDataFirstChoice: data.choices[0],
+      editDataSecondChoice: data.choices[1],
+      editDataThirdChoice: data.choices[2],
+      editDataFourthChoice: data.choices[3],
+      editDataIsCorrectAnswer: data.isCorrectAnswer
+    });
+  };
+};
+/*
+  Remove edit word data
+*/
+
+var removeEditWord = function removeEditWord() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.REMOVE_EDIT_WORD
+    });
+  };
+};
+/*
+  Remove edit first choice data
+*/
+
+var removeEditFirstChoice = function removeEditFirstChoice() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.REMOVE_EDIT_FIRST_CHOICE
+    });
+  };
+};
+/*
+  Remove edit second choice data
+*/
+
+var removeEditSecondChoice = function removeEditSecondChoice() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.REMOVE_EDIT_SECOND_CHOICE
+    });
+  };
+};
+/*
+  Remove edit third choice data
+*/
+
+var removeEditThirdChoice = function removeEditThirdChoice() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.REMOVE_EDIT_THIRD_CHOICE
+    });
+  };
+};
+/*
+  Remove edit fourth choice data
+*/
+
+var removeEditFourthChoice = function removeEditFourthChoice() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.REMOVE_EDIT_FOURTH_CHOICE
+    });
+  };
+};
+/*
+  Remove edit isCorrectAnswer data
+*/
+
+var removeEditIsCorrectAnswer = function removeEditIsCorrectAnswer() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.REMOVE_EDIT_IS_CORRECT_ANSWER
+    });
+  };
+};
+/*
+  Update word and choices
+*/
+
+var updateWordChoice = function updateWordChoice(token, oldData, formData) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
+      var wordId, name, firstChoice, secondChoice, thirdChoice, fourthChoice, correctAnswer;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              wordId = formData.get("wordId");
+              name = formData.get("word");
+              firstChoice = formData.get("firstChoice");
+              secondChoice = formData.get("secondChoice");
+              thirdChoice = formData.get("thirdChoice");
+              fourthChoice = formData.get("fourthChoice");
+              correctAnswer = formData.get("correctAnswer");
+
+              if (!(token !== "" && oldData !== "" && formData !== "")) {
+                _context3.next = 16;
+                break;
+              }
+
+              if (!(wordId !== "" && name !== oldData.word.name || firstChoice !== oldData.choices[0] || secondChoice !== oldData.choices[1] || thirdChoice !== oldData.choices[2] || fourthChoice !== oldData.choices[3] || correctAnswer !== oldData.isCorrectAnswer)) {
+                _context3.next = 13;
+                break;
+              }
+
+              _context3.next = 11;
+              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/words/".concat(wordId, "/update"), {
+                method: "put",
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                },
+                data: {
+                  name: name,
+                  choices: [firstChoice, secondChoice, thirdChoice, fourthChoice],
+                  correct_answer: correctAnswer
+                }
+              }).then(function (response) {
+                data = {
+                  requestError: response.data.error,
+                  requestErrorMessage: response.data.message,
+                  wordError: ""
+                };
+              })["catch"](function (error) {
+                data = {
+                  requestError: true,
+                  requestErrorMessage: error.response.data.message,
+                  wordError: error.response.data.errors.name[0]
+                };
+              });
+
+            case 11:
+              _context3.next = 14;
+              break;
+
+            case 13:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Can't Update. You have no changes",
+                wordError: ""
+              };
+
+            case 14:
+              _context3.next = 17;
+              break;
+
+            case 16:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Unauthorized action",
+                wordError: ""
+              };
+
+            case 17:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_2__.UPDATE_WORD_CHOICE,
+                requestError: data.requestError,
+                requestErrorMessage: data.requestErrorMessage,
+                wordError: data.wordError
+              });
+
+            case 18:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+};
+/*
+  Delete word choice
+*/
+
+var deleteWordChoice = function deleteWordChoice(token, word_id) {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!(token !== "")) {
+                _context4.next = 10;
+                break;
+              }
+
+              if (!(word_id !== "")) {
+                _context4.next = 7;
+                break;
+              }
+
+              _context4.next = 4;
+              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_1__["default"])("/words/".concat(word_id, "/delete"), {
+                method: "delete",
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                },
+                data: {
+                  word: word_id
+                }
+              });
+
+            case 4:
+              data = {
+                requestError: false,
+                requestErrorMessage: "Success Deleted"
+              };
+              _context4.next = 8;
+              break;
+
+            case 7:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Word id is empty"
+              };
+
+            case 8:
+              _context4.next = 11;
+              break;
+
+            case 10:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Unauthorized Action"
+              };
+
+            case 11:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_2__.DELETE_WORD_CHOICE,
+                requestError: data.requestError,
+                requestErrorMessage: data.requestErrorMessage
+              });
+
+            case 12:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
+/*
+  Set word cotent data
+*/
+
+var setWordContentData = function setWordContentData(cookieData) {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.SET_WORD_CONTENT_DATA,
+      wordContentData: cookieData !== "" ? cookieData : null
+    });
+  };
+};
+/*
+  Validating of inputs has the same condition and it would be
+  best to make a universal funciton. This function returns true
+  and a message.  
+*/
+
+var validate = function validate(input) {
+  if (input !== "") {
+    data = {
+      isValid: true,
+      message: ""
+    };
+  } else {
+    data = {
+      isValid: false,
+      message: "This field should not be empty"
+    };
+  }
+
+  return data;
+};
+
+var validateWord = function validateWord(input) {
+  return function (dispatch) {
+    var data = validate(input);
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_WORD,
+      word: input,
+      isValidWord: data.isValid,
+      wordError: data.message
+    });
+  };
+};
+var validateFirst = function validateFirst(input) {
+  return function (dispatch) {
+    var data = validate(input);
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_FIRST_CHOICE,
+      firstChoice: input,
+      isValidFirstChoice: data.isValid,
+      firstChoiceError: data.message
+    });
+  };
+};
+var validateSecond = function validateSecond(input) {
+  return function (dispatch) {
+    var data = validate(input);
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_SECOND_CHOICE,
+      secondChoice: input,
+      isValidSecondChoice: data.isValid,
+      secondChoiceError: data.message
+    });
+  };
+};
+var validateThird = function validateThird(input) {
+  return function (dispatch) {
+    var data = validate(input);
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_THIRD_CHOICE,
+      thirdChoice: input,
+      isValidThirdChoice: data.isValid,
+      thirdChoiceError: data.message
+    });
+  };
+};
+var validateFourth = function validateFourth(input) {
+  return function (dispatch) {
+    var data = validate(input);
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.VALIDATE_FOURTH_CHOICE,
+      fourthChoice: input,
+      isValidFourthChoice: data.isValid,
+      fourthChoiceError: data.message
+    });
+  };
+};
+var createNewWordChoice = function createNewWordChoice() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.CREATE_NEW_WORD_CHOICE
+    });
+  };
+};
+var freshWordChoice = function freshWordChoice() {
+  return function (dispatch) {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_2__.FRESH_WORD_CHOICE
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/actions/word/types.js":
+/*!********************************************!*\
+  !*** ./resources/js/actions/word/types.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FETCH_WORD_CHOICE": () => (/* binding */ FETCH_WORD_CHOICE),
+/* harmony export */   "CHANGE_SUBMIT_TYPE": () => (/* binding */ CHANGE_SUBMIT_TYPE),
+/* harmony export */   "ADD_WORD_CHOICE": () => (/* binding */ ADD_WORD_CHOICE),
+/* harmony export */   "UPDATE_WORD_CHOICE": () => (/* binding */ UPDATE_WORD_CHOICE),
+/* harmony export */   "DELETE_WORD_CHOICE": () => (/* binding */ DELETE_WORD_CHOICE),
+/* harmony export */   "SET_WORD_CONTENT_DATA": () => (/* binding */ SET_WORD_CONTENT_DATA),
+/* harmony export */   "VALIDATE_WORD": () => (/* binding */ VALIDATE_WORD),
+/* harmony export */   "VALIDATE_FIRST_CHOICE": () => (/* binding */ VALIDATE_FIRST_CHOICE),
+/* harmony export */   "VALIDATE_SECOND_CHOICE": () => (/* binding */ VALIDATE_SECOND_CHOICE),
+/* harmony export */   "VALIDATE_THIRD_CHOICE": () => (/* binding */ VALIDATE_THIRD_CHOICE),
+/* harmony export */   "VALIDATE_FOURTH_CHOICE": () => (/* binding */ VALIDATE_FOURTH_CHOICE),
+/* harmony export */   "FRESH_WORD_CHOICE": () => (/* binding */ FRESH_WORD_CHOICE),
+/* harmony export */   "EDIT_WORD_CHOICE_DATA": () => (/* binding */ EDIT_WORD_CHOICE_DATA),
+/* harmony export */   "REMOVE_EDIT_WORD": () => (/* binding */ REMOVE_EDIT_WORD),
+/* harmony export */   "REMOVE_EDIT_FIRST_CHOICE": () => (/* binding */ REMOVE_EDIT_FIRST_CHOICE),
+/* harmony export */   "REMOVE_EDIT_SECOND_CHOICE": () => (/* binding */ REMOVE_EDIT_SECOND_CHOICE),
+/* harmony export */   "REMOVE_EDIT_THIRD_CHOICE": () => (/* binding */ REMOVE_EDIT_THIRD_CHOICE),
+/* harmony export */   "REMOVE_EDIT_FOURTH_CHOICE": () => (/* binding */ REMOVE_EDIT_FOURTH_CHOICE),
+/* harmony export */   "REMOVE_EDIT_IS_CORRECT_ANSWER": () => (/* binding */ REMOVE_EDIT_IS_CORRECT_ANSWER),
+/* harmony export */   "CREATE_NEW_WORD_CHOICE": () => (/* binding */ CREATE_NEW_WORD_CHOICE)
+/* harmony export */ });
+var FETCH_WORD_CHOICE = "FETCH_WORD_CHOICE"; // This action is for changing between store or update submit
+
+var CHANGE_SUBMIT_TYPE = "CHANGE_SUBMIT_TYPE";
+var ADD_WORD_CHOICE = "ADD_WORD_CHOICE";
+var UPDATE_WORD_CHOICE = "UPDATE_WORD_CHOICE";
+var DELETE_WORD_CHOICE = "DELETE_WORD_CHOICE"; // Set the word content based on the cookie given
+
+var SET_WORD_CONTENT_DATA = "SET_WORD_CONTENT_DATA";
+/* 
+  This action is for retrieving the words list data when the user clicks
+  on a certain words row. After clicking the row, the data will be sent to
+  the word and choices fields.
+*/
+
+var VALIDATE_WORD = "VALIDATE_WORD";
+var VALIDATE_FIRST_CHOICE = "VALIDATE_FIRST_CHOICE";
+var VALIDATE_SECOND_CHOICE = "VALIDATE_SECOND_CHOICE";
+var VALIDATE_THIRD_CHOICE = "VALIDATE_THIRD_CHOICE";
+var VALIDATE_FOURTH_CHOICE = "VALIDATE_FOURTH_CHOICE";
+var FRESH_WORD_CHOICE = "FRESH_WORD_CHOICE";
+var EDIT_WORD_CHOICE_DATA = "EDIT_WORD_CHOICE_DATA";
+var REMOVE_EDIT_WORD = "REMOVE_EDIT_WORD";
+var REMOVE_EDIT_FIRST_CHOICE = "REMOVE_EDIT_FIRST_CHOICE";
+var REMOVE_EDIT_SECOND_CHOICE = "REMOVE_EDIT_SECOND_CHOICE";
+var REMOVE_EDIT_THIRD_CHOICE = "REMOVE_EDIT_THIRD_CHOICE";
+var REMOVE_EDIT_FOURTH_CHOICE = "REMOVE_EDIT_FOURTH_CHOICE";
+var REMOVE_EDIT_IS_CORRECT_ANSWER = "REMOVE_EDIT_IS_CORRECT_ANSWER"; // Removes the edit data field values
+
+var CREATE_NEW_WORD_CHOICE = "CREATE_NEW_WORD_CHOICE";
+
+/***/ }),
+
 /***/ "./resources/js/apis/userApi.js":
 /*!**************************************!*\
   !*** ./resources/js/apis/userApi.js ***!
@@ -35470,13 +36092,15 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
-/* harmony import */ var _components_Main__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Main */ "./resources/js/components/Main.js");
-/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reducers */ "./resources/js/reducers/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var react_cookie__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-cookie */ "./node_modules/react-cookie/es6/CookiesProvider.js");
+/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
+/* harmony import */ var _components_Main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Main */ "./resources/js/components/Main.js");
+/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reducers */ "./resources/js/reducers/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -35486,10 +36110,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
-  store: (0,redux__WEBPACK_IMPORTED_MODULE_6__.createStore)(_reducers__WEBPACK_IMPORTED_MODULE_4__["default"], (0,redux__WEBPACK_IMPORTED_MODULE_6__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_7__["default"])),
-  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.BrowserRouter, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_Main__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+
+
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_cookie__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
+    store: (0,redux__WEBPACK_IMPORTED_MODULE_8__.createStore)(_reducers__WEBPACK_IMPORTED_MODULE_5__["default"], (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__.composeWithDevTools)((0,redux__WEBPACK_IMPORTED_MODULE_8__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_9__["default"]))),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.BrowserRouter, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Main__WEBPACK_IMPORTED_MODULE_4__["default"], {})
+    })
   })
 }), document.querySelector("#root"));
 
@@ -35609,7 +36237,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/VisibilityOff.js");
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Visibility.js");
 /* harmony import */ var _layouts_Footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layouts/Footer */ "./resources/js/components/layouts/Footer.js");
-/* harmony import */ var _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/authentication/userAuthActions */ "./resources/js/actions/authentication/userAuthActions.js");
+/* harmony import */ var _actions_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/auth */ "./resources/js/actions/auth/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -35671,6 +36299,8 @@ var SignIn = function SignIn(props) {
     // Enable the submit button if no errors in fields
     if (props.isValidEmail && props.isValidPassword) {
       props.disableSubmit(false);
+    } else {
+      props.disableSubmit(true);
     }
   }, [props.isValidEmail, props.isValidPassword]);
 
@@ -35698,7 +36328,7 @@ var SignIn = function SignIn(props) {
     sx: {
       height: "100vh"
     },
-    children: [props.requestError === false ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    children: [dialog ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
       fullWidth: true,
       open: true,
       maxWidth: "xs",
@@ -35749,26 +36379,19 @@ var SignIn = function SignIn(props) {
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
           sx: {
-            width: "200px",
-            height: "200px",
-            marginBottom: "-30px",
+            width: "180px",
+            height: "180px",
+            marginBottom: "5px",
             marginTop: "-50px"
           },
           src: "images/e-learning.png"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          component: "h1",
+          component: "h5",
           variant: "h5",
           sx: {
             marginTop: "-40px"
           },
           children: "Sign in"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          component: "h6",
-          variant: "h6",
-          style: {
-            color: "red"
-          },
-          children: [props.requestErrorMessage, "\xA0"]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
           component: "form",
           noValidate: true,
@@ -35826,6 +36449,15 @@ var SignIn = function SignIn(props) {
               color: "primary"
             }),
             label: "Remember me"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            component: "h6",
+            variant: "h6",
+            style: {
+              color: "red",
+              fontSize: "18px",
+              textAlign: "center"
+            },
+            children: [props.requestErrorMessage, "\xA0"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_21__["default"], {
             type: "submit",
             fullWidth: true,
@@ -35886,12 +36518,12 @@ var mapToStateProps = function mapToStateProps(state, ownProps) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_23__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapToStateProps, {
-  freshState: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.freshState,
-  signIn: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.signIn,
-  validateEmail: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateEmail,
-  validatePassword: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validatePassword,
-  showPassword: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showPassword,
-  disableSubmit: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.disableSubmit
+  freshState: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.freshState,
+  signIn: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.signIn,
+  validateEmail: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.validateEmail,
+  validatePassword: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.validatePassword,
+  showPassword: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.showPassword,
+  disableSubmit: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.disableSubmit
 })(SignIn)));
 
 /***/ }),
@@ -35922,7 +36554,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/VisibilityOff.js");
 /* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Visibility.js");
 /* harmony import */ var _layouts_Footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layouts/Footer */ "./resources/js/components/layouts/Footer.js");
-/* harmony import */ var _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/authentication/userAuthActions */ "./resources/js/actions/authentication/userAuthActions.js");
+/* harmony import */ var _actions_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/auth */ "./resources/js/actions/auth/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -35997,15 +36629,10 @@ var SignUp = function SignUp(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
         component: "h1",
         variant: "h5",
-        children: "Sign up"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
-        component: "h6",
-        variant: "h6",
-        style: {
-          color: "".concat(props.requestError ? "red" : "green"),
-          fontWeight: "".concat(props.requestError ? "" : "bold")
+        sx: {
+          mb: 3
         },
-        children: [props.requestErrorMessage, "\xA0"]
+        children: "Sign up"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
         component: "form",
         noValidate: true,
@@ -36138,12 +36765,22 @@ var SignUp = function SignUp(props) {
               })
             }), _jsx4))
           })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          component: "h6",
+          variant: "h6",
+          style: {
+            color: "".concat(props.requestError ? "red" : "green"),
+            fontWeight: "".concat(props.requestError ? "" : "bold"),
+            fontSize: "18px",
+            textAlign: "center"
+          },
+          children: [props.requestErrorMessage, "\xA0"]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
           type: "submit",
           fullWidth: true,
           variant: "contained",
           sx: {
-            mt: 3,
+            mt: 1,
             mb: 2
           },
           disabled: props.isSubmitDisabled,
@@ -36193,16 +36830,16 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, {
-  freshState: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.freshState,
-  signUp: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.signUp,
-  validateEmail: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateEmail,
-  validatePassword: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validatePassword,
-  validateConfirmPass: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateConfirmPass,
-  validateFname: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateFname,
-  validateLname: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.validateLname,
-  showPassword: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showPassword,
-  showConfirmPass: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.showConfirmPass,
-  disableSubmit: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_3__.disableSubmit
+  freshState: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.freshState,
+  signUp: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.signUp,
+  validateEmail: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.validateEmail,
+  validatePassword: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.validatePassword,
+  validateConfirmPass: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.validateConfirmPass,
+  validateFname: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.validateFname,
+  validateLname: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.validateLname,
+  showPassword: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.showPassword,
+  showConfirmPass: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.showConfirmPass,
+  disableSubmit: _actions_auth__WEBPACK_IMPORTED_MODULE_3__.disableSubmit
 })(SignUp));
 
 /***/ }),
@@ -36339,32 +36976,6 @@ var User = function User() {
 
 /***/ }),
 
-/***/ "./resources/js/components/contents/Word.js":
-/*!**************************************************!*\
-  !*** ./resources/js/components/contents/Word.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-var Word = function Word() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    children: "Word"
-  });
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Word);
-
-/***/ }),
-
 /***/ "./resources/js/components/contents/admin/CategoryAdmin.js":
 /*!*****************************************************************!*\
   !*** ./resources/js/components/contents/admin/CategoryAdmin.js ***!
@@ -36378,24 +36989,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_cookie__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-cookie */ "./node_modules/react-cookie/es6/withCookies.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Grid/Grid.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Paper/Paper.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableContainer/TableContainer.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Table/Table.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableHead/TableHead.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableRow/TableRow.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableCell/TableCell.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableBody/TableBody.js");
-/* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Edit.js");
-/* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Delete.js");
-/* harmony import */ var _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/category/categoryActions */ "./resources/js/actions/category/categoryActions.js");
+/* harmony import */ var react_cookie__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! react-cookie */ "./node_modules/react-cookie/es6/withCookies.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Container/Container.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Grid/Grid.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Paper/Paper.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableContainer/TableContainer.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Table/Table.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableHead/TableHead.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableRow/TableRow.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableCell/TableCell.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableBody/TableBody.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Tooltip/Tooltip.js");
+/* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Add.js");
+/* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Edit.js");
+/* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Delete.js");
+/* harmony import */ var _actions_category__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/category */ "./resources/js/actions/category/index.js");
 /* harmony import */ var _subcontents_AlertContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../subcontents/AlertContent */ "./resources/js/components/contents/subcontents/AlertContent.js");
 /* harmony import */ var _subcontents_CategoryAdminDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../subcontents/CategoryAdminDialog */ "./resources/js/components/contents/subcontents/CategoryAdminDialog.js");
 /* harmony import */ var _subcontents_Pagination__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../subcontents/Pagination */ "./resources/js/components/contents/subcontents/Pagination.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _WordContent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./WordContent */ "./resources/js/components/contents/admin/WordContent.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -36420,6 +37035,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var CategoryAdmin = function CategoryAdmin(props) {
   // This is used to make the Dialog content dynamic
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
@@ -36427,28 +37044,49 @@ var CategoryAdmin = function CategoryAdmin(props) {
       type = _useState2[0],
       setType = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      openWord = _useState4[0],
+      setOpenWord = _useState4[1]; // Set the id of WordContent to be delete
+
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState6 = _slicedToArray(_useState5, 2),
+      wordId = _useState6[0],
+      setWordId = _useState6[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     /* 
-            We need to remove the cookie value of currentCategoryPage. When
-            the cookie is removed, the user can now go back to first page on 
-            page reload.
-        */
+      We need to remove the cookie value of currentCategoryPage. When
+      the cookie is removed, the user can now go back to first page on 
+      page reload.
+    */
     props.cookies.remove("currentCategoryPage"); // When fetching the categories data, we need to pass the token.
 
     props.fetchCategories(props.userAuth.token);
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Get the wordContent cookie data
+    var wordContentData = props.cookies.get("wordContent"); // If wordContent cookie has data then assign it to stase wordContent and open Word
+
+    if (wordContentData !== undefined) {
+      setOpenWord(true);
+    } else {
+      setOpenWord(false);
+    }
+  }, [openWord]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     /* 
-            This will run if there is a request or when a request has 
-            a message response. After a request it will re-render the 
-            categories.
-        */
+      This will run if there is a request or when a request has 
+      a message response. After a request it will re-render the 
+      categories.
+    */
     if (props.requestErrorMessage !== "") {
       var currentValue = props.cookies.get("currentCategoryPage");
       /*
-                Check in the cookies if currentCategoryPage is not empty
-                then pass it in the fetching of categories.
-            */
+        Check in the cookies if currentCategoryPage is not empty
+        then pass it in the fetching of categories.
+      */
 
       if (currentValue !== "") {
         props.fetchCategories(props.userAuth.token, currentValue);
@@ -36458,9 +37096,9 @@ var CategoryAdmin = function CategoryAdmin(props) {
     }
   }, [props.requestErrorMessage]);
   /*
-        Type is for what type of content will be shown on Dialog.
-        Data is for the form data input values.
-    */
+    Type is for what type of content will be shown on Dialog.
+    Data is for the form data input values.
+  */
 
   var handleDialog = function handleDialog(type, data) {
     // Re-intialized the dialog data before opening Dialog
@@ -36477,54 +37115,85 @@ var CategoryAdmin = function CategoryAdmin(props) {
 
   var handleOnPageChange = function handleOnPageChange(e, value) {
     /* 
-            We should add 1 to value because the TablePagination next page
-            , when clicked will return 1 instead of 2, for the pagination 
-            request to laravel controller to properly work.
-        */
+      We should add 1 to value because the TablePagination next page
+      , when clicked will return 1 instead of 2, for the pagination 
+      request to laravel controller to properly work.
+    */
     value += 1;
     /* 
-            We need to assign a value inside a cookie to retrieve the current
-            page value , so the categories table would not go to the first page
-            if editing or deleting a row.
-        */
+      We need to assign a value inside a cookie to retrieve the current
+      page value , so the categories table would not go to the first page
+      if editing or deleting a row.
+    */
 
     props.cookies.set("currentCategoryPage", value, {
-      path: "/"
+      path: "/categories"
     });
     props.fetchCategories(props.userAuth.token, value);
+  }; // Handles in making the Word component visible
+
+
+  var handleWords = function handleWords(data) {
+    if (data !== "") {
+      /* 
+        When the Word component is open, we should a data in the cookie. So that on page 
+        reload, you can check in the cookie, if wordContent cookie is not empty then open 
+        the word and get the cookie word content data.
+      */
+      props.cookies.set("wordContent", data, {
+        path: "/"
+      }); // Open Word component
+
+      setOpenWord(true); // Re-initialize the state when opening another component
+
+      props.freshStateCategory();
+    }
+  }; // Pass this function to Word Content so that the deletion request is in that component
+
+
+  var handleDeleteWordChoice = function handleDeleteWordChoice(id) {
+    setWordId(id);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_subcontents_CategoryAdminDialog__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      type: type,
-      setType: setType
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      container: true,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        item: true,
-        xs: 6,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          component: "h5",
-          variant: "h5",
-          sx: {
-            mb: 5
-          },
-          children: "Categories"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        item: true,
-        xs: 6,
-        children: props.requestErrorMessage !== "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_subcontents_AlertContent__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          isError: props.requestError,
-          message: props.requestErrorMessage
-        }) : null
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_subcontents_CategoryAdminDialog__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        type: type,
+        setType: setType,
+        handleDeleteWordChoice: handleDeleteWordChoice
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        container: true,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          item: true,
+          xs: 6,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            component: "h5",
+            variant: "h5",
+            sx: {
+              mb: 5
+            },
+            children: "Categories"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          item: true,
+          xs: 6,
+          children: props.requestErrorMessage !== "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_subcontents_AlertContent__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            isError: props.requestError,
+            message: props.requestErrorMessage
+          }) : null
+        })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    }), openWord ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_WordContent__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      setOpenWord: setOpenWord,
+      handleDialog: handleDialog,
+      wordId: wordId,
+      setWordId: setWordId
+    }) : null, openWord === false ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
       sx: {
         width: "100%",
         overflow: "hidden"
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
         variant: "outlined",
         sx: {
           mt: 2,
@@ -36536,102 +37205,135 @@ var CategoryAdmin = function CategoryAdmin(props) {
           handleDialog("create");
         },
         children: "Create Category"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
         sx: {
           maxHeight: 1200
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
           stickyHeader: true,
           "aria-label": "sticky table",
           sx: {
             p: 5
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
             style: {
               backgroundColor: "orange"
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_16__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
                 sx: tableCellStyles,
                 children: "Title"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
                 sx: tableCellStyles,
                 children: "Description"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
                 sx: tableCellStyles,
                 children: "Action"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
             children: props.categories.length !== 0 ? Object.entries(props.categories.data).map(function (_ref) {
               var _ref2 = _slicedToArray(_ref, 2),
                   key = _ref2[0],
                   category = _ref2[1];
 
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_16__["default"], {
                   style: key % 2 ? {
                     background: "#F2F2F2"
                   } : {
                     background: "white"
                   },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     children: category.name
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     children: category.description
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
                     sx: {
                       width: "20%"
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
                       justify: "space-between",
                       container: true,
                       spacing: 8,
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
                         item: true,
                         xs: 2,
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
-                          variant: "outlined",
-                          size: "small",
-                          sx: {
-                            minWidth: "30px",
-                            minHeight: "30px"
-                          },
-                          onClick: function onClick() {
-                            handleDialog("edit", {
-                              index: key,
-                              id: category.id,
-                              categoryName: category.name,
-                              categoryDescription: category.description
-                            });
-                          },
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                          title: "Add Words",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                            variant: "outlined",
+                            size: "small",
                             sx: {
-                              fontSize: "20px"
-                            }
+                              minWidth: "30px",
+                              minHeight: "30px"
+                            },
+                            onClick: function onClick() {
+                              handleWords({
+                                index: key,
+                                categoryId: category.id,
+                                categoryName: category.name,
+                                categoryDescription: category.description
+                              });
+                            },
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                              sx: {
+                                fontSize: "20px"
+                              }
+                            })
                           })
                         })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
                         item: true,
                         xs: 2,
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
-                          variant: "outlined",
-                          sx: {
-                            minWidth: "30px",
-                            minHeight: "30px"
-                          },
-                          size: "small",
-                          onClick: function onClick() {
-                            handleDialog("delete", {
-                              id: category.id,
-                              categoryName: category.name
-                            });
-                          },
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                          title: "Edit Category",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                            variant: "outlined",
+                            size: "small",
                             sx: {
-                              fontSize: "20px",
-                              color: "red"
-                            }
+                              minWidth: "30px",
+                              minHeight: "30px"
+                            },
+                            onClick: function onClick() {
+                              handleDialog("edit", {
+                                index: key,
+                                categoryId: category.id,
+                                categoryName: category.name,
+                                categoryDescription: category.description
+                              });
+                            },
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                              sx: {
+                                fontSize: "20px"
+                              }
+                            })
+                          })
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                        item: true,
+                        xs: 2,
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                          title: "Delete Category",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                            variant: "outlined",
+                            sx: {
+                              minWidth: "30px",
+                              minHeight: "30px"
+                            },
+                            size: "small",
+                            onClick: function onClick() {
+                              handleDialog("delete", {
+                                categoryId: category.id,
+                                categoryName: category.name
+                              });
+                            },
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                              sx: {
+                                fontSize: "20px",
+                                color: "red"
+                              }
+                            })
                           })
                         })
                       })]
@@ -36641,14 +37343,14 @@ var CategoryAdmin = function CategoryAdmin(props) {
               }, key);
             }) : null
           })]
-        }), props.categories.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_subcontents_Pagination__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }), props.categories.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_subcontents_Pagination__WEBPACK_IMPORTED_MODULE_5__["default"], {
           total: props.categories.total,
           page: props.categories.current_page,
           rowsPerPage: props.categories.per_page,
           handleOnPageChange: handleOnPageChange
         }) : null]
       })]
-    })]
+    }) : null]
   });
 };
 
@@ -36663,11 +37365,713 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_19__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, {
-  fetchCategories: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.fetchCategories,
-  addCatDialogData: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.addCatDialogData,
-  freshStateCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.freshStateCategory
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_23__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, {
+  fetchCategories: _actions_category__WEBPACK_IMPORTED_MODULE_2__.fetchCategories,
+  addCatDialogData: _actions_category__WEBPACK_IMPORTED_MODULE_2__.addCatDialogData,
+  freshStateCategory: _actions_category__WEBPACK_IMPORTED_MODULE_2__.freshStateCategory
 })(CategoryAdmin)));
+
+/***/ }),
+
+/***/ "./resources/js/components/contents/admin/WordContent.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/contents/admin/WordContent.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_cookie__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! react-cookie */ "./node_modules/react-cookie/es6/withCookies.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Paper/Paper.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Grid/Grid.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Divider/Divider.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Container/Container.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Select/Select.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/MenuItem/MenuItem.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableContainer/TableContainer.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Table/Table.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableHead/TableHead.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableRow/TableRow.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableCell/TableCell.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TableBody/TableBody.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Tooltip/Tooltip.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
+/* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Edit.js");
+/* harmony import */ var _mui_icons_material__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/icons-material */ "./node_modules/@mui/icons-material/esm/Delete.js");
+/* harmony import */ var _actions_word__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/word */ "./resources/js/actions/word/index.js");
+/* harmony import */ var _subcontents_AlertContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../subcontents/AlertContent */ "./resources/js/components/contents/subcontents/AlertContent.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+var Words = function Words(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      disabledSubmit = _useState2[0],
+      setDisabledSubmit = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      selectCorrect = _useState4[0],
+      setSelectCorrect = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Get the cookies data
+    var wordContentData = props.cookies.get("wordContent"); // If cookie data is not empty
+
+    if (wordContentData !== "") {
+      props.setWordContentData(wordContentData); // Fetch the words and choices by categoryId
+
+      props.fetchChoicesWords(props.token, wordContentData.categoryId);
+    }
+  }, []); // Run if there is changes in wordsChoices state
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Checks if request error has change then run function
+    if (props.requestErrorMessage !== "") {
+      // Fetch the words and choices data
+      props.fetchChoicesWords(props.token);
+    }
+  }, [props.requestErrorMessage]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    //Checks if the the inputted are not empty.
+    // Run if submitType is store
+    if (props.submitType === "store") {
+      if (props.word !== "" && props.firstChoice !== "" && props.secondChoice !== "" && props.thirdChoice !== "" && props.fourthChoice !== "") {
+        setDisabledSubmit(false);
+      } else {
+        setDisabledSubmit(true);
+      }
+    } else {
+      // Run if submitType is update
+      // Check if there is changes to fields
+      if (props.word !== props.editData.word.name || props.firstChoice !== props.editData.choices[0] || props.secondChoice !== props.editData.choices[1] || props.thirdChoice !== props.editData.choices[2] || props.fourthChoice !== props.editData.choices[3]) {
+        setDisabledSubmit(false);
+      } else {
+        setDisabledSubmit(true);
+      }
+    }
+  }, [props.word, props.firstChoice, props.secondChoice, props.thirdChoice, props.fourthChoice]);
+  /*
+    Run this function if there is changes in wordId from Category Admin.
+    When the user clicks the Delete button, CategoryAdminDialog will pass
+    the wordId to CategoryAdmin, then wordId is passed as props to this 
+    wordContent component. We are doing this so that we can use the Dialog
+    component from the CategoryAdminDialog.
+  */
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (props.wordId !== null) {
+      // Pass the token and the wordId
+      props.deleteWordChoice(props.token, props.wordId); // Set the wordId back to null
+
+      props.setWordId(null); // Re-intialize the request errror and message
+
+      props.freshWordChoice();
+    }
+  }, [props.wordId]);
+
+  var handleBackNavigation = function handleBackNavigation() {
+    // Remove the wordContent cookie on close
+    props.cookies.remove("wordContent"); // Cloce this Word component
+
+    props.setOpenWord(false);
+  };
+
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    var formData = new FormData(e.currentTarget); // Check the submitType if store or update
+
+    var submitType = formData.get("submitType");
+
+    if (submitType === "store") {
+      // Pass the token and data
+      props.addWordChoice(props.token, formData); // Re-intialize the request errror and message
+
+      props.freshWordChoice();
+    } else {
+      // If else then use update function
+      // Pass token, the previous edit data, and formData
+      props.updateWordChoice(props.token, props.editData, formData);
+    }
+  };
+
+  var handleEdit = function handleEdit(key) {
+    var data = {};
+    var choices = [];
+    var isCorrectAnswer = ""; // Set sumbmitType as update
+
+    props.changeSubmitType("update"); // Disable the update submit button
+
+    setDisabledSubmit(true);
+    Object.entries(props.wordsChoices.data.data).map(function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          objKey = _ref2[0],
+          word = _ref2[1];
+
+      if (key === objKey) {
+        Object.entries(word.choices).map(function (_ref3) {
+          var _ref4 = _slicedToArray(_ref3, 2),
+              key = _ref4[0],
+              choice = _ref4[1];
+
+          choices.push(choice.name); //Assign value to isCorrectAnswer
+
+          if (choice.is_correct_answer === 1) {
+            isCorrectAnswer = key;
+          }
+        });
+        data = {
+          word: word,
+          choices: choices,
+          isCorrectAnswer: isCorrectAnswer
+        };
+      }
+    });
+    props.editWordChoiceData(data);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      sx: {
+        width: "100%",
+        overflow: "hidden",
+        p: 5
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        container: true,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          item: true,
+          lg: 2,
+          md: 2,
+          sm: 4,
+          xs: 6,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            variant: "h6",
+            sx: {
+              m: 3
+            },
+            children: "Add Words"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          item: true,
+          lg: 10,
+          md: 10,
+          sm: 8,
+          xs: 6,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            sx: {
+              "float": "right",
+              mt: 2,
+              mr: 2
+            },
+            onClick: handleBackNavigation,
+            children: "Go Back"
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {}), props.wordContentData != null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          container: true,
+          sx: {
+            mt: 2,
+            ml: 3
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            item: true,
+            lg: 4,
+            md: 4,
+            sm: 4,
+            xs: 12,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              variant: "h5",
+              sx: {
+                fontSize: "20px",
+                fontWeight: 600
+              },
+              children: props.wordContentData.categoryName
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            item: true,
+            lg: 8,
+            md: 8,
+            sm: 8,
+            xs: 12,
+            children: props.requestErrorMessage !== "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_subcontents_AlertContent__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              isError: props.requestError,
+              message: props.requestErrorMessage
+            }) : null
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          component: "form",
+          noValidate: true,
+          onSubmit: handleSubmit,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            container: true,
+            sx: {
+              mt: 5,
+              mb: 5
+            },
+            spacing: 3,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              sx: {
+                display: "none"
+              },
+              id: "submitType",
+              name: "submitType",
+              value: props.submitType
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              sx: {
+                display: "none"
+              },
+              id: "wordId",
+              name: "wordId",
+              value: props.editData.length !== 0 ? props.editData.word.id : ""
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              item: true,
+              md: 4,
+              lg: 4,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                children: "Word"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                id: "word",
+                name: "word",
+                size: "small",
+                fullWidth: true,
+                sx: {
+                  mt: 1
+                },
+                value: props.editDataWord.length === 0 ? props.word : props.editDataWord.name,
+                error: props.wordError === "" ? false : true,
+                helperText: props.wordError !== "" ? props.wordError : " ",
+                onChange: function onChange(e) {
+                  // We need to re-initialize the word in order for the field to be edited
+                  props.removeEditWord();
+                  props.validateWord(e.target.value);
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                container: true,
+                sx: {
+                  mt: 2
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  md: 12,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                    children: "Choice"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  xs: 12,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    id: "firstChoice",
+                    name: "firstChoice",
+                    fullWidth: true,
+                    size: "small",
+                    sx: {
+                      mt: 1
+                    },
+                    value: props.editDataFirstChoice === "" ? props.firstChoice : props.editDataFirstChoice,
+                    error: props.firstChoiceError === "" ? false : true,
+                    helperText: props.firstChoiceError !== "" ? props.firstChoiceError : " ",
+                    onChange: function onChange(e) {
+                      // We need to re-initialize the choice one in order for the field to be edited
+                      props.removeEditFirstChoice();
+                      props.validateFirst(e.target.value);
+                    }
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  xs: 12,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    id: "secondChoice",
+                    name: "secondChoice",
+                    fullWidth: true,
+                    size: "small",
+                    sx: {
+                      mt: 1
+                    },
+                    value: props.editDataSecondChoice === "" ? props.secondChoice : props.editDataSecondChoice,
+                    error: props.secondChoiceError === "" ? false : true,
+                    helperText: props.secondChoiceError !== "" ? props.secondChoiceError : " ",
+                    onChange: function onChange(e) {
+                      // We need to re-initialize the choice one in order for the field to be edited
+                      props.removeEditSecondChoice();
+                      props.validateSecond(e.target.value);
+                    }
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  xs: 12,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    id: "thirdChoice",
+                    name: "thirdChoice",
+                    fullWidth: true,
+                    size: "small",
+                    sx: {
+                      mt: 1
+                    },
+                    value: props.editDataThirdChoice === "" ? props.thirdChoice : props.editDataThirdChoice,
+                    error: props.thirdChoiceError === "" ? false : true,
+                    helperText: props.thirdChoiceError !== "" ? props.thirdChoiceError : " ",
+                    onChange: function onChange(e) {
+                      // We need to re-initialize the choice one in order for the field to be edited
+                      props.removeEditThirdChoice();
+                      props.validateThird(e.target.value);
+                    }
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  xs: 12,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    id: "fourthChoice",
+                    name: "fourthChoice",
+                    fullWidth: true,
+                    size: "small",
+                    sx: {
+                      mt: 1
+                    },
+                    value: props.editDataFourthChoice === "" ? props.fourthChoice : props.editDataFourthChoice,
+                    error: props.fourthChoiceError === "" ? false : true,
+                    helperText: props.fourthChoiceError !== "" ? props.fourthChoiceError : " ",
+                    onChange: function onChange(e) {
+                      // We need to re-initialize the choice one in order for the field to be edited
+                      props.removeEditFourthChoice();
+                      props.validateFourth(e.target.value);
+                    }
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  md: 12,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                    children: "Select correct choice"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  xs: 12,
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                    id: "correctAnswer",
+                    name: "correctAnswer",
+                    value: props.editDataIsCorrectAnswer === "" ? selectCorrect : props.editDataIsCorrectAnswer,
+                    fullWidth: true,
+                    size: "small",
+                    sx: {
+                      mt: 2
+                    },
+                    onChange: function onChange(e) {
+                      // We need to re-initialize the isCorrectAnswer
+                      props.removeEditIsCorrectAnswer();
+                      setSelectCorrect(e.target.value);
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                      value: "0",
+                      children: "First choice"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                      value: "1",
+                      children: "Second choice"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                      value: "2",
+                      children: "Third Choice"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                      value: "3",
+                      children: "Fourth Choice"
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  xs: 12,
+                  sx: {
+                    mt: 5
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {})
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  item: true,
+                  xs: 12,
+                  children: [props.submitType === "store" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                    container: true,
+                    sx: {
+                      mt: 4
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      item: true,
+                      lg: 6,
+                      md: 6,
+                      sm: 6,
+                      xs: 6
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      item: true,
+                      lg: 6,
+                      md: 6,
+                      sm: 6,
+                      xs: 6,
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                        disabled: disabledSubmit,
+                        variant: "outlined",
+                        type: "submit",
+                        sx: {
+                          "float": "right"
+                        },
+                        children: "Save"
+                      })
+                    })]
+                  }) : null, props.submitType === "update" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                    container: true,
+                    sx: {
+                      mt: 4
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      item: true,
+                      lg: 6,
+                      md: 6,
+                      sm: 6,
+                      xs: 6,
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                        variant: "text",
+                        type: "button",
+                        onClick: function onClick() {
+                          props.createNewWordChoice(); // Change sumbitType to store
+
+                          props.changeSubmitType("store");
+                        },
+                        children: "Create New"
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      item: true,
+                      lg: 6,
+                      md: 6,
+                      sm: 6,
+                      xs: 6,
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                        disabled: disabledSubmit,
+                        variant: "outlined",
+                        type: "submit",
+                        sx: {
+                          "float": "right"
+                        },
+                        children: "Update"
+                      })
+                    })]
+                  }) : null]
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              item: true,
+              md: 8,
+              lg: 8,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                sx: {
+                  ml: 5
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_16__["default"], {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                          sx: {
+                            fontSize: "15px"
+                          },
+                          children: "Word"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                          sx: {
+                            fontSize: "15px"
+                          },
+                          children: "Choices"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                          sx: {
+                            fontSize: "15px"
+                          },
+                          children: "Actions"
+                        })]
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                      children: props.wordsChoices.length !== 0 ? Object.entries(props.wordsChoices.data.data).map(function (_ref5) {
+                        var _ref6 = _slicedToArray(_ref5, 2),
+                            key = _ref6[0],
+                            word = _ref6[1];
+
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                          style: key % 2 ? {
+                            background: "#F2F2F2"
+                          } : {
+                            background: "white"
+                          },
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                            children: word.name
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                            children: Object.entries(word.choices).map(function (_ref7) {
+                              var _ref8 = _slicedToArray(_ref7, 2),
+                                  key2 = _ref8[0],
+                                  choice = _ref8[1];
+
+                              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+                                children: [choice.name, " ", " | "]
+                              }, key2);
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                              container: true,
+                              spacing: 2,
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                                item: true,
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                                  title: "Edit Word and Choices",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                                    variant: "outlined",
+                                    sx: {
+                                      minWidth: "30px",
+                                      minHeight: "30px"
+                                    },
+                                    size: "small",
+                                    onClick: function onClick() {
+                                      handleEdit(key);
+                                    },
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                                      sx: {
+                                        fontSize: "20px"
+                                      }
+                                    })
+                                  })
+                                })
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                                item: true,
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                                  title: "Delete Word and Choices",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                                    variant: "outlined",
+                                    sx: {
+                                      minWidth: "30px",
+                                      minHeight: "30px"
+                                    },
+                                    size: "small",
+                                    onClick: function onClick() {
+                                      // Call this function from categoryAdmin
+                                      props.handleDialog("deleteWord", {
+                                        index: key,
+                                        wordId: word.id,
+                                        wordName: word.name
+                                      });
+                                    },
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                                      sx: {
+                                        fontSize: "20px",
+                                        color: "red"
+                                      }
+                                    })
+                                  })
+                                })
+                              })]
+                            })
+                          })]
+                        }, key);
+                      }) : null
+                    })]
+                  })
+                })
+              })
+            })]
+          })
+        })]
+      }) :
+      /*#__PURE__*/
+      // Displays error when there is no category data
+      (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_23__["default"], {
+        sx: {
+          m: 10
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          style: {
+            textAlign: "center",
+            p: 10
+          },
+          children: "Can't Process data... Please Try Again"
+        })
+      })]
+    })
+  });
+};
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    token: state.auth.userAuth.token,
+    submitType: state.word.submitType,
+    editData: state.word.editData,
+    editDataWord: state.word.editDataWord,
+    editDataFirstChoice: state.word.editDataFirstChoice,
+    editDataSecondChoice: state.word.editDataSecondChoice,
+    editDataThirdChoice: state.word.editDataThirdChoice,
+    editDataFourthChoice: state.word.editDataFourthChoice,
+    editDataIsCorrectAnswer: state.word.editDataIsCorrectAnswer,
+    word: state.word.word,
+    firstChoice: state.word.firstChoice,
+    secondChoice: state.word.secondChoice,
+    thirdChoice: state.word.thirdChoice,
+    fourthChoice: state.word.fourthChoice,
+    wordsChoices: state.word.wordsChoices,
+    wordContentData: state.word.wordContentData,
+    wordError: state.word.wordError,
+    firstChoiceError: state.word.firstChoiceError,
+    secondChoiceError: state.word.secondChoiceError,
+    thirdChoiceError: state.word.thirdChoiceError,
+    fourthChoiceError: state.word.fourthChoiceError,
+    isValidWord: state.word.isValidWord,
+    isValidFirstChoice: state.word.isValidFirstChoice,
+    isValidSecondChoice: state.word.isValidSecondChoice,
+    isValidThirdChoice: state.word.isValidThirdChoice,
+    isValidFourthChoice: state.word.isValidFourthChoice,
+    requestError: state.word.requestError,
+    requestErrorMessage: state.word.requestErrorMessage,
+    cookies: ownProps.cookies
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_24__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, {
+  fetchChoicesWords: _actions_word__WEBPACK_IMPORTED_MODULE_2__.fetchChoicesWords,
+  changeSubmitType: _actions_word__WEBPACK_IMPORTED_MODULE_2__.changeSubmitType,
+  addWordChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.addWordChoice,
+  removeEditWord: _actions_word__WEBPACK_IMPORTED_MODULE_2__.removeEditWord,
+  removeEditFirstChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.removeEditFirstChoice,
+  removeEditSecondChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.removeEditSecondChoice,
+  removeEditThirdChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.removeEditThirdChoice,
+  removeEditFourthChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.removeEditFourthChoice,
+  removeEditIsCorrectAnswer: _actions_word__WEBPACK_IMPORTED_MODULE_2__.removeEditIsCorrectAnswer,
+  editWordChoiceData: _actions_word__WEBPACK_IMPORTED_MODULE_2__.editWordChoiceData,
+  updateWordChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.updateWordChoice,
+  deleteWordChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.deleteWordChoice,
+  setWordContentData: _actions_word__WEBPACK_IMPORTED_MODULE_2__.setWordContentData,
+  validateWord: _actions_word__WEBPACK_IMPORTED_MODULE_2__.validateWord,
+  validateFirst: _actions_word__WEBPACK_IMPORTED_MODULE_2__.validateFirst,
+  validateSecond: _actions_word__WEBPACK_IMPORTED_MODULE_2__.validateSecond,
+  validateThird: _actions_word__WEBPACK_IMPORTED_MODULE_2__.validateThird,
+  validateFourth: _actions_word__WEBPACK_IMPORTED_MODULE_2__.validateFourth,
+  createNewWordChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.createNewWordChoice,
+  freshWordChoice: _actions_word__WEBPACK_IMPORTED_MODULE_2__.freshWordChoice
+})(Words)));
 
 /***/ }),
 
@@ -36722,16 +38126,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Dialog/Dialog.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/DialogTitle/DialogTitle.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Divider/Divider.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/DialogContent/DialogContent.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/DialogActions/DialogActions.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Dialog/Dialog.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/DialogTitle/DialogTitle.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Divider/Divider.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/DialogContent/DialogContent.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/DialogActions/DialogActions.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
-/* harmony import */ var _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/category/categoryActions */ "./resources/js/actions/category/categoryActions.js");
+/* harmony import */ var _actions_category__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/category */ "./resources/js/actions/category/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -36799,6 +38203,15 @@ var CategoryDialog = function CategoryDialog(props) {
     props.deleteCategory(props.token, formData.get("idd")); // Close dialog after submit and re-initialize the type
 
     onClose();
+  }; // This delete function is for the WordContent word list delete
+
+
+  var handleDeleteWordChoice = function handleDeleteWordChoice(e, id) {
+    e.preventDefault(); // Close dialog after clicking delete and re-initialize the type
+
+    onClose(); // Pass the id to Category Admin parent component
+
+    props.handleDeleteWordChoice(id);
   };
 
   var onClose = function onClose() {
@@ -36810,8 +38223,25 @@ var CategoryDialog = function CategoryDialog(props) {
     props.freshStateCategory();
   };
 
+  var CancelButton = function CancelButton() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      sx: {
+        mr: 2,
+        mt: 1,
+        mb: 1
+      },
+      onClick: function onClick() {
+        // Close dialog
+        setOpen(false); // Set type to empty
+
+        props.setType("");
+      },
+      children: "Cancel"
+    });
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
       open: open,
       onClose: onClose,
       fullWidth: true,
@@ -36819,14 +38249,14 @@ var CategoryDialog = function CategoryDialog(props) {
         mt: -15
       },
       children: [props.type === "create" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
           children: "Create Category"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
           component: "form",
           noValidate: true,
           onSubmit: handleSubmit,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
               id: "name",
               margin: "dense",
               required: true,
@@ -36839,7 +38269,7 @@ var CategoryDialog = function CategoryDialog(props) {
               },
               helperText: props.categoryNameError === "" ? " " : props.categoryNameError,
               error: props.categoryNameError === "" ? false : true
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
               id: "text",
               margin: "dense",
               required: true,
@@ -36855,8 +38285,8 @@ var CategoryDialog = function CategoryDialog(props) {
               helperText: props.categoryDescriptionError === "" ? " " : props.categoryDescriptionError,
               error: props.categoryDescriptionError === "" ? false : true
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(CancelButton, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
               type: "submit",
               variant: "outlined",
               sx: {
@@ -36866,32 +38296,32 @@ var CategoryDialog = function CategoryDialog(props) {
               },
               disabled: props.isSubmitDisabled ? true : false,
               children: "Save"
-            })
+            })]
           })]
         })]
       }) : null, props.type === "edit" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
           children: "Edit Category"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
           component: "form",
           noValidate: true,
           onSubmit: handleEditSubmit,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
               id: "index_id",
               name: "index_id",
               defaultValue: props.dialogData.index,
               sx: {
                 display: "none"
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
               id: "idd",
               name: "idd",
-              defaultValue: props.dialogData.id,
+              defaultValue: props.dialogData.categoryId,
               sx: {
                 display: "none"
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
               id: "name",
               margin: "dense",
               required: true,
@@ -36905,7 +38335,7 @@ var CategoryDialog = function CategoryDialog(props) {
               helperText: props.categoryNameError === "" ? " " : props.categoryNameError,
               error: props.categoryNameError === "" ? false : true,
               defaultValue: props.dialogData.categoryName
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
               id: "text",
               margin: "dense",
               required: true,
@@ -36922,8 +38352,8 @@ var CategoryDialog = function CategoryDialog(props) {
               error: props.categoryDescriptionError === "" ? false : true,
               defaultValue: props.dialogData.categoryDescription
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(CancelButton, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
               type: "submit",
               variant: "outlined",
               sx: {
@@ -36932,24 +38362,24 @@ var CategoryDialog = function CategoryDialog(props) {
                 mb: 1
               },
               children: "Update"
-            })
+            })]
           })]
         })]
       }) : null, props.type === "delete" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
           children: "Delete Category"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
           component: "form",
           noValidate: true,
           onSubmit: handleDeleteSubmit,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
             id: "idd",
             name: "idd",
-            defaultValue: props.dialogData.id,
+            defaultValue: props.dialogData.categoryId,
             sx: {
               display: "none"
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
               children: ["Are you sure you want to delete", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                 style: {
@@ -36958,8 +38388,8 @@ var CategoryDialog = function CategoryDialog(props) {
                 children: props.dialogData.categoryName
               }), " ", "category ?"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(CancelButton, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
               type: "submit",
               variant: "outlined",
               color: "error",
@@ -36969,7 +38399,46 @@ var CategoryDialog = function CategoryDialog(props) {
                 mb: 1
               },
               children: "Delete"
+            })]
+          })]
+        })]
+      }) : null, props.type === "deleteWord" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: "Delete Word and Choices"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          component: "form",
+          noValidate: true,
+          onSubmit: function onSubmit(e) {
+            handleDeleteWordChoice(e, props.dialogData.wordId);
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            id: "idd",
+            name: "idd",
+            defaultValue: props.dialogData.wordId,
+            sx: {
+              display: "none"
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              children: ["Are you sure you want to delete", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                style: {
+                  fontWeight: "600"
+                },
+                children: props.dialogData.wordName
+              }), " ", "and it's choices ?"]
             })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(CancelButton, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              type: "submit",
+              variant: "outlined",
+              color: "error",
+              sx: {
+                mr: 2,
+                mt: 1,
+                mb: 1
+              },
+              children: "Delete"
+            })]
           })]
         })]
       }) : null]
@@ -36994,13 +38463,13 @@ var mapToStateProps = function mapToStateProps(state, ownProps) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapToStateProps, {
-  addCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.addCategory,
-  editCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.editCategory,
-  deleteCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.deleteCategory,
-  validateName: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.validateName,
-  validateDescription: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.validateDescription,
-  disableSubmit: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.disableSubmit,
-  freshStateCategory: _actions_category_categoryActions__WEBPACK_IMPORTED_MODULE_2__.freshStateCategory
+  addCategory: _actions_category__WEBPACK_IMPORTED_MODULE_2__.addCategory,
+  editCategory: _actions_category__WEBPACK_IMPORTED_MODULE_2__.editCategory,
+  deleteCategory: _actions_category__WEBPACK_IMPORTED_MODULE_2__.deleteCategory,
+  validateName: _actions_category__WEBPACK_IMPORTED_MODULE_2__.validateName,
+  validateDescription: _actions_category__WEBPACK_IMPORTED_MODULE_2__.validateDescription,
+  disableSubmit: _actions_category__WEBPACK_IMPORTED_MODULE_2__.disableSubmit,
+  freshStateCategory: _actions_category__WEBPACK_IMPORTED_MODULE_2__.freshStateCategory
 })(CategoryDialog));
 
 /***/ }),
@@ -37144,8 +38613,9 @@ var Header = function Header(props) {
   var menuSettings = ["Profile", "Dashboard", "Sign Out"]; // Style for active link buttons
 
   var activeBtnStyle = {
-    color: "#00587B",
-    fontWeight: "600"
+    color: "white",
+    fontWeight: "900",
+    fontSize: "15px"
   }; // Style for inactive link buttons
 
   var inActiveBtnStyle = {
@@ -37163,7 +38633,7 @@ var Header = function Header(props) {
             If admin then navigate to category otherwise dashboard.
         */
 
-    if (props.userAuth.is_admin === "0") {
+    if (props.userAuth.is_admin === 0) {
       navigate("/dashboard");
     } else {
       navigate("/categories");
@@ -37213,19 +38683,21 @@ var Header = function Header(props) {
           spacing: 12,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
             item: true,
-            xs: 1,
+            lg: 4,
+            xs: 2,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               href: "",
               onClick: navigateToHome,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 sx: {
-                  width: "100px",
-                  height: "100px",
-                  mt: 0,
-                  mb: -3,
-                  ml: 1
+                  width: "150px",
+                  height: "150px",
+                  mt: -5,
+                  mb: -5,
+                  ml: 1,
+                  p: 0
                 },
-                src: "images/e-learning.png"
+                src: "images/e-learning-2.png"
               })
             })
           })
@@ -37250,18 +38722,6 @@ var Header = function Header(props) {
                 textDecoration: "none"
               }, URI === "/categories" ? activeBtnStyle : inActiveBtnStyle),
               children: "Categories"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
-              variant: "button",
-              href: "",
-              onClick: function onClick(e) {
-                navigateToWord(e);
-              },
-              sx: _objectSpread({
-                my: 1,
-                mx: 1.5,
-                textDecoration: "none"
-              }, URI === "/words" ? activeBtnStyle : inActiveBtnStyle),
-              children: "Words"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               variant: "button",
               href: "",
@@ -37353,21 +38813,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_cookie__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-cookie */ "./node_modules/react-cookie/es6/withCookies.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Container/Container.js");
+/* harmony import */ var react_cookie__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-cookie */ "./node_modules/react-cookie/es6/withCookies.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Container/Container.js");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../config */ "./resources/js/config.js");
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header */ "./resources/js/components/layouts/Header.js");
 /* harmony import */ var _contents_Dashboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../contents/Dashboard */ "./resources/js/components/contents/Dashboard.js");
 /* harmony import */ var _contents_Category__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../contents/Category */ "./resources/js/components/contents/Category.js");
 /* harmony import */ var _contents_admin_CategoryAdmin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../contents/admin/CategoryAdmin */ "./resources/js/components/contents/admin/CategoryAdmin.js");
-/* harmony import */ var _contents_Word__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../contents/Word */ "./resources/js/components/contents/Word.js");
-/* harmony import */ var _contents_User__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../contents/User */ "./resources/js/components/contents/User.js");
-/* harmony import */ var _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/authentication/userAuthActions */ "./resources/js/actions/authentication/userAuthActions.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
+/* harmony import */ var _contents_User__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../contents/User */ "./resources/js/components/contents/User.js");
+/* harmony import */ var _actions_auth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/auth */ "./resources/js/actions/auth/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -37405,34 +38863,37 @@ var MainContent = function MainContent(props) {
     props.signOut(props.userAuth.id); // Remove the userAuth ( userAuth is the user authenticated details ) data
 
     props.cookies.remove("userAuth");
+    /*
+      Remove the wordContent data ( wordContent is when the user clicks on the add word 
+      in the categories, the word component will be opened. )
+    */
+
+    props.cookies.remove("wordContent");
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: props.userAuth.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: props.userAuth.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
         handleSignOut: handleSignOut
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("main", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("main", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
           sx: {
             bgcolor: "Background.paper",
             pt: 8,
             pb: 6
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
             maxWidth: "lg",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Routes, {
-              children: [props.userAuth.is_admin === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Routes, {
+              children: [props.userAuth.is_admin === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Route, {
                 path: "/dashboard",
-                element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_contents_Dashboard__WEBPACK_IMPORTED_MODULE_4__["default"], {})
-              }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
-                path: "/categories",
-                element: props.userAuth.is_admin === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_contents_admin_CategoryAdmin__WEBPACK_IMPORTED_MODULE_6__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_contents_Category__WEBPACK_IMPORTED_MODULE_5__["default"], {})
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
-                path: "/words",
-                element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_contents_Word__WEBPACK_IMPORTED_MODULE_7__["default"], {})
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+                element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_contents_Dashboard__WEBPACK_IMPORTED_MODULE_4__["default"], {})
+              }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Route, {
+                path: "/categories/*",
+                element: props.userAuth.is_admin === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_contents_admin_CategoryAdmin__WEBPACK_IMPORTED_MODULE_6__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_contents_Category__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Route, {
                 path: "/users",
-                element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_contents_User__WEBPACK_IMPORTED_MODULE_8__["default"], {})
+                element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_contents_User__WEBPACK_IMPORTED_MODULE_7__["default"], {})
               })]
             })
           })
@@ -37449,10 +38910,10 @@ var mapToStateProps = function mapToStateProps(state, ownProps) {
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_14__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapToStateProps, {
-  signOut: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.signOut,
-  setUserAuthDetails: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.setUserAuthDetails,
-  freshState: _actions_authentication_userAuthActions__WEBPACK_IMPORTED_MODULE_9__.freshState
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_cookie__WEBPACK_IMPORTED_MODULE_13__["default"])((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapToStateProps, {
+  signOut: _actions_auth__WEBPACK_IMPORTED_MODULE_8__.signOut,
+  setUserAuthDetails: _actions_auth__WEBPACK_IMPORTED_MODULE_8__.setUserAuthDetails,
+  freshState: _actions_auth__WEBPACK_IMPORTED_MODULE_8__.freshState
 })(MainContent)));
 
 /***/ }),
@@ -37475,10 +38936,10 @@ var API_BASE_URL = "http://127.0.0.1:8000/api/v1";
 
 /***/ }),
 
-/***/ "./resources/js/reducers/categoryReducer.js":
-/*!**************************************************!*\
-  !*** ./resources/js/reducers/categoryReducer.js ***!
-  \**************************************************/
+/***/ "./resources/js/reducers/auth/index.js":
+/*!*********************************************!*\
+  !*** ./resources/js/reducers/auth/index.js ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -37486,7 +38947,159 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _actions_category_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/category/types */ "./resources/js/actions/category/types.js");
+/* harmony import */ var _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/auth/types */ "./resources/js/actions/auth/types.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  userAuth: [],
+  emailError: "",
+  emailErrorSignUp: "",
+  password: "",
+  passwordSignIn: "",
+  passwordError: "",
+  confirmPass: "",
+  confirmPassError: "",
+  fnameError: "",
+  lnameError: "",
+  requestError: "",
+  requestErrorMessage: "",
+  isValidEmail: false,
+  isValidPassword: false,
+  isValidConfirmPass: false,
+  isValidFname: false,
+  isValidLname: false,
+  isShownPass: false,
+  isShownConfirmPass: false,
+  isSubmitDisabled: true,
+  isLoggedOut: false
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_IN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_UP:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_OUT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage,
+
+        /*
+          When successfully signed out, the request response will return "error false".
+          We need to re-initialize the userAuth object ( userAuth has data if user is
+          successfully signed in ) to empty array so that it will trigger a redirection
+          to sign in page.
+        */
+        userAuth: [],
+        isLoggedOut: true
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_EMAIL:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        emailError: action.emailError,
+        isValidEmail: action.isValidEmail
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_PASSWORD:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        password: action.password,
+        passwordError: action.passwordError,
+        isValidPassword: action.isValidPassword
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_FNAME:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        fnameError: action.fnameError,
+        isValidFname: action.isValidFname
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_CONFIRMPASS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        confirmPass: action.confirmPass,
+        confirmPassError: action.confirmPassError,
+        isValidConfirmPass: action.isValidConfirmPass
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_LNAME:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        lnameError: action.lnameError,
+        isValidLname: action.isValidLname
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.SHOW_PASSWORD:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isShownPass: action.isShownPass
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.SHOW_CONFIRMPASSWORD:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isShownConfirmPass: action.isShownConfirmPass
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.FRESH_STATE:
+      /*
+        On navigating to Sign In or Sign Up, when you input in the email or
+        password field, the values will be the same when you go to the Sign
+        Up page.There were problems in re-initializing the state into initial state.
+        So this is a fix to force the states to be re-initialize.
+      */
+      return _objectSpread(_objectSpread({}, state), {}, {
+        emailError: "",
+        password: "",
+        passwordError: "",
+        confirmPass: "",
+        confirmPassError: "",
+        isShownPass: false,
+        isShownConfirmPass: false,
+        requestError: "",
+        requestErrorMessage: ""
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.TOGGLE_SUBMITBTN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isSubmitDisabled: action.isSubmitDisabled
+      });
+
+    case _actions_auth_types__WEBPACK_IMPORTED_MODULE_0__.USER_AUTH_DETAILS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        userAuth: action.userAuth
+      });
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/reducers/category/index.js":
+/*!*************************************************!*\
+  !*** ./resources/js/reducers/category/index.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_category_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/category/types */ "./resources/js/actions/category/types.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -37504,6 +39117,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 var initialState = {
@@ -37544,9 +39158,9 @@ var initialState = {
         // In categories go to the child object data
         categories: {
           /*
-                        The data is an array of objects, so we have to use Object.entries
-                        to use the key for conditions and also get value of objects
-                    */
+            The data is an array of objects, so we have to use Object.entries
+            to use the key for conditions and also get value of objects
+          */
           data: Object.entries(state.categories.data).map(function (_ref) {
             var _ref2 = _slicedToArray(_ref, 2),
                 key = _ref2[0],
@@ -37554,10 +39168,10 @@ var initialState = {
 
             return (
               /*
-                                  Check first if the key the same as what the current index id being
-                                  edited. If it is true then iterate a new object array value
-                                  to the specific array object key.
-                              */
+                Check first if the key the same as what the current index id being
+                edited. If it is true then iterate a new object array value
+                of the specific array object key.
+              */
               key === action.indexId ? _objectSpread(_objectSpread({}, category), {}, {
                 name: action.newName,
                 description: action.newDescription
@@ -37620,23 +39234,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _userAuthReducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./userAuthReducer */ "./resources/js/reducers/userAuthReducer.js");
-/* harmony import */ var _categoryReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./categoryReducer */ "./resources/js/reducers/categoryReducer.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth */ "./resources/js/reducers/auth/index.js");
+/* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./category */ "./resources/js/reducers/category/index.js");
+/* harmony import */ var _word__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word */ "./resources/js/reducers/word/index.js");
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
-  auth: _userAuthReducer__WEBPACK_IMPORTED_MODULE_0__["default"],
-  category: _categoryReducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
+  auth: _auth__WEBPACK_IMPORTED_MODULE_0__["default"],
+  category: _category__WEBPACK_IMPORTED_MODULE_1__["default"],
+  word: _word__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
 
 /***/ }),
 
-/***/ "./resources/js/reducers/userAuthReducer.js":
-/*!**************************************************!*\
-  !*** ./resources/js/reducers/userAuthReducer.js ***!
-  \**************************************************/
+/***/ "./resources/js/reducers/word/index.js":
+/*!*********************************************!*\
+  !*** ./resources/js/reducers/word/index.js ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -37644,7 +39261,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/authentication/types */ "./resources/js/actions/authentication/types.js");
+/* harmony import */ var _actions_word_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/word/types */ "./resources/js/actions/word/types.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -37652,130 +39269,179 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-var initialState = {
-  userAuth: [],
-  emailError: "",
-  emailErrorSignUp: "",
-  password: "",
-  passwordSignIn: "",
-  passwordError: "",
-  confirmPass: "",
-  confirmPassError: "",
-  fnameError: "",
-  lnameError: "",
+var intializeState = {
+  wordsChoices: [],
   requestError: "",
   requestErrorMessage: "",
-  isValidEmail: false,
-  isValidPassword: false,
-  isValidConfirmPass: false,
-  isValidFname: false,
-  isValidLname: false,
-  isShownPass: false,
-  isShownConfirmPass: false,
-  isSubmitDisabled: true,
-  isLoggedOut: false
+  editData: [],
+  editDataWord: [],
+  editDataFirstChoice: "",
+  editDataSecondChoice: "",
+  editDataThirdChoice: "",
+  editDataFourthChoice: "",
+  editDataIsCorrectAnswer: "",
+  word: "",
+  firstChoice: "",
+  secondChoice: "",
+  thirdChoice: "",
+  fourthChoice: "",
+  wordError: "",
+  firstChoiceError: "",
+  secondChoiceError: "",
+  thirdChoiceError: "",
+  fourthChoiceError: "",
+  isValidWord: false,
+  isValidFirstChoice: false,
+  isValidSecondChoice: false,
+  isValidThirdChoice: false,
+  isValidFourthChoice: false,
+  wordContentData: null,
+  // When WordContent first loads, the normal submit would be store
+  submitType: "store"
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : intializeState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_IN:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.FETCH_WORD_CHOICE:
       return _objectSpread(_objectSpread({}, state), {}, {
-        requestError: action.requestError,
-        requestErrorMessage: action.requestErrorMessage
+        wordsChoices: action.wordsChoices
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_UP:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.CHANGE_SUBMIT_TYPE:
       return _objectSpread(_objectSpread({}, state), {}, {
-        requestError: action.requestError,
-        requestErrorMessage: action.requestErrorMessage
+        submitType: action.submitType
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SIGN_OUT:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.ADD_WORD_CHOICE:
       return _objectSpread(_objectSpread({}, state), {}, {
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage,
-
-        /*
-                    When successfully signed out, the request response will return "error false".
-                    We need to re-initialize the userAuth object ( userAuth has data if user is
-                    successfully signed in ) to empty array so that it will trigger a redirection
-                    to sign in page.
-                */
-        userAuth: [],
-        isLoggedOut: true
+        wordError: action.wordError,
+        // If no error, then clear field values
+        word: action.wordError === "" ? "" : state.word,
+        firstChoice: action.wordError === "" ? "" : state.firstChoice,
+        secondChoice: action.wordError === "" ? "" : state.secondChoice,
+        thirdChoice: action.wordError === "" ? "" : state.thirdChoice,
+        fourthChoice: action.wordError === "" ? "" : state.fourthChoice
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_EMAIL:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.EDIT_WORD_CHOICE_DATA:
       return _objectSpread(_objectSpread({}, state), {}, {
-        emailError: action.emailError,
-        isValidEmail: action.isValidEmail
+        editData: action.editData,
+        editDataWord: action.editDataWord,
+        editDataFirstChoice: action.editDataFirstChoice,
+        editDataSecondChoice: action.editDataSecondChoice,
+        editDataThirdChoice: action.editDataThirdChoice,
+        editDataFourthChoice: action.editDataFourthChoice,
+        editDataIsCorrectAnswer: action.editDataIsCorrectAnswer,
+        // Remove the field errors
+        wordError: "",
+        firstChoiceError: "",
+        secondChoiceError: "",
+        thirdChoiceError: "",
+        fourthChoiceError: ""
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_PASSWORD:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.REMOVE_EDIT_WORD:
       return _objectSpread(_objectSpread({}, state), {}, {
-        password: action.password,
-        passwordError: action.passwordError,
-        isValidPassword: action.isValidPassword
+        editDataWord: []
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_FNAME:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.REMOVE_EDIT_FIRST_CHOICE:
       return _objectSpread(_objectSpread({}, state), {}, {
-        fnameError: action.fnameError,
-        isValidFname: action.isValidFname
+        editDataFirstChoice: ""
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_CONFIRMPASS:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.REMOVE_EDIT_SECOND_CHOICE:
       return _objectSpread(_objectSpread({}, state), {}, {
-        confirmPass: action.confirmPass,
-        confirmPassError: action.confirmPassError,
-        isValidConfirmPass: action.isValidConfirmPass
+        editDataSecondChoice: ""
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_LNAME:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.REMOVE_EDIT_THIRD_CHOICE:
       return _objectSpread(_objectSpread({}, state), {}, {
-        lnameError: action.lnameError,
-        isValidLname: action.isValidLname
+        editDataThirdChoice: ""
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SHOW_PASSWORD:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.REMOVE_EDIT_FOURTH_CHOICE:
       return _objectSpread(_objectSpread({}, state), {}, {
-        isShownPass: action.isShownPass
+        editDataFourthChoice: ""
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.SHOW_CONFIRMPASSWORD:
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.REMOVE_EDIT_IS_CORRECT_ANSWER:
       return _objectSpread(_objectSpread({}, state), {}, {
-        isShownConfirmPass: action.isShownConfirmPass
+        editDataIsCorrectAnswer: ""
       });
 
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.FRESH_STATE:
-      /*
-                On navigating to Sign In or Sign Up, when you input in the email or
-                password field, the values will be the same when you go to the Sign
-                Up page.There were problems in re-initializing the state into initial state.
-                So this is a fix to force the states to be re-initialize.
-            */
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.UPDATE_WORD_CHOICE:
       return _objectSpread(_objectSpread({}, state), {}, {
-        emailError: "",
-        password: "",
-        passwordError: "",
-        confirmPass: "",
-        confirmPassError: "",
-        isShownPass: false,
-        isShownConfirmPass: false,
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage,
+        wordError: action.wordError
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.DELETE_WORD_CHOICE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.SET_WORD_CONTENT_DATA:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        wordContentData: action.wordContentData
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_WORD:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        word: action.word,
+        isValidWord: action.isValidWord,
+        wordError: action.wordError
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_FIRST_CHOICE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        firstChoice: action.firstChoice,
+        isValidFirstChoice: action.isValidFirstChoice,
+        firstChoiceError: action.firstChoiceError
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_SECOND_CHOICE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        secondChoice: action.secondChoice,
+        isValidSecondChoice: action.isValidSecondChoice,
+        secondChoiceError: action.secondChoiceError
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_THIRD_CHOICE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        thirdChoice: action.thirdChoice,
+        isValidThirdChoice: action.isValidThirdChoice,
+        thirdChoiceError: action.thirdChoiceError
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.VALIDATE_FOURTH_CHOICE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        fourthChoice: action.fourthChoice,
+        isValidFourthChoice: action.isValidFourthChoice,
+        fourthChoiceError: action.fourthChoiceError
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.CREATE_NEW_WORD_CHOICE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        editDataWord: "",
+        editDataFirstChoice: "",
+        editDataSecondChoice: "",
+        editDataThirdChoice: "",
+        editDataFourthChoice: "",
+        // Re-initialize to select the first value
+        editDataIsCorrectAnswer: 0
+      });
+
+    case _actions_word_types__WEBPACK_IMPORTED_MODULE_0__.FRESH_WORD_CHOICE:
+      return _objectSpread(_objectSpread({}, state), {}, {
         requestError: "",
         requestErrorMessage: ""
-      });
-
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.TOGGLE_SUBMITBTN:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        isSubmitDisabled: action.isSubmitDisabled
-      });
-
-    case _actions_authentication_types__WEBPACK_IMPORTED_MODULE_0__.USER_AUTH_DETAILS:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        userAuth: action.userAuth
       });
 
     default:
@@ -39761,6 +41427,58 @@ __webpack_require__.r(__webpack_exports__);
 var CookiesContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(new _Cookies__WEBPACK_IMPORTED_MODULE_1__["default"]());
 var Provider = CookiesContext.Provider, Consumer = CookiesContext.Consumer;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CookiesContext);
+
+
+/***/ }),
+
+/***/ "./node_modules/react-cookie/es6/CookiesProvider.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-cookie/es6/CookiesProvider.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var universal_cookie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! universal-cookie */ "./node_modules/universal-cookie/es6/index.js");
+/* harmony import */ var _CookiesContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CookiesContext */ "./node_modules/react-cookie/es6/CookiesContext.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var CookiesProvider = /** @class */ (function (_super) {
+    __extends(CookiesProvider, _super);
+    function CookiesProvider(props) {
+        var _this = _super.call(this, props) || this;
+        if (props.cookies) {
+            _this.cookies = props.cookies;
+        }
+        else {
+            _this.cookies = new universal_cookie__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        }
+        return _this;
+    }
+    CookiesProvider.prototype.render = function () {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CookiesContext__WEBPACK_IMPORTED_MODULE_2__.Provider, { value: this.cookies }, this.props.children);
+    };
+    return CookiesProvider;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CookiesProvider);
 
 
 /***/ }),
@@ -74304,6 +76022,39 @@ if (false) {} else {
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-jsx-runtime.development.js */ "./node_modules/react/cjs/react-jsx-runtime.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/redux-devtools-extension/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/redux-devtools-extension/index.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var compose = (__webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js").compose);
+
+exports.__esModule = true;
+exports.composeWithDevTools =
+  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : function () {
+        if (arguments.length === 0) return undefined;
+        if (typeof arguments[0] === 'object') return compose;
+        return compose.apply(null, arguments);
+      };
+
+exports.devToolsEnhancer =
+  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__
+    : function () {
+        return function (noop) {
+          return noop;
+        };
+      };
 
 
 /***/ }),

@@ -27,7 +27,7 @@ import {
   showPassword,
   showConfirmPass,
   disableSubmit,
-} from "../actions/authentication/userAuthActions";
+} from "../actions/auth";
 
 const SignUp = (props) => {
   const navigate = useNavigate();
@@ -99,19 +99,8 @@ const SignUp = (props) => {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
           Sign up
-        </Typography>
-        <Typography
-          component="h6"
-          variant="h6"
-          style={{
-            color: `${props.requestError ? "red" : "green"}`,
-            fontWeight: `${props.requestError ? "" : "bold"}`,
-          }}
-        >
-          {props.requestErrorMessage}
-          &nbsp;
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -238,11 +227,24 @@ const SignUp = (props) => {
               />
             </Grid>
           </Grid>
+          <Typography
+            component="h6"
+            variant="h6"
+            style={{
+              color: `${props.requestError ? "red" : "green"}`,
+              fontWeight: `${props.requestError ? "" : "bold"}`,
+              fontSize: "18px",
+              textAlign: "center",
+            }}
+          >
+            {props.requestErrorMessage}
+            &nbsp;
+          </Typography>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 1, mb: 2 }}
             disabled={props.isSubmitDisabled}
           >
             Sign Up

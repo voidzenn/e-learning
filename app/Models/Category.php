@@ -19,4 +19,14 @@ class Category extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function words() 
+    {
+        return $this->hasMany(Word::class);
+    }
+
+    public function choices()
+    {
+        return $this->hasManyThrough(Choice::class , Word::class);
+    }
 }
