@@ -15,7 +15,7 @@ import {
 
 import {
   addCategory,
-  editCategory,
+  updateCategory,
   deleteCategory,
   validateName,
   validateDescription,
@@ -58,7 +58,7 @@ const CategoryDialog = (props) => {
     // This is the textfield data
     const formData = new FormData(e.currentTarget);
 
-    props.editCategory(props.token, formData);
+    props.updateCategory(props.token, formData);
     // When the Dialog is close then re-initialize type as empty and close Dialog
     onClose();
   };
@@ -346,7 +346,7 @@ const mapToStateProps = (state, ownProps) => {
 
 export default connect(mapToStateProps, {
   addCategory,
-  editCategory,
+  updateCategory,
   deleteCategory,
   validateName,
   validateDescription,

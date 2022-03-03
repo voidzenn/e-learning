@@ -1,4 +1,3 @@
-import { Add } from "@mui/icons-material";
 import {
   FETCH_CATEGORIES,
   CAT_DIALOG_DATA,

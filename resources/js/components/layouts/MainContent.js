@@ -10,7 +10,7 @@ import Header from "./Header";
 import Dashboard from "../contents/Dashboard";
 import Category from "../contents/Category";
 import CategoryAdmin from "../contents/admin/CategoryAdmin";
-import User from "../contents/User";
+import UserList from "../contents/UserList";
 import {
   signOut,
   setUserAuthDetails,
@@ -46,7 +46,8 @@ const MainContent = (props) => {
       in the categories, the word component will be opened. )
     */
     props.cookies.remove("wordContent");
-    
+    // Remove the activePage data
+    props.cookies.remove("activePage");
   };
 
   return (
@@ -72,7 +73,7 @@ const MainContent = (props) => {
                       )
                     }
                   ></Route>
-                  <Route path="/users" element={<User />}></Route>
+                  <Route path="/user_lists" element={<UserList />}></Route>
                 </Routes>
               </Container>
             </Box>

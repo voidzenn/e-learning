@@ -17,11 +17,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::create([
-            "email" => "user@test.com",
-            "password" => Hash::make("test"),
-        ]);
-
-        \App\Models\User::create([
             "fname" => "Admin",
             "lname" => "Admin",
             "email" => "admin@admin.com",
@@ -29,8 +24,12 @@ class DatabaseSeeder extends Seeder
             "is_admin" => "1",
         ]);
 
+        \App\Models\User::factory()
+            ->count(15)
+            ->create();
+
         $categories = \App\Models\Category::factory()
-            ->count(5)
+            ->count(15)
             ->create();
 
         foreach ($categories as $category) {
