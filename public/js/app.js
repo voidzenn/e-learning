@@ -39043,16 +39043,15 @@ var Header = function Header(props) {
     var uriName = props.cookies.get("activePage");
 
     if (uriName !== undefined) {
-      if (uriName === "/dashboard") {
-        setURI(uriName);
-      }
+      switch (uriName) {
+        case "/dashboard":
+          setURI(uriName);
 
-      if (uriName === "/categories") {
-        setURI(uriName);
-      }
+        case "/categories":
+          setURI(uriName);
 
-      if (uriName === "/user_lists") {
-        setURI(uriName);
+        case "/user_lists":
+          setURI(uriName);
       }
     } else {
       // Go to home if uriName is unrecognized
