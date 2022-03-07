@@ -1,6 +1,7 @@
 import userApi from "../../apis/userApi";
 import {
   FETCH_CATEGORIES,
+  FETCH_ALL_CATEGORIES,
   CAT_DIALOG_DATA,
   ADD_CATEGORY,
   UPDATE_CATEGORY,
@@ -41,6 +42,35 @@ export const fetchCategories = (token, page) => async (dispatch) => {
 
   dispatch({
     type: FETCH_CATEGORIES,
+    categories: data.categories,
+    categoryError: data.categoryError,
+  });
+};
+/*
+  Fetch all categories
+*/
+export const fetchAllCategories = (token) => async (dispatch) => {
+  await userApi
+    .get('/categories/all', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      data = {
+        categories: response.data,
+        categoryError: false,
+      };
+    })
+    .catch(() => {
+      data = {
+        categories: [],
+        categoryError: true,
+      };
+    });
+
+  dispatch({
+    type: FETCH_ALL_CATEGORIES,
     categories: data.categories,
     categoryError: data.categoryError,
   });

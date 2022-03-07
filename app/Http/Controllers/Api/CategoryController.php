@@ -19,9 +19,19 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::paginate(10);
+        $categories = Category::paginate(10);
 
-        return response()->json($category);
+        return response()->json($categories);
+    }
+
+    /**
+     * Show all the categories without paginate function
+    */
+    public function showAll()
+    {
+        $categories = Category::all();
+
+        return response()->json($categories);
     }
 
     /**

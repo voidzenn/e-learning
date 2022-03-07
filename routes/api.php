@@ -29,6 +29,7 @@ Route::prefix('v1')->group(function () {
         // Category routes
         Route::prefix('categories')->group(function () {
             Route::get('/', [\App\Http\Controllers\Api\CategoryController::class, 'index']);
+            Route::get('/all', [\App\Http\Controllers\Api\CategoryController::class, 'showAll']);
             Route::post('/store', [\App\Http\Controllers\Api\CategoryController::class, 'store']);
             Route::put('/{category}/update', [\App\Http\Controllers\Api\CategoryController::class, 'update']);
             Route::delete('/{category}/delete', [\App\Http\Controllers\Api\CategoryController::class, 'destroy']);

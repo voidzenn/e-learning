@@ -1,5 +1,6 @@
 import {
   FETCH_CATEGORIES,
+  FETCH_ALL_CATEGORIES,
   CAT_DIALOG_DATA,
   ADD_CATEGORY,
   UPDATE_CATEGORY,
@@ -25,6 +26,12 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CATEGORIES:
+      return {
+        ...state,
+        categories: action.categories,
+        categoryError: action.categoryError,
+      };
+    case FETCH_ALL_CATEGORIES:
       return {
         ...state,
         categories: action.categories,

@@ -1,4 +1,5 @@
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
+export const FETCH_ALL_CATEGORIES = "FETCH_ALL_CATEGORIES";
 // Assign category dialog data with the item selected e.g. editing, deleting
 export const CAT_DIALOG_DATA = "CAT_DIALOG_DATA";
 export const ADD_CATEGORY = "ADD_CATEGORY";
