@@ -37103,7 +37103,7 @@ var SignUp = function SignUp(props) {
               InputLabelProps: {
                 required: false
               },
-              type: props.isShownPass === false ? "password" : "text",
+              type: !props.isShownPass ? "password" : "text",
               defaultValue: props.password,
               InputProps: {
                 endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -37136,7 +37136,7 @@ var SignUp = function SignUp(props) {
               InputLabelProps: {
                 required: false
               }
-            }, _defineProperty(_jsx4, "autoComplete", "off"), _defineProperty(_jsx4, "type", props.isShownConfirmPass === false ? "password" : "text"), _defineProperty(_jsx4, "defaultValue", props.confirmPass), _defineProperty(_jsx4, "InputProps", {
+            }, _defineProperty(_jsx4, "autoComplete", "off"), _defineProperty(_jsx4, "type", !props.isShownConfirmPass ? "password" : "text"), _defineProperty(_jsx4, "defaultValue", props.confirmPass), _defineProperty(_jsx4, "InputProps", {
               endAdornment: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
                 position: "end",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
