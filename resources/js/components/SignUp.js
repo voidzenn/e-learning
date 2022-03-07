@@ -170,7 +170,7 @@ const SignUp = (props) => {
                 id="password"
                 autoComplete="new-password"
                 InputLabelProps={{ required: false }}
-                type={props.isShownPass === false ? "password" : "text"}
+                type={!props.isShownPass ? "password" : "text"}
                 defaultValue={props.password}
                 InputProps={{
                   endAdornment: (
@@ -205,7 +205,7 @@ const SignUp = (props) => {
                 autoComplete="new-password"
                 InputLabelProps={{ required: false }}
                 autoComplete="off"
-                type={props.isShownConfirmPass === false ? "password" : "text"}
+                type={!props.isShownConfirmPass ? "password" : "text"}
                 defaultValue={props.confirmPass}
                 InputProps={{
                   endAdornment: (
