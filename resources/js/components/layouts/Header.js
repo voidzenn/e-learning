@@ -21,7 +21,7 @@ const Header = (props) => {
   const navigate = useNavigate();
   const [URI, setURI] = useState("");
   // Menu dropdown settings
-  const menuSettings = ["Profile", "Dashboard", "Sign Out"];
+  const menuSettings = ["Profile", "Sign Out"];
   // Style for active link buttons
   const activeBtnStyle = {
     color: "white",
@@ -91,6 +91,14 @@ const Header = (props) => {
     props.cookies.set("activePage", window.location.pathname, { path: "/" });
   };
 
+  const navigateToDashboard = (e) => {
+    e.preventDefault();
+    navigate("/dashboard");
+    // Set the activePage to stay on current page when the page reloads
+    props.cookies.set("activePage", window.location.pathname, { path: "/" });
+    setURI("/dashboard");
+  };
+
   const navigateToCategory = (e) => {
     e.preventDefault();
     navigate("/categories");
@@ -141,6 +149,29 @@ const Header = (props) => {
 
           <Grid item xs={10} alignContent="flex-end">
             <nav style={{ textAlign: "right", marginRight: "30px" }}>
+              {props.userAuth.is_admin === 0 ? (
+                <Link
+                  variant="button"
+                  href=""
+                  onClick={(e) => {
+                    navigateToDashboard(e);
+                  }}
+                  sx={{
+                    my: 1,
+                    mx: 1.5,
+                    textDecoration: "none",
+                    /*
+                  When you want to put some conditioning in MUI styles and you want
+                  to pass style objects, you will need to you use this format.
+                */
+                    ...(URI === "/dashboard"
+                      ? activeBtnStyle
+                      : inActiveBtnStyle),
+                  }}
+                >
+                  Dashboard
+                </Link>
+              ) : null}
               <Link
                 variant="button"
                 href=""
