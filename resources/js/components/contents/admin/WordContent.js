@@ -146,6 +146,8 @@ const Words = (props) => {
       // If else then use update function
       // Pass token, the previous edit data, and formData
       props.updateWordChoice(props.token, props.editData, formData);
+      // Re-intialize the request errror and message
+      props.freshWordChoice();
     }
   };
 

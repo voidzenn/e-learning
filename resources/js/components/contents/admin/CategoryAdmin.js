@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 
@@ -42,7 +41,7 @@ const CategoryAdmin = (props) => {
       the cookie is removed, the user can now go back to first page on 
       page reload.
     */
-    props.cookies.remove("currentCategoryPage");
+    props.cookies.remove("currentPage");
     // When fetching the categories data, we need to pass the token.
     props.fetchCategories(props.userAuth.token);
   }, []);
@@ -65,9 +64,9 @@ const CategoryAdmin = (props) => {
       categories.
     */
     if (props.requestErrorMessage !== "") {
-      const currentValue = props.cookies.get("currentCategoryPage");
+      const currentValue = props.cookies.get("currentPage");
       /*
-        Check in the cookies if currentCategoryPage is not empty
+        Check in the cookies if currentPage is not empty
         then pass it in the fetching of categories.
       */
       if (currentValue !== "") {
@@ -106,7 +105,7 @@ const CategoryAdmin = (props) => {
       page value , so the categories table would not go to the first page
       if editing or deleting a row.
     */
-    props.cookies.set("currentCategoryPage", value, { path: "/categories" });
+    props.cookies.set("currentPage", value, { path: "/" });
     props.fetchCategories(props.userAuth.token, value);
   };
   // Handles in making the Word component visible

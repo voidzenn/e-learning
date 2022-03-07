@@ -14,9 +14,9 @@ const Main = (props) => {
     const userAuth = props.cookies.get("userAuth");
 
     /*
-            Check first if userAuth data is not empty then store data in cookie for userAuth, so 
-            that the values can be retrieved on site refresh
-        */
+      Check first if userAuth data is not empty then store data in cookie for userAuth, so 
+      that the values can be retrieved on site refresh
+    */
     if (props.userAuth.length !== 0) {
       props.cookies.set("userAuth", props.userAuth, { path: "/" });
     }

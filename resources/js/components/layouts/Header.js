@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
+import { withCookies } from "react-cookie";
 
 import {
   AppBar,
@@ -34,46 +35,76 @@ const Header = (props) => {
 
   useEffect(() => {
     // This is to make the link styled as active on first load
-    setURI(window.location.pathname);
+    // Get the cookie activePage value
+    const uriName = props.cookies.get("activePage");
+    if (uriName !== undefined) {
+      switch (uriName) {
+        case "/dashboard":
+          setURI(uriName);
+          break;
+        case "/categories":
+          setURI(uriName);
+          break;
+        case "/user_lists":
+          setURI(uriName);
+          break;
+      }
+    } else {
+      // Go to home if uriName is unrecognized
+      if (props.userAuth.is_admin === 0) {
+        setURI("/dashboard");
+        // Set active page on first load
+        props.cookies.set("activePage", "/dashboard", {
+          path: "/",
+        });
+      } else {
+        setURI("/categories");
+        // Set active page on first load
+        props.cookies.set("activePage", "/categories", {
+          path: "/",
+        });
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    // Navigate based on the updated URI
+    if (URI !== "") {
+      navigate(URI);
+    }
+  }, [URI]);
 
   const navigateToHome = (e) => {
     e.preventDefault();
     /*
-            Admin has no dashboard that is why we need to check if admin.
-            If admin then navigate to category otherwise dashboard.
-        */
+      Admin has no dashboard that is why we need to check if admin.
+      If admin then navigate to category otherwise dashboard.
+    */
     if (props.userAuth.is_admin === 0) {
       navigate("/dashboard");
+      setURI("/dashboard");
     } else {
       navigate("/categories");
+      setURI("/categories");
     }
-
-    setURI(window.location.pathname);
+    // Set the activePage to stay on current page when the page reloads
+    props.cookies.set("activePage", window.location.pathname, { path: "/" });
   };
 
   const navigateToCategory = (e) => {
     e.preventDefault();
-
     navigate("/categories");
-
-    setURI(window.location.pathname);
-  };
-
-  const navigateToWord = (e) => {
-    e.preventDefault();
-
-    navigate("/words");
-
-    setURI(window.location.pathname);
+    // Set the activePage to stay on current page when the page reloads
+    props.cookies.set("activePage", window.location.pathname, { path: "/" });
+    setURI("/categories");
   };
 
   const navigateToUserList = (e) => {
     e.preventDefault();
-
-    navigate("/users");
-
-    setURI(window.location.pathname);
+    navigate("/user_lists");
+    // Set the activePage to stay on current page when the page reloads
+    props.cookies.set("activePage", window.location.pathname, { path: "/" });
+    setURI("/user_lists");
   };
 
   const [anchorUser, setAnchorUser] = useState(null);
@@ -121,9 +152,9 @@ const Header = (props) => {
                   mx: 1.5,
                   textDecoration: "none",
                   /*
-                                        When you want to put some conditioning in MUI styles and you want
-                                        to pass style objects, you will need to you use this format.
-                                    */
+                    When you want to put some conditioning in MUI styles and you want
+                    to pass style objects, you will need to you use this format.
+                  */
                   ...(URI === "/categories"
                     ? activeBtnStyle
                     : inActiveBtnStyle),
@@ -141,10 +172,12 @@ const Header = (props) => {
                   my: 1,
                   mx: 1.5,
                   textDecoration: "none",
-                  ...(URI === "/users" ? activeBtnStyle : inActiveBtnStyle),
+                  ...(URI === "/user_lists"
+                    ? activeBtnStyle
+                    : inActiveBtnStyle),
                 }}
               >
-                Users
+                Userlists
               </Link>
             </nav>
           </Grid>
@@ -195,7 +228,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userAuth: state.auth.userAuth,
     handleSignOut: ownProps.handleSignOut,
+    cookies: ownProps.cookies,
   };
 };
 
-export default connect(mapStateToProps)(Header);
+export default withCookies(connect(mapStateToProps)(Header));

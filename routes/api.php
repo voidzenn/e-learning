@@ -21,6 +21,11 @@ Route::prefix('v1')->group(function () {
     Route::post('{user}/sign-out', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
 
     Route::middleware('auth:sanctum')->group(function () {
+        // Userlist routes
+        Route::prefix('users')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Api\UserController::class, 'index']);
+            Route::put('/{user}/changeRole', [\App\Http\Controllers\Api\UserController::class, 'changeRole']);
+        });
         // Category routes
         Route::prefix('categories')->group(function () {
             Route::get('/', [\App\Http\Controllers\Api\CategoryController::class, 'index']);

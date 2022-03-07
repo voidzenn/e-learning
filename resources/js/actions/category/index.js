@@ -108,7 +108,7 @@ export const addCategory = (token, formData) => async (dispatch) => {
 /*
   Edit category
 */
-export const editCategory = (token, formData) => async (dispatch) => {
+export const updateCategory = (token, formData) => async (dispatch) => {
   const indexId = formData.get("index_id");
   const id = formData.get("idd");
   const name = formData.get("name");
