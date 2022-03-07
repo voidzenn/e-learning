@@ -41,10 +41,13 @@ const Header = (props) => {
       switch (uriName) {
         case "/dashboard":
           setURI(uriName);
+          break;
         case "/categories":
           setURI(uriName);
+          break;
         case "/user_lists":
           setURI(uriName);
+          break;
       }
     } else {
       // Go to home if uriName is unrecognized
