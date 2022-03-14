@@ -99,6 +99,7 @@ const UserList = (props) => {
           <Table stickyHeader aria-label="sticky table" sx={{ p: 5 }}>
             <TableHead style={{ backgroundColor: "orange" }}>
               <TableRow>
+                <TableCell sx={tableCellStyles}>#</TableCell>
                 <TableCell sx={tableCellStyles}>Name</TableCell>
                 <TableCell sx={tableCellStyles}>Email</TableCell>
                 <TableCell sx={tableCellStyles}>Avatar</TableCell>
@@ -109,6 +110,7 @@ const UserList = (props) => {
               {props.userData.length !== 0
                 ? Object.entries(props.userData.data).map(([key, user]) => (
                     <TableRow key={key}>
+                      <TableCell>{props.userData.from++}</TableCell>
                       <TableCell>
                         <span style={{ textTransform: "capitalize" }}>
                           {user.fname}

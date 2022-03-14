@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryStoreRequest;
+use App\Http\Resources\Category\CategoryAllCollection;
+use App\Http\Resources\Category\CategorySingleCollection;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -19,19 +21,32 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10);
+        $categories = Category::orderBy("created_at", "desc")->paginate(10);
 
         return response()->json($categories);
     }
 
     /**
-     * Show all the categories without paginate function
-    */
+     * Get categories based on id
+     */
+    public function show($id)
+    {
+        $category = Category::where("id", "=", $id)
+            ->with("words.choices")
+            ->get();
+        return response()->json(new CategorySingleCollection($category));
+    }
+
+    /**
+     * Show all the categories without paginate function.
+     */
     public function showAll()
     {
-        $categories = Category::all();
-
-        return response()->json($categories);
+        return new CategoryAllCollection(
+            Category::orderBy("created_at", "desc")
+                ->with("words.choices")
+                ->get()
+        );
     }
 
     /**

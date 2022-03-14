@@ -2,6 +2,7 @@ import userApi from "../../apis/userApi";
 import {
   FETCH_CATEGORIES,
   FETCH_ALL_CATEGORIES,
+  FETCH_SINGLE_CATEGORY,
   CAT_DIALOG_DATA,
   ADD_CATEGORY,
   UPDATE_CATEGORY,
@@ -46,19 +47,58 @@ export const fetchCategories = (token, page) => async (dispatch) => {
     categoryError: data.categoryError,
   });
 };
+/**
+ * Get one category and it's word and choices data
+ */
+export const fetchSingleCategory = (token, id) => async (dispatch) => {
+  if (token !== "" && id !== "") {
+    await userApi(`/categories/${id}/show`, {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        data = {
+          requestError: false,
+          requestErrorMessage: "Successfully queried category",
+          category: response.data,
+        };
+      })
+      .catch(() => {
+        data = {
+          requestError: true,
+          requestErrorMessage: "Successfully queried category",
+          category: [],
+        };
+      });
+  } else {
+    data = {
+      requestError: true,
+      requestErrorMessage: "Unauthorized Action",
+      category: [],
+    };
+  }
+  dispatch({
+    type: FETCH_SINGLE_CATEGORY,
+    requestError: data.requestError,
+    requestErrorMessage: data.requestErrorMessage,
+    category: data.category,
+  });
+};
 /*
   Fetch all categories
 */
 export const fetchAllCategories = (token) => async (dispatch) => {
   await userApi
-    .get('/categories/all', {
+    .get("/categories/all", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
     .then((response) => {
       data = {
-        categories: response.data,
+        categories: response.data.data,
         categoryError: false,
       };
     })
@@ -239,34 +279,56 @@ export const deleteCategory = (token, id) => async (dispatch) => {
 */
 export const validateName = (name) => (dispatch) => {
   if (name !== "") {
-    dispatch({
-      type: VAILDATE_CAT_NAME,
-      categoryNameError: "",
-      isValidCatName: true,
-    });
+    if (name.length <= 100) {
+      data = {
+        categoryNameError: "",
+        isValidCatName: true,
+      };
+    } else {
+      data = {
+        categoryNameError: "Maximum of 100 characters only",
+        isValidCatName: false,
+      };
+    }
   } else {
-    dispatch({
-      type: VAILDATE_CAT_NAME,
+    data = {
       categoryNameError: "This field should not be empty",
-    });
+      isValidCatName: false,
+    };
   }
+  dispatch({
+    type: VAILDATE_CAT_NAME,
+    categoryNameError: data.categoryNameError,
+    isValidCatName: data.isValidCatName,
+  });
 };
 /*
   Validate category description
 */
 export const validateDescription = (description) => (dispatch) => {
   if (description !== "") {
-    dispatch({
-      type: VALIDATE_CAT_DESCRIPTION,
-      categoryDescriptionError: "",
-      isValidCatDescription: true,
-    });
+    if (description.length <= 200) {
+      data = {
+        categoryDescriptionError: "",
+        isValidCatDescription: true,
+      };
+    } else {
+      data = {
+        categoryDescriptionError: "Maximum of 200 characters only",
+        isValidCatDescription: false,
+      };
+    }
   } else {
-    dispatch({
-      type: VALIDATE_CAT_DESCRIPTION,
+    data = {
       categoryDescriptionError: "This field should not be empty",
-    });
+      isValidCatDescription: false,
+    };
   }
+  dispatch({
+    type: VALIDATE_CAT_DESCRIPTION,
+    categoryDescriptionError: data.categoryDescriptionError,
+    isValidCatDescription: data.isValidCatDescription,
+  });
 };
 
 export const disableSubmit = (isDisabled) => (dispatch) => {

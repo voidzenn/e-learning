@@ -23,6 +23,7 @@ import {
   fetchCategories,
   freshStateCategory,
 } from "../../../actions/category";
+import { freshWordChoice } from "../../../actions/word";
 import AlertContent from "../subcontents/AlertContent";
 import CategoryAdminDialog from "../subcontents/CategoryAdminDialog";
 import Pagination from "../subcontents/Pagination";
@@ -34,6 +35,7 @@ const CategoryAdmin = (props) => {
   const [openWord, setOpenWord] = useState(false);
   // Set the id of WordContent to be delete
   const [wordId, setWordId] = useState(null);
+  const [title, setTitle] = useState("Categories");
 
   useEffect(() => {
     /* 
@@ -127,41 +129,73 @@ const CategoryAdmin = (props) => {
   const handleDeleteWordChoice = (id) => {
     setWordId(id);
   };
+  // Handle the go back button
+  const handleBackNavigation = () => {
+    // Change title to default Categories
+    setTitle("Categories");
+    // Remove the wordContent cookie on close
+    props.cookies.remove("wordContent");
+    // Cloce this Word component
+    setOpenWord(false);
+    // We need to re-initialize word content page before going back
+    props.freshWordChoice();
+  };
 
   return (
     <React.Fragment>
       <Container>
+        {props.requestErrorMessage !== "" ? (
+          <AlertContent
+            isError={props.requestError}
+            message={props.requestErrorMessage}
+          />
+        ) : null}
         <CategoryAdminDialog
           type={type}
           setType={setType}
           handleDeleteWordChoice={handleDeleteWordChoice}
         ></CategoryAdminDialog>
-        <Grid container>
-          <Grid item xs={6}>
-            <Typography component="h5" variant="h5" sx={{ mb: 5 }}>
-              Categories
+        <Grid container sx={{ mb: 5 }}>
+          <Grid item lg={4} md={4} sm={6} xs={6}>
+            <Typography
+              component="h5"
+              variant="h5"
+              sx={{ textTransform: "capitalize" }}
+            >
+              {title}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            {props.requestErrorMessage !== "" ? (
-              <AlertContent
-                isError={props.requestError}
-                message={props.requestErrorMessage}
-              />
+          <Grid
+            item
+            lg={8}
+            md={8}
+            sm={6}
+            xs={12}
+            justifyContent="flex-end"
+            textAlign="right"
+          >
+            {openWord ? (
+              <Button
+                size="small"
+                sx={{ fontSize: "16px", right: 3 }}
+                onClick={handleBackNavigation}
+              >
+                Go Back
+              </Button>
             ) : null}
           </Grid>
         </Grid>
       </Container>
       {openWord ? (
         <WordContent
-          setOpenWord={setOpenWord}
           handleDialog={handleDialog}
           wordId={wordId}
           setWordId={setWordId}
+          setTitle={setTitle}
         />
       ) : null}
 
-      {openWord === false ? (
+      {!openWord ? (
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <Button
             variant="outlined"
@@ -176,6 +210,7 @@ const CategoryAdmin = (props) => {
             <Table stickyHeader aria-label="sticky table" sx={{ p: 5 }}>
               <TableHead style={{ backgroundColor: "orange" }}>
                 <TableRow>
+                  <TableCell sx={tableCellStyles}>#</TableCell>
                   <TableCell sx={tableCellStyles}>Title</TableCell>
                   <TableCell sx={tableCellStyles}>Description</TableCell>
                   <TableCell sx={tableCellStyles}>Action</TableCell>
@@ -197,7 +232,10 @@ const CategoryAdmin = (props) => {
                                   }
                             }
                           >
-                            <TableCell>{category.name}</TableCell>
+                            <TableCell>{props.categories.from++}</TableCell>
+                            <TableCell sx={{ textTransform: "capitalize" }}>
+                              {category.name}
+                            </TableCell>
                             <TableCell>{category.description}</TableCell>
                             <TableCell sx={{ width: "20%" }}>
                               <Grid
@@ -324,5 +362,6 @@ export default withCookies(
     fetchCategories,
     addCatDialogData,
     freshStateCategory,
+    freshWordChoice,
   })(CategoryAdmin)
 );

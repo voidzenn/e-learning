@@ -26,9 +26,9 @@ class WordStoreRequest extends FormRequest
         return [
             'category_id' => ['required'],
             // Name should be unique
-            'name' => ['required', 'unique:words'],
+            'name' => ['required', 'unique:words', 'max:30'],
             // Choices are in array and we still need to still add a max characters
-            'choices' => ['required', 'max:130'],
+            'choices' => ['required', 'max:120'],
             'correct_answer' => ['required'],
         ];
     }

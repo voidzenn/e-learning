@@ -187,6 +187,10 @@ export default (state = intializeState, action) => {
         editDataFourthChoice: "",
         // Re-initialize to select the first value
         editDataIsCorrectAnswer: 0,
+        firstChoice: "",
+        secondChoice: "",
+        thirdChoice: "",
+        fourthChoice: "",
       };
     case FRESH_WORD_CHOICE:
       return {

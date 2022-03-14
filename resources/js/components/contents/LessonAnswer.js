@@ -7,101 +7,198 @@ import {
   Container,
   Divider,
   Grid,
-  LinearProgress,
   Paper,
   Typography,
 } from "@mui/material";
 
 import { fetchChoicesWords } from "../../actions/word";
-import { setLessonData, setAnswerData } from "../../actions/lesson";
+import {
+  setLessonData,
+  setCategoryUserId,
+  storeCategoryUser,
+  checkCategoryUser,
+  storeAnswerUser,
+  setAnswerData,
+} from "../../actions/lesson";
+import ProgressBar from "./ProgressBar";
 import LessonResult from "./LessonResult";
 
 const LessonAnswer = (props) => {
-  const [activeWord, setActiveWord] = useState(0);
+  const [activeWord, setActiveWord] = useState(1);
   const [selectedBtn, setSelectedBtn] = useState("");
-  const [progress, setProgress] = useState(0);
   const [disabledSubmit, setDisabledSubmit] = useState(true);
   const [openResult, setOpenResult] = useState(false);
-
+  const [submitName, setSubmitName] = useState("Next");
+  // Get activeLesson cookie data
+  const activeLesson = props.cookies.get("activeLesson");
+  // Get categoryUserId cookie data
+  const categoryUserId = props.cookies.get("categoryUserId");
+  // Get cookie value
+  const active = props.cookies.get("activeWord");
+  // Run on first load
   useEffect(() => {
-    const activeLesson = props.cookies.get("activeLesson");
-    // Get lesson data from cookie
     if (activeLesson !== undefined) {
+      // Update state with cookie values
       props.setLessonData(activeLesson);
+      /**
+       * We need to check if category_user has already data for the
+       * specific category id and user id. If exists then update the
+       * categoryUserId. This is important so that if category_user
+       * does not exist then it will store a new data to category_user
+       * with category_id and user_id
+       */
+      props.checkCategoryUser(props.token, {
+        user_id: props.userId,
+        category_id: activeLesson.categoryId,
+      });
+      /**
+       * This function gets all the words and choices based on the
+       * the category id
+       */
+      props.fetchChoicesWords(props.token, activeLesson.categoryId);
     }
 
     /**
-     * We need to get the data from cookies to get the current progress of
-     * Word and Choices
+     * Assign the word if exist in cookie
+     * activeWord state helps in determining what position
+     * of the word the user will answer
      */
-    const active = props.cookies.get("activeWord");
     if (active !== undefined) {
       setActiveWord(parseInt(active));
     }
-  }, []);
-  // If lesson data changes then run this function
-  useEffect(() => {
-    if (props.lessonData !== "") {
-      // Fetch word and choices based on the category id
-      props.fetchChoicesWords(props.token, props.lessonData.categoryId);
+    // Get cookie value
+    const answerLength = props.cookies.get("answerLength");
+    /**
+     * Assign the word if exist in cookie
+     * answerLength will have a value if the user has answered all
+     * the words. This will help for redirecting into a specific word
+     * to answer if user has already started answering.
+     *
+     */
+    if (answerLength !== undefined) {
+      setActiveWord(parseInt(answerLength));
     }
-  }, [props.lessonData]);
-
-  const calculateProgress = (activeWord, length) => {
-    const percentage = 100 / length;
-    // We need to add a to activeWord because the first index value is 0
-    const current = percentage * (activeWord + 1);
-    return current;
-  };
-
-  // If activeWord changes, this will run
+    /**
+     * We check if category_user has data of a category id and user
+     * id, if exists then the categoryUserId cookie will be set if
+     * no data then assigns undefined.
+     */
+    if (categoryUserId !== "") {
+      props.setCategoryUserId(categoryUserId);
+    }
+  }, []);
+  // Run this if categoryUserId changes
   useEffect(() => {
+    if (
+      props.categoryUserId !== undefined &&
+      props.categoryUserId !== null &&
+      props.categoryUserId !== ""
+    ) {
+      // Set cookie with updated state
+      props.cookies.set("categoryUserId", props.categoryUserId, {
+        path: "/",
+      });
+      /**
+       * Check if answerData has value
+       */
+      if (props.answerData !== null) {
+        /**
+         * Run on first submit
+         * On first submit the category_user has no data for this
+         * specific category id and user id so we need to check
+         * if undefined category_user_id.
+         */
+        if (props.answerData.category_user_id === "") {
+          props.storeAnswerUser(props.token, {
+            category_user_id: props.categoryUserId,
+            word_id: props.answerData.word_id,
+            choice_id: props.answerData.choice_id,
+          });
+        }
+      }
+    }
+  }, [props.categoryUserId]);
+  //Run if answerLength changes
+  useEffect(() => {
+    /**
+     * The props.answerLength only has value if the user
+     * has answered a word. We need to check first if
+     * props.answerLength value is greater than 0
+     */
+    if (props.answerLength > 0) {
+      setActiveWord(props.answerLength + 1);
+    }
+  }, [props.answerLength]);
+  // Run if words choices changes and if activeWord state changes
+  useEffect(() => {
+    // If props.wordsChoices has been initialized
     if (props.wordsChoices.length !== 0) {
-      // Get update activeWord data from cookies
-      const active = props.cookies.get("activeWord");
-      // Check if beyond the word length, if beyond then open the result page
+      /**
+       * We only need the data of words and choices. We first
+       * check if has data.
+       */
       if (props.wordsChoices.data !== 0) {
-        if (active >= props.wordsChoices.data.data.length) {
+        /**
+         * If activeWord (the position of the word to be answered) then
+         * go to result page.
+         */
+        if (activeWord > props.wordsChoices.data.data.length) {
+          // Open result
           setOpenResult(true);
+          // Set title to Result
+          props.setTitle("Results");
+        }
+        /**
+         * When the user has answered the previous words and choices
+         * and the user is in the last words and choices, the submit
+         * button title will be "See Results".
+         */
+        if (parseInt(active) === props.wordsChoices.data.data.length - 1) {
+          setSubmitName("See Results");
         } else {
-          // Pass the activeWord to be calculated
-          setProgress(
-            calculateProgress(activeWord, props.wordsChoices.data.data.length)
-          );
+          // Default title of submit
+          setSubmitName("Next");
         }
       }
     }
   }, [props.wordsChoices, activeWord]);
-  // If answerData changes, this will run
-  useEffect(() => {
-    if (props.answerData !== "") {
-      // We need to put the answerData in a cookie so on reload it can be retrieve
-      props.cookies.set("answerData", props.answerData, { path: "/" });
-    }
-  }, [props.answerData]);
-
-  const handleSelectedBtn = (e, key) => {
-    setSelectedBtn({
-      key: key,
-      value: e.target.value,
-    });
-    // Enable submit button
+  // This runs if user clicks on choice button
+  const handleSelectedBtn = (key, data) => {
+    // This will help in highlighting the button
+    setSelectedBtn(key);
+    // Assign value to answerData state
+    props.setAnswerData(data);
+    // Enable the submit button
     setDisabledSubmit(false);
   };
-
+  // This runs if user clicks on submit
   const handleSubmit = () => {
-    // Disable button
+    /**
+     * This function runs if the user first clicks the start and
+     * starts a new category without data in category_user and
+     * answer_user data.
+     */
+    if (props.answerLength === 0 && categoryUserId === undefined) {
+      props.storeCategoryUser(props.token, {
+        user_id: props.userId,
+        category_id: props.lessonData.categoryId,
+        completed: 0,
+      });
+    } else {
+      /**
+       * This will store answer data on second, third submit and so on.
+       * pass answer data as second arguemnt.
+       */
+      props.storeAnswerUser(props.token, props.answerData);
+    }
+    // Disable submit button
     setDisabledSubmit(true);
-    // Set selectedBtn to undefined
+    // Remove highlight of choice button
     setSelectedBtn("");
-    // Get current activeWord
-    const active = activeWord;
-    // Need to add 1 to activeWord because the first index is zero
-    setActiveWord(active + 1);
-    // Add the activeWord to cookie so on reload we can retrieve the data
-    props.cookies.set("activeWord", active + 1, { path: "/" });
-    // Assign data to answerData state
-    props.setAnswerData(selectedBtn.value);
+    // Assign new value to activeWord. Increment one to go to next word to answer
+    setActiveWord(activeWord + 1);
+    // Set new value to the cookie
+    props.cookies.set("activeWord", activeWord, { path: "/" });
   };
 
   return (
@@ -111,7 +208,10 @@ const LessonAnswer = (props) => {
           <React.Fragment>
             <Grid container>
               <Grid item lg={2} md={2} sm={4} xs={6}>
-                <Typography variant="h6" sx={{ m: 3 }}>
+                <Typography
+                  variant="h6"
+                  sx={{ m: 3, textTransform: "capitalize" }}
+                >
                   {props.lessonData.categoryName}
                 </Typography>
               </Grid>
@@ -122,18 +222,25 @@ const LessonAnswer = (props) => {
                   sx={{ fontSize: "18px", mt: 4, mr: 4, mb: 0 }}
                 >
                   {/* We need to add 1 to activeWord because the first index value is zero  */}
-                  {activeWord + 1} of{" "}
+                  {activeWord} of{" "}
                   {props.wordsChoices.length !== 0
                     ? props.wordsChoices.data.data.length
                     : null}
                 </Typography>
               </Grid>
             </Grid>
-            <LinearProgress variant="determinate" value={progress} />
+            <ProgressBar
+              index={activeWord === 0 ? 0 : activeWord}
+              length={
+                props.wordsChoices.length !== 0
+                  ? props.wordsChoices.data.data.length
+                  : 100
+              }
+            />
             {props.wordsChoices.length !== 0
               ? Object.entries(props.wordsChoices.data.data).map(
                   ([key, word]) => {
-                    if (key === activeWord.toString()) {
+                    if (key === (activeWord - 1).toString()) {
                       return (
                         <Grid
                           container
@@ -166,7 +273,7 @@ const LessonAnswer = (props) => {
                                   >
                                     <Button
                                       variant={
-                                        key2 === selectedBtn.key
+                                        key2 === selectedBtn
                                           ? "contained"
                                           : "outlined"
                                       }
@@ -174,8 +281,14 @@ const LessonAnswer = (props) => {
                                       fullWidth
                                       sx={{ fontSize: "16px" }}
                                       value={choice.id}
-                                      onClick={(e) => {
-                                        handleSelectedBtn(e, key2);
+                                      onClick={() => {
+                                        handleSelectedBtn(key2, {
+                                          // Name should be the same as the db column name
+                                          category_user_id:
+                                            props.categoryUserId,
+                                          word_id: word.id,
+                                          choice_id: choice.id,
+                                        });
                                       }}
                                     >
                                       {choice.name}
@@ -195,7 +308,7 @@ const LessonAnswer = (props) => {
                                     handleSubmit();
                                   }}
                                 >
-                                  Submit
+                                  {submitName}
                                 </Button>
                               </Grid>
                             </Grid>
@@ -217,16 +330,25 @@ const LessonAnswer = (props) => {
 
 const mapToStateProps = (state, ownProps) => {
   return {
+    userId: state.auth.userAuth.id,
     token: state.auth.userAuth.token,
     wordsChoices: state.word.wordsChoices,
+    categoryUserId: state.lesson.categoryUserId,
     lessonData: state.lesson.lessonData,
     answerData: state.lesson.answerData,
+    answerLength: state.lesson.answerLength,
     cookies: ownProps.cookies,
   };
 };
 
 export default withCookies(
-  connect(mapToStateProps, { fetchChoicesWords, setLessonData, setAnswerData })(
-    LessonAnswer
-  )
+  connect(mapToStateProps, {
+    fetchChoicesWords,
+    setLessonData,
+    setCategoryUserId,
+    storeCategoryUser,
+    checkCategoryUser,
+    setAnswerData,
+    storeAnswerUser,
+  })(LessonAnswer)
 );

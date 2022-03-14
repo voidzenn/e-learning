@@ -22,7 +22,9 @@ class WordController extends Controller
     public function index()
     {
         try {
-            $word = Word::with("choices")->paginate();
+            $word = Word::with("choices")
+                ->orderBy("created_at", "desc")
+                ->paginate();
 
             return response()->json([
                 "error" => false,
@@ -103,6 +105,7 @@ class WordController extends Controller
         try {
             $word = Word::where("category_id", $category_id)
                 ->with("choices")
+                ->orderBy("created_at", "desc")
                 ->paginate();
 
             return response()->json([
@@ -134,33 +137,25 @@ class WordController extends Controller
                 $word->update($request->only("name"));
                 // Update choices.name first row
                 $answer = $request->correct_answer;
-                $word
-                    ->choices[0]
-                    ->update([
-                        "name" => $request->choices[0],
-                        "is_correct_answer" => $answer === "1" ? 1 : 0,
-                    ]);
+                $word->choices[0]->update([
+                    "name" => $request->choices[0],
+                    "is_correct_answer" => $answer === "0" ? 1 : 0,
+                ]);
                 // Update choices.name second row
-                $word
-                    ->choices[1]
-                    ->update([
-                        "name" => $request->choices[1],
-                        "is_correct_answer" => $answer === "2" ? 1 : 0,
-                    ]);
+                $word->choices[1]->update([
+                    "name" => $request->choices[1],
+                    "is_correct_answer" => $answer === "1" ? 1 : 0,
+                ]);
                 // Update choices.name third row
-                $word
-                    ->choices[2]
-                    ->update([
-                        "name" => $request->choices[2],
-                        "is_correct_answer" => $answer === "3" ? 1 : 0,
-                    ]);
+                $word->choices[2]->update([
+                    "name" => $request->choices[2],
+                    "is_correct_answer" => $answer === "2" ? 1 : 0,
+                ]);
                 // Update choices.name fourth row
-                $word
-                    ->choices[3]
-                    ->update([
-                        "name" => $request->choices[3],
-                        "is_correct_answer" => $answer === "4" ? 1 : 0,
-                    ]);
+                $word->choices[3]->update([
+                    "name" => $request->choices[3],
+                    "is_correct_answer" => $answer === "3" ? 1 : 0,
+                ]);
 
                 return response()->json([
                     "error" => false,
