@@ -11,11 +11,7 @@ import Dashboard from "../contents/Dashboard";
 import Category from "../contents/Category";
 import CategoryAdmin from "../contents/admin/CategoryAdmin";
 import UserList from "../contents/UserList";
-import {
-  signOut,
-  setUserAuthDetails,
-  freshState,
-} from "../../actions/auth";
+import { signOut, setUserAuthDetails, freshState } from "../../actions/auth";
 
 const MainContent = (props) => {
   //  Retrieve data from storage
@@ -48,6 +44,10 @@ const MainContent = (props) => {
     props.cookies.remove("wordContent");
     // Remove the activePage data
     props.cookies.remove("activePage");
+    // Remove the activeLesson data
+    props.cookies.remove("activeLesson");
+    // Remove the categoryUserId data
+    props.cookies.remove("categoryUserId");
   };
 
   return (

@@ -153,108 +153,111 @@ const Category = (props) => {
         <Grid container spacing={3}>
           {props.categories.length !== 0
             ? Object.entries(props.categories).map(([key, category]) => {
-                /**
-                 * We first need to check has answers, if has answers then
-                 * get the data and assign to varible.
-                 */
-                const ans = isValidLength(props.allAnswers)
-                  ? props.allAnswers
-                      .filter((answer) => answer.category_id === category.id)
-                      .map((item) => {
-                        return {
-                          categoryId: item.category_id,
-                          answerLength: item.answer_users,
-                        };
-                      })
-                  : [];
-                var newAns = [];
-                if (isValidLength(ans)) {
-                  // We need to get the first index of the object ans
-                  newAns = ans[Object.keys(ans)[0]];
-                }
-                return (
-                  <Grid
-                    key={key}
-                    item
-                    lg={4}
-                    md={4}
-                    sm={6}
-                    xs={6}
-                    sx={{ pb: 5 }}
-                  >
-                    <Card
-                      sx={{
-                        minHeight: "220px",
-                        maxHeight: "220px",
-                        border: `${
-                          // Check if has answer
-                          isValidLength(ans)
-                            ? // Check if has answered all
-                              newAns.answerLength.length ===
-                              category.words.length
-                              ? "1px solid #1976D2"
-                              : ""
-                            : ""
-                        }`,
-                      }}
+                // Display only categories with words and ignore categories without words
+                if (category.id !== null) {
+                  /**
+                   * We first need to check has answers, if has answers then
+                   * get the data and assign to varible.
+                   */
+                  const ans = isValidLength(props.allAnswers)
+                    ? props.allAnswers
+                        .filter((answer) => answer.category_id === category.id)
+                        .map((item) => {
+                          return {
+                            categoryId: item.category_id,
+                            answerLength: item.answer_users,
+                          };
+                        })
+                    : [];
+                  var newAns = [];
+                  if (isValidLength(ans)) {
+                    // We need to get the first index of the object ans
+                    newAns = ans[Object.keys(ans)[0]];
+                  }
+                  return (
+                    <Grid
+                      key={key}
+                      item
+                      lg={4}
+                      md={4}
+                      sm={6}
+                      xs={6}
+                      sx={{ pb: 5 }}
                     >
-                      {
-                        /**
-                         * We need to check if category has been answered, if has
-                         * been answered then show progress bar. Check if ans has
-                         * value.
-                         */
-                        isValidLength(ans) ? (
-                          isValidLength(newAns.answerLength) ? (
-                            <ProgressBar
-                              sx={{ mt: -2 }}
-                              index={newAns.answerLength.length}
-                              length={category.words.length}
-                            />
-                          ) : null
-                        ) : null
-                      }
-                      <CardContent sx={{ p: 3, height: "155px" }}>
-                        <Typography
-                          sx={{
-                            fontWeight: 700,
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          {category.name}
-                        </Typography>
-                        <br />
-                        {formatText(category.description)}
-                      </CardContent>
-                      <CardActions>
-                        <Grid container justifyContent="flex-end">
-                          <Button
-                            variant={
-                              isValidLength(ans) ? "contained" : "outlined"
-                            }
-                            size="small"
-                            style={{ bottom: -5, right: 10 }}
-                            onClick={() => {
-                              handleStart({
-                                categoryId: category.id,
-                                categoryName: category.name,
-                                categoryDescription: category.description,
-                              });
-                            }}
-                          >
-                            {isValidLength(ans)
+                      <Card
+                        sx={{
+                          minHeight: "220px",
+                          maxHeight: "220px",
+                          border: `${
+                            // Check if has answer
+                            isValidLength(ans)
                               ? // Check if has answered all
                                 newAns.answerLength.length ===
                                 category.words.length
-                                ? "View Result"
-                                : "Continue"
-                              : "Start"}
-                          </Button>
-                        </Grid>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                );
+                                ? "1px solid #1976D2"
+                                : ""
+                              : ""
+                          }`,
+                        }}
+                      >
+                        {
+                          /**
+                           * We need to check if category has been answered, if has
+                           * been answered then show progress bar. Check if ans has
+                           * value.
+                           */
+                          isValidLength(ans) ? (
+                            isValidLength(newAns.answerLength) ? (
+                              <ProgressBar
+                                sx={{ mt: -2 }}
+                                index={newAns.answerLength.length}
+                                length={category.words.length}
+                              />
+                            ) : null
+                          ) : null
+                        }
+                        <CardContent sx={{ p: 3, height: "155px" }}>
+                          <Typography
+                            sx={{
+                              fontWeight: 700,
+                              textTransform: "capitalize",
+                            }}
+                          >
+                            {category.name}
+                          </Typography>
+                          <br />
+                          {formatText(category.description)}
+                        </CardContent>
+                        <CardActions>
+                          <Grid container justifyContent="flex-end">
+                            <Button
+                              variant={
+                                isValidLength(ans) ? "contained" : "outlined"
+                              }
+                              size="small"
+                              style={{ bottom: -5, right: 10 }}
+                              onClick={() => {
+                                handleStart({
+                                  categoryId: category.id,
+                                  categoryName: category.name,
+                                  categoryDescription: category.description,
+                                });
+                              }}
+                            >
+                              {isValidLength(ans)
+                                ? // Check if has answered all
+                                  newAns.answerLength.length ===
+                                  category.words.length
+                                  ? "View Result"
+                                  : "Continue"
+                                : "Start"}
+                            </Button>
+                          </Grid>
+                        </CardActions>
+                      </Card>
+                    </Grid>
+                  );
+                }
               })
             : null}
         </Grid>

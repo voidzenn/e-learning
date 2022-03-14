@@ -75,6 +75,11 @@ const UserList = (props) => {
     props.fetchUsers(props.token, value);
   };
 
+  // Get paginate from data and assign to variable
+  const itemKey = {
+    from: props.userData.length !== 0 ? props.userData.from : 1,
+  };
+
   return (
     <React.Fragment>
       <Container>
@@ -108,51 +113,56 @@ const UserList = (props) => {
             </TableHead>
             <TableBody>
               {props.userData.length !== 0
-                ? Object.entries(props.userData.data).map(([key, user]) => (
-                    <TableRow key={key}>
-                      <TableCell>{props.userData.from++}</TableCell>
-                      <TableCell>
-                        <span style={{ textTransform: "capitalize" }}>
-                          {user.fname}
-                        </span>{" "}
-                        <span style={{ textTransform: "capitalize" }}>
-                          {user.lname}
-                        </span>
-                      </TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>{user.avatar}</TableCell>
-                      <TableCell>
-                        <Select
-                          fullWidth
-                          sx={{ maxWidth: "150px" }}
-                          size="small"
-                          value={user.is_admin === 0 ? 0 : 1}
-                          onChange={() => {
-                            onChangeRole({
-                              userId: user.id,
-                              key: key,
-                              isAdmin: user.is_admin,
-                            });
-                          }}
-                        >
-                          <MenuItem
-                            value={1}
-                            selected={user.is_admin === 1 ? true : false}
-                            disabled={user.is_admin === 1 ? true : false}
+                ? Object.entries(props.userData.data).map(([key, user]) => {
+                    var finalKey = {};
+                    // Make iteration to the itemKey value
+                    finalKey = { ...itemKey, from: itemKey.from++ };
+                    return (
+                      <TableRow key={key}>
+                        <TableCell>{props.userData.from++}</TableCell>
+                        <TableCell>
+                          <span style={{ textTransform: "capitalize" }}>
+                            {user.fname}
+                          </span>{" "}
+                          <span style={{ textTransform: "capitalize" }}>
+                            {user.lname}
+                          </span>
+                        </TableCell>
+                        <TableCell>{user.email}</TableCell>
+                        <TableCell>{user.avatar}</TableCell>
+                        <TableCell>
+                          <Select
+                            fullWidth
+                            sx={{ maxWidth: "150px" }}
+                            size="small"
+                            value={user.is_admin === 0 ? 0 : 1}
+                            onChange={() => {
+                              onChangeRole({
+                                userId: user.id,
+                                key: key,
+                                isAdmin: user.is_admin,
+                              });
+                            }}
                           >
-                            Admin
-                          </MenuItem>
-                          <MenuItem
-                            value={0}
-                            selected={user.is_admin === 0 ? true : false}
-                            disabled={user.is_admin === 0 ? true : false}
-                          >
-                            User
-                          </MenuItem>
-                        </Select>
-                      </TableCell>
-                    </TableRow>
-                  ))
+                            <MenuItem
+                              value={1}
+                              selected={user.is_admin === 1 ? true : false}
+                              disabled={user.is_admin === 1 ? true : false}
+                            >
+                              Admin
+                            </MenuItem>
+                            <MenuItem
+                              value={0}
+                              selected={user.is_admin === 0 ? true : false}
+                              disabled={user.is_admin === 0 ? true : false}
+                            >
+                              User
+                            </MenuItem>
+                          </Select>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
                 : null}
             </TableBody>
           </Table>

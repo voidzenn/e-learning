@@ -38920,91 +38920,94 @@ var Category = function Category(props) {
             key = _ref2[0],
             category = _ref2[1];
 
-        /**
-         * We first need to check has answers, if has answers then
-         * get the data and assign to varible.
-         */
-        var ans = isValidLength(props.allAnswers) ? props.allAnswers.filter(function (answer) {
-          return answer.category_id === category.id;
-        }).map(function (item) {
-          return {
-            categoryId: item.category_id,
-            answerLength: item.answer_users
-          };
-        }) : [];
-        var newAns = [];
+        // Display only categories with words and ignore categories without words
+        if (category.id !== null) {
+          /**
+           * We first need to check has answers, if has answers then
+           * get the data and assign to varible.
+           */
+          var ans = isValidLength(props.allAnswers) ? props.allAnswers.filter(function (answer) {
+            return answer.category_id === category.id;
+          }).map(function (item) {
+            return {
+              categoryId: item.category_id,
+              answerLength: item.answer_users
+            };
+          }) : [];
+          var newAns = [];
 
-        if (isValidLength(ans)) {
-          // We need to get the first index of the object ans
-          newAns = ans[Object.keys(ans)[0]];
-        }
+          if (isValidLength(ans)) {
+            // We need to get the first index of the object ans
+            newAns = ans[Object.keys(ans)[0]];
+          }
 
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          item: true,
-          lg: 4,
-          md: 4,
-          sm: 6,
-          xs: 6,
-          sx: {
-            pb: 5
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            item: true,
+            lg: 4,
+            md: 4,
+            sm: 6,
+            xs: 6,
             sx: {
-              minHeight: "220px",
-              maxHeight: "220px",
-              border: "".concat( // Check if has answer
-              isValidLength(ans) ? // Check if has answered all
-              newAns.answerLength.length === category.words.length ? "1px solid #1976D2" : "" : "")
+              pb: 5
             },
-            children: [
-            /**
-             * We need to check if category has been answered, if has
-             * been answered then show progress bar. Check if ans has
-             * value.
-             */
-            isValidLength(ans) ? isValidLength(newAns.answerLength) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProgressBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
               sx: {
-                mt: -2
+                minHeight: "220px",
+                maxHeight: "220px",
+                border: "".concat( // Check if has answer
+                isValidLength(ans) ? // Check if has answered all
+                newAns.answerLength.length === category.words.length ? "1px solid #1976D2" : "" : "")
               },
-              index: newAns.answerLength.length,
-              length: category.words.length
-            }) : null : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
-              sx: {
-                p: 3,
-                height: "155px"
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              children: [
+              /**
+               * We need to check if category has been answered, if has
+               * been answered then show progress bar. Check if ans has
+               * value.
+               */
+              isValidLength(ans) ? isValidLength(newAns.answerLength) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProgressBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
                 sx: {
-                  fontWeight: 700,
-                  textTransform: "capitalize"
+                  mt: -2
                 },
-                children: category.name
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), formatText(category.description)]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                container: true,
-                justifyContent: "flex-end",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
-                  variant: isValidLength(ans) ? "contained" : "outlined",
-                  size: "small",
-                  style: {
-                    bottom: -5,
-                    right: 10
+                index: newAns.answerLength.length,
+                length: category.words.length
+              }) : null : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                sx: {
+                  p: 3,
+                  height: "155px"
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                  sx: {
+                    fontWeight: 700,
+                    textTransform: "capitalize"
                   },
-                  onClick: function onClick() {
-                    handleStart({
-                      categoryId: category.id,
-                      categoryName: category.name,
-                      categoryDescription: category.description
-                    });
-                  },
-                  children: isValidLength(ans) ? // Check if has answered all
-                  newAns.answerLength.length === category.words.length ? "View Result" : "Continue" : "Start"
+                  children: category.name
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), formatText(category.description)]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                  container: true,
+                  justifyContent: "flex-end",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                    variant: isValidLength(ans) ? "contained" : "outlined",
+                    size: "small",
+                    style: {
+                      bottom: -5,
+                      right: 10
+                    },
+                    onClick: function onClick() {
+                      handleStart({
+                        categoryId: category.id,
+                        categoryName: category.name,
+                        categoryDescription: category.description
+                      });
+                    },
+                    children: isValidLength(ans) ? // Check if has answered all
+                    newAns.answerLength.length === category.words.length ? "View Result" : "Continue" : "Start"
+                  })
                 })
-              })
-            })]
-          })
-        }, key);
+              })]
+            })
+          }, key);
+        }
       }) : null
     }) : null, openLesson ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_LessonAnswer__WEBPACK_IMPORTED_MODULE_5__["default"], {
       setTitle: setTitle
@@ -39572,7 +39575,12 @@ var LessonResult = function LessonResult(props) {
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState4 = _slicedToArray(_useState3, 2),
       progress = _useState4[0],
-      setProgress = _useState4[1]; // Get cookie data
+      setProgress = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState6 = _slicedToArray(_useState5, 2),
+      loading = _useState6[0],
+      setLoading = _useState6[1]; // Get cookie data
 
 
   var lessonData = props.cookies.get("activeLesson");
@@ -39602,6 +39610,13 @@ var LessonResult = function LessonResult(props) {
         setWords(category.words);
       });
     }
+
+    var newTimer = setTimeout(function () {
+      setLoading(false);
+    }, 1200);
+    clearTimeout(function () {
+      newTimer;
+    });
   }, [props.category]);
 
   var renderResult = function renderResult() {
@@ -39613,6 +39628,7 @@ var LessonResult = function LessonResult(props) {
             key1 = _ref4[0],
             answer = _ref4[1];
 
+        var itemKey = key1;
         return words.filter(function (data1) {
           return data1.word_id === answer.word_id;
         }).map(function (word) {
@@ -39622,16 +39638,13 @@ var LessonResult = function LessonResult(props) {
             // Add 1 to score if true
             isCorrect(data2.is_correct_answer) ? ++score : null; // Handle score if last rendered key
 
-            if (parseInt(key1) + 1 === words.length) {
-              var timer = setTimeout(function () {
-                props.setScore(score);
-                setProgress(calculateProgress(score));
-              }, 1500);
-              return clearTimeout(function () {
-                timer;
-              });
-            }
-
+            var timer = setTimeout(function () {
+              props.setScore(score);
+              setProgress(calculateProgress(score));
+            }, 1000);
+            clearTimeout(function () {
+              timer;
+            });
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
                 item: true,
@@ -39711,7 +39724,7 @@ var LessonResult = function LessonResult(props) {
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    children: !loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
       sx: {
         p: 5
       },
@@ -39832,6 +39845,40 @@ var LessonResult = function LessonResult(props) {
         },
         children: renderResult()
       })]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      justifyContent: "center",
+      alignContent: "center",
+      sx: {
+        m: "auto",
+        p: "auto"
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        container: true,
+        spacing: 0,
+        direction: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        style: {
+          minHeight: "100vh"
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          item: true,
+          lg: 12,
+          md: 12,
+          sm: 12,
+          xs: 12,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            style: {
+              height: "120px",
+              width: "120px",
+              color: "#1976D2",
+              borderRadius: "100%",
+              boxShadow: "inset 0 0 0px 11px #1976D266",
+              backgroundColor: "transparent"
+            }
+          })
+        })
+      })
     })
   });
 };
@@ -39929,6 +39976,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _contents_subcontents_AlertContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contents/subcontents/AlertContent */ "./resources/js/components/contents/subcontents/AlertContent.js");
 /* harmony import */ var _contents_subcontents_Pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../contents/subcontents/Pagination */ "./resources/js/components/contents/subcontents/Pagination.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -40006,8 +40059,12 @@ var UserList = function UserList(props) {
       path: "/"
     });
     props.fetchUsers(props.token, value);
-  };
+  }; // Get paginate from data and assign to variable
 
+
+  var itemKey = {
+    from: props.userData.length !== 0 ? props.userData.from : 1
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -40081,6 +40138,11 @@ var UserList = function UserList(props) {
                   key = _ref2[0],
                   user = _ref2[1];
 
+              var finalKey = {}; // Make iteration to the itemKey value
+
+              finalKey = _objectSpread(_objectSpread({}, itemKey), {}, {
+                from: itemKey.from++
+              });
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
                   children: props.userData.from++
@@ -40196,6 +40258,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _subcontents_Pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../subcontents/Pagination */ "./resources/js/components/contents/subcontents/Pagination.js");
 /* harmony import */ var _WordContent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./WordContent */ "./resources/js/components/contents/admin/WordContent.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -40355,8 +40423,12 @@ var CategoryAdmin = function CategoryAdmin(props) {
     setOpenWord(false); // We need to re-initialize word content page before going back
 
     props.freshWordChoice();
-  };
+  }; // Get paginate from data and assign to variable
 
+
+  var itemKey = {
+    from: props.categories.length !== 0 ? props.categories.from : 1
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
       children: [props.requestErrorMessage !== "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_subcontents_AlertContent__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -40461,6 +40533,11 @@ var CategoryAdmin = function CategoryAdmin(props) {
                   key = _ref2[0],
                   category = _ref2[1];
 
+              var finalKey = {}; // Make iteration to the itemKey value
+
+              finalKey = _objectSpread(_objectSpread({}, itemKey), {}, {
+                from: itemKey.from++
+              });
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {
                   style: key % 2 ? {
@@ -40469,7 +40546,7 @@ var CategoryAdmin = function CategoryAdmin(props) {
                     background: "white"
                   },
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
-                    children: props.categories.from++
+                    children: finalKey.from
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     sx: {
                       textTransform: "capitalize"
@@ -42161,7 +42238,11 @@ var MainContent = function MainContent(props) {
 
     props.cookies.remove("wordContent"); // Remove the activePage data
 
-    props.cookies.remove("activePage");
+    props.cookies.remove("activePage"); // Remove the activeLesson data
+
+    props.cookies.remove("activeLesson"); // Remove the categoryUserId data
+
+    props.cookies.remove("categoryUserId");
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
