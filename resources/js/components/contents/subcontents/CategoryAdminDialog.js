@@ -123,6 +123,10 @@ const CategoryDialog = (props) => {
                   label="Name"
                   name="name"
                   autoComplete="off"
+                  InputLabelProps={{
+                    // Removes asterisk on textfield
+                    required: false,
+                  }}
                   onKeyUp={(e) => {
                     props.validateName(e.target.value);
                   }}
@@ -141,6 +145,10 @@ const CategoryDialog = (props) => {
                   label="Description"
                   name="description"
                   autoComplete="off"
+                  InputLabelProps={{
+                    // Removes asterisk on textfield
+                    required: false,
+                  }}
                   fullWidth
                   multiline
                   rows={3}
@@ -193,6 +201,10 @@ const CategoryDialog = (props) => {
                   id="name"
                   margin="dense"
                   required
+                  InputLabelProps={{
+                    // Removes asterisk on textfield
+                    required: false,
+                  }}
                   fullWidth
                   label="Name"
                   name="name"
@@ -213,6 +225,10 @@ const CategoryDialog = (props) => {
                   id="text"
                   margin="dense"
                   required
+                  InputLabelProps={{
+                    // Removes asterisk on textfield
+                    required: false,
+                  }}
                   label="Description"
                   name="description"
                   autoComplete="off"

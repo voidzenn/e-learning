@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Alert, Collapse } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 
 const AlertContent = (props) => {
   return (
-    <div>
-      <Collapse in={true}>
-        <Alert
-          severity={props.isError === false ? "success" : "error"}
-          sx={{ mb: 2 }}
-        >
+    <React.Fragment>
+      <Snackbar
+        open={true}
+        autoHideDuration={3500}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      >
+        <Alert severity={!props.isError ? "success" : "error"} sx={{ mb: 2 }}>
           {props.message}
         </Alert>
-      </Collapse>
-    </div>
+      </Snackbar>
+    </React.Fragment>
   );
 };
 

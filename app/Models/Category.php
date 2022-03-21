@@ -29,4 +29,14 @@ class Category extends Model
     {
         return $this->hasManyThrough(Choice::class , Word::class);
     }
+
+    public function categoryUsers()
+    {
+        return $this->hasMany(CategoryUser::class, 'category_id');
+    }
+
+    public function answerUsers()
+    {
+        return $this->hasManyThrough(AnswerUser::class, CategoryUser::class);
+    }
 }

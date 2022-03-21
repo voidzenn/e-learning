@@ -29,6 +29,7 @@ Route::prefix('v1')->group(function () {
         // Category routes
         Route::prefix('categories')->group(function () {
             Route::get('/', [\App\Http\Controllers\Api\CategoryController::class, 'index']);
+            Route::get('/{category}/show', [\App\Http\Controllers\Api\CategoryController::class, 'show']);
             Route::get('/all', [\App\Http\Controllers\Api\CategoryController::class, 'showAll']);
             Route::post('/store', [\App\Http\Controllers\Api\CategoryController::class, 'store']);
             Route::put('/{category}/update', [\App\Http\Controllers\Api\CategoryController::class, 'update']);
@@ -41,6 +42,15 @@ Route::prefix('v1')->group(function () {
             Route::post('/store', [\App\Http\Controllers\Api\WordController::class, 'store']);
             Route::put('/{word}/update', [\App\Http\Controllers\Api\WordController::class, 'update']);
             Route::delete('/{word}/delete', [\App\Http\Controllers\Api\WordController::class, 'destroy']);
+        });
+        // Lesson Routes
+        Route::prefix('lessons')->group(function () {
+            Route::post('/store-category-user', [App\Http\Controllers\Api\LessonController::class, 'storeCategoryUser']);
+            Route::get('/check-category-user', [App\Http\Controllers\Api\LessonController::class, 'checkCategoryUser']);
+            Route::get('/check-answer-user', [App\Http\Controllers\Api\LessonController::class, 'checkAnswerUser']);
+            Route::post('/store-answer-user', [App\Http\Controllers\Api\LessonController::class, 'storeAnswerUser']);
+            Route::get('/get-answers', [\App\Http\Controllers\Api\LessonController::class, 'getAnswers']);
+            Route::get('/get-all-answers', [\App\Http\Controllers\Api\LessonController::class, 'getAllAnswers']);
         });
     });
 });

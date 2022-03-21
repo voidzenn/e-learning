@@ -23,6 +23,7 @@ import {
   fetchCategories,
   freshStateCategory,
 } from "../../../actions/category";
+import { freshWordChoice } from "../../../actions/word";
 import AlertContent from "../subcontents/AlertContent";
 import CategoryAdminDialog from "../subcontents/CategoryAdminDialog";
 import Pagination from "../subcontents/Pagination";
@@ -34,6 +35,7 @@ const CategoryAdmin = (props) => {
   const [openWord, setOpenWord] = useState(false);
   // Set the id of WordContent to be delete
   const [wordId, setWordId] = useState(null);
+  const [title, setTitle] = useState("Categories");
 
   useEffect(() => {
     /* 
@@ -127,41 +129,77 @@ const CategoryAdmin = (props) => {
   const handleDeleteWordChoice = (id) => {
     setWordId(id);
   };
+  // Handle the go back button
+  const handleBackNavigation = () => {
+    // Change title to default Categories
+    setTitle("Categories");
+    // Remove the wordContent cookie on close
+    props.cookies.remove("wordContent");
+    // Cloce this Word component
+    setOpenWord(false);
+    // We need to re-initialize word content page before going back
+    props.freshWordChoice();
+  };
+  // Get paginate from data and assign to variable
+  const itemKey = {
+    from: props.categories.length !== 0 ? props.categories.from : 1,
+  };
 
   return (
     <React.Fragment>
       <Container>
+        {props.requestErrorMessage !== "" ? (
+          <AlertContent
+            isError={props.requestError}
+            message={props.requestErrorMessage}
+          />
+        ) : null}
         <CategoryAdminDialog
           type={type}
           setType={setType}
           handleDeleteWordChoice={handleDeleteWordChoice}
         ></CategoryAdminDialog>
-        <Grid container>
-          <Grid item xs={6}>
-            <Typography component="h5" variant="h5" sx={{ mb: 5 }}>
-              Categories
+        <Grid container sx={{ mb: 5 }}>
+          <Grid item lg={4} md={4} sm={6} xs={6}>
+            <Typography
+              component="h5"
+              variant="h5"
+              sx={{ textTransform: "capitalize" }}
+            >
+              {title}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            {props.requestErrorMessage !== "" ? (
-              <AlertContent
-                isError={props.requestError}
-                message={props.requestErrorMessage}
-              />
+          <Grid
+            item
+            lg={8}
+            md={8}
+            sm={6}
+            xs={12}
+            justifyContent="flex-end"
+            textAlign="right"
+          >
+            {openWord ? (
+              <Button
+                size="small"
+                sx={{ fontSize: "16px", right: 3 }}
+                onClick={handleBackNavigation}
+              >
+                Go Back
+              </Button>
             ) : null}
           </Grid>
         </Grid>
       </Container>
       {openWord ? (
         <WordContent
-          setOpenWord={setOpenWord}
           handleDialog={handleDialog}
           wordId={wordId}
           setWordId={setWordId}
+          setTitle={setTitle}
         />
       ) : null}
 
-      {openWord === false ? (
+      {!openWord ? (
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <Button
             variant="outlined"
@@ -176,6 +214,7 @@ const CategoryAdmin = (props) => {
             <Table stickyHeader aria-label="sticky table" sx={{ p: 5 }}>
               <TableHead style={{ backgroundColor: "orange" }}>
                 <TableRow>
+                  <TableCell sx={tableCellStyles}>#</TableCell>
                   <TableCell sx={tableCellStyles}>Title</TableCell>
                   <TableCell sx={tableCellStyles}>Description</TableCell>
                   <TableCell sx={tableCellStyles}>Action</TableCell>
@@ -184,111 +223,119 @@ const CategoryAdmin = (props) => {
               <TableBody>
                 {props.categories.length !== 0
                   ? Object.entries(props.categories.data).map(
-                      ([key, category]) => (
-                        <React.Fragment key={key}>
-                          <TableRow
-                            style={
-                              key % 2
-                                ? {
-                                    background: "#F2F2F2",
-                                  }
-                                : {
-                                    background: "white",
-                                  }
-                            }
-                          >
-                            <TableCell>{category.name}</TableCell>
-                            <TableCell>{category.description}</TableCell>
-                            <TableCell sx={{ width: "20%" }}>
-                              <Grid
-                                justify="space-between"
-                                container
-                                spacing={8}
-                              >
-                                <Grid item xs={2}>
-                                  <Tooltip title="Add Words">
-                                    <Button
-                                      variant="outlined"
-                                      size="small"
-                                      sx={{
-                                        minWidth: "30px",
-                                        minHeight: "30px",
-                                      }}
-                                      onClick={() => {
-                                        handleWords({
-                                          index: key,
-                                          categoryId: category.id,
-                                          categoryName: category.name,
-                                          categoryDescription:
-                                            category.description,
-                                        });
-                                      }}
-                                    >
-                                      <Add
+                      ([key, category]) => {
+                        var finalKey = {};
+                        // Make iteration to the itemKey value
+                        finalKey = { ...itemKey, from: itemKey.from++ };
+                        return (
+                          <React.Fragment key={key}>
+                            <TableRow
+                              style={
+                                key % 2
+                                  ? {
+                                      background: "#F2F2F2",
+                                    }
+                                  : {
+                                      background: "white",
+                                    }
+                              }
+                            >
+                              <TableCell>{finalKey.from}</TableCell>
+                              <TableCell sx={{ textTransform: "capitalize" }}>
+                                {category.name}
+                              </TableCell>
+                              <TableCell>{category.description}</TableCell>
+                              <TableCell sx={{ width: "20%" }}>
+                                <Grid
+                                  justify="space-between"
+                                  container
+                                  spacing={8}
+                                >
+                                  <Grid item xs={2}>
+                                    <Tooltip title="Add Words">
+                                      <Button
+                                        variant="outlined"
+                                        size="small"
                                         sx={{
-                                          fontSize: "20px",
+                                          minWidth: "30px",
+                                          minHeight: "30px",
                                         }}
-                                      ></Add>
-                                    </Button>
-                                  </Tooltip>
-                                </Grid>
-                                <Grid item xs={2}>
-                                  <Tooltip title="Edit Category">
-                                    <Button
-                                      variant="outlined"
-                                      size="small"
-                                      sx={{
-                                        minWidth: "30px",
-                                        minHeight: "30px",
-                                      }}
-                                      onClick={() => {
-                                        handleDialog("edit", {
-                                          index: key,
-                                          categoryId: category.id,
-                                          categoryName: category.name,
-                                          categoryDescription:
-                                            category.description,
-                                        });
-                                      }}
-                                    >
-                                      <Edit
+                                        onClick={() => {
+                                          handleWords({
+                                            index: key,
+                                            categoryId: category.id,
+                                            categoryName: category.name,
+                                            categoryDescription:
+                                              category.description,
+                                          });
+                                        }}
+                                      >
+                                        <Add
+                                          sx={{
+                                            fontSize: "20px",
+                                          }}
+                                        ></Add>
+                                      </Button>
+                                    </Tooltip>
+                                  </Grid>
+                                  <Grid item xs={2}>
+                                    <Tooltip title="Edit Category">
+                                      <Button
+                                        variant="outlined"
+                                        size="small"
                                         sx={{
-                                          fontSize: "20px",
+                                          minWidth: "30px",
+                                          minHeight: "30px",
                                         }}
-                                      ></Edit>
-                                    </Button>
-                                  </Tooltip>
-                                </Grid>
-                                <Grid item xs={2}>
-                                  <Tooltip title="Delete Category">
-                                    <Button
-                                      variant="outlined"
-                                      sx={{
-                                        minWidth: "30px",
-                                        minHeight: "30px",
-                                      }}
-                                      size="small"
-                                      onClick={() => {
-                                        handleDialog("delete", {
-                                          categoryId: category.id,
-                                          categoryName: category.name,
-                                        });
-                                      }}
-                                    >
-                                      <Delete
+                                        onClick={() => {
+                                          handleDialog("edit", {
+                                            index: key,
+                                            categoryId: category.id,
+                                            categoryName: category.name,
+                                            categoryDescription:
+                                              category.description,
+                                          });
+                                        }}
+                                      >
+                                        <Edit
+                                          sx={{
+                                            fontSize: "20px",
+                                          }}
+                                        ></Edit>
+                                      </Button>
+                                    </Tooltip>
+                                  </Grid>
+                                  <Grid item xs={2}>
+                                    <Tooltip title="Delete Category">
+                                      <Button
+                                        variant="outlined"
                                         sx={{
-                                          fontSize: "20px",
-                                          color: "red",
+                                          minWidth: "30px",
+                                          minHeight: "30px",
                                         }}
-                                      ></Delete>
-                                    </Button>
-                                  </Tooltip>
+                                        size="small"
+                                        onClick={() => {
+                                          handleDialog("delete", {
+                                            categoryId: category.id,
+                                            categoryName: category.name,
+                                          });
+                                        }}
+                                      >
+                                        <Delete
+                                          sx={{
+                                            fontSize: "20px",
+                                            color: "red",
+                                          }}
+                                        ></Delete>
+                                      </Button>
+                                    </Tooltip>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                            </TableCell>
-                          </TableRow>
-                        </React.Fragment>
-                      )
+                              </TableCell>
+                            </TableRow>
+                          </React.Fragment>
+                        );
+                      }
                     )
                   : null}
               </TableBody>
@@ -324,5 +371,6 @@ export default withCookies(
     fetchCategories,
     addCatDialogData,
     freshStateCategory,
+    freshWordChoice,
   })(CategoryAdmin)
 );

@@ -43,6 +43,8 @@ const SignUp = (props) => {
       props.isValidLname
     ) {
       props.disableSubmit(false);
+    }else{ // Disabled submit if condition not meet
+      props.disableSubmit(true);
     }
   }, [
     props.isValidEmail,
@@ -54,12 +56,16 @@ const SignUp = (props) => {
 
   useEffect(() => {
     // If successfully registered, navigate to Sign In page
+    /** 
+     * We need to use === false instead of ! because props.requestError on first 
+     * initialize is undefined then after an API request it will change from either
+     * true or false.
+    */
     if (props.requestError === false) {
       props.disableSubmit(true);
       const timer = setTimeout(() => {
         // Re-initialize the state before navigating to the component
         props.freshState();
-
         navigate("/");
       }, 2500);
       return () => clearTimeout(timer);
@@ -232,8 +238,7 @@ const SignUp = (props) => {
             variant="h6"
             style={{
               color: `${props.requestError ? "red" : "green"}`,
-              fontWeight: `${props.requestError ? "" : "bold"}`,
-              fontSize: "18px",
+              fontSize: "16px",
               textAlign: "center",
             }}
           >

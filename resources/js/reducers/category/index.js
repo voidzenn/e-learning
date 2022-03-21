@@ -1,6 +1,7 @@
 import {
   FETCH_CATEGORIES,
   FETCH_ALL_CATEGORIES,
+  FETCH_SINGLE_CATEGORY,
   CAT_DIALOG_DATA,
   ADD_CATEGORY,
   UPDATE_CATEGORY,
@@ -13,6 +14,7 @@ import {
 
 const initialState = {
   categories: [],
+  category: [],
   dialogData: [],
   requestError: "",
   requestErrorMessage: "",
@@ -36,6 +38,13 @@ export default (state = initialState, action) => {
         ...state,
         categories: action.categories,
         categoryError: action.categoryError,
+      };
+    case FETCH_SINGLE_CATEGORY:
+      return {
+        ...state,
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage,
+        category: action.category,
       };
     case CAT_DIALOG_DATA:
       return {

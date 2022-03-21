@@ -195,40 +195,54 @@ export const updateWordChoice =
     if (token !== "" && oldData !== "" && formData !== "") {
       // Check if has changes of the oldData
       if (
-        wordId !== "" &&
-        name !== oldData.word.name ||
+        (wordId !== "" && name !== oldData.word.name) ||
         firstChoice !== oldData.choices[0] ||
         secondChoice !== oldData.choices[1] ||
         thirdChoice !== oldData.choices[2] ||
         fourthChoice !== oldData.choices[3] ||
         correctAnswer !== oldData.isCorrectAnswer
       ) {
-        // If all conditions are meet
-        await userApi(`/words/${wordId}/update`, {
-          method: "put",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          data: {
-            name: name,
-            choices: [firstChoice, secondChoice, thirdChoice, fourthChoice],
-            correct_answer: correctAnswer,
-          },
-        })
-          .then((response) => {
-            data = {
-              requestError: response.data.error,
-              requestErrorMessage: response.data.message,
-              wordError: "",
-            };
+        // Check if all fields are not missing
+        if (
+          name !== "" &&
+          firstChoice !== "" &&
+          secondChoice !== "" &&
+          thirdChoice !== "" &&
+          fourthChoice !== ""
+        ) {
+          // If all conditions are meet
+          await userApi(`/words/${wordId}/update`, {
+            method: "put",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            data: {
+              name: name,
+              choices: [firstChoice, secondChoice, thirdChoice, fourthChoice],
+              correct_answer: correctAnswer,
+            },
           })
-          .catch((error) => {
-            data = {
-              requestError: true,
-              requestErrorMessage: error.response.data.message,
-              wordError: error.response.data.errors.name[0],
-            };
-          });
+            .then((response) => {
+              data = {
+                requestError: response.data.error,
+                requestErrorMessage: response.data.message,
+                wordError: "",
+              };
+            })
+            .catch((error) => {
+              data = {
+                requestError: true,
+                requestErrorMessage: error.response.data.message,
+                wordError: error.response.data.errors.name[0],
+              };
+            });
+        } else {
+          data = {
+            requestError: true,
+            requestErrorMessage: "Some fields are missing",
+            wordError: "",
+          };
+        }
       } else {
         data = {
           requestError: true,
@@ -303,15 +317,22 @@ export const setWordContentData = (cookieData) => (dispatch) => {
   and a message.  
 */
 const validate = (input) => {
-  if (input !== "") {
-    data = {
-      isValid: true,
-      message: "",
-    };
+  if (input.length <= 30) {
+    if (input !== "") {
+      data = {
+        isValid: true,
+        message: "",
+      };
+    } else {
+      data = {
+        isValid: false,
+        message: "This field should not be empty",
+      };
+    }
   } else {
     data = {
       isValid: false,
-      message: "This field should not be empty",
+      message: "Maximum of 30 characters only",
     };
   }
   return data;

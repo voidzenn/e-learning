@@ -59,14 +59,16 @@ const Words = (props) => {
       props.setWordContentData(wordContentData);
       // Fetch the words and choices by categoryId
       props.fetchChoicesWords(props.token, wordContentData.categoryId);
+      // Set title to current category name
+      props.setTitle(wordContentData.categoryName);
     }
   }, []);
-  // Run if there is changes in wordsChoices state
+  // Run if there is changes in requestErrorMessage state
   useEffect(() => {
     // Checks if request error has change then run function
     if (props.requestErrorMessage !== "") {
-      // Fetch the words and choices data
-      props.fetchChoicesWords(props.token);
+      // Fetch the words and choices data with the categor
+      props.fetchChoicesWords(props.token, props.wordContentData.categoryId);
     }
   }, [props.requestErrorMessage]);
 
@@ -75,11 +77,11 @@ const Words = (props) => {
     // Run if submitType is store
     if (props.submitType === "store") {
       if (
-        props.word !== "" &&
-        props.firstChoice !== "" &&
-        props.secondChoice !== "" &&
-        props.thirdChoice !== "" &&
-        props.fourthChoice !== ""
+        props.isValidWord &&
+        props.isValidFirstChoice &&
+        props.isValidSecondChoice &&
+        props.isValidThirdChoice &&
+        props.isValidFourthChoice
       ) {
         setDisabledSubmit(false);
       } else {
@@ -125,13 +127,6 @@ const Words = (props) => {
     }
   }, [props.wordId]);
 
-  const handleBackNavigation = () => {
-    // Remove the wordContent cookie on close
-    props.cookies.remove("wordContent");
-    // Cloce this Word component
-    props.setOpenWord(false);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -146,8 +141,15 @@ const Words = (props) => {
       // If else then use update function
       // Pass token, the previous edit data, and formData
       props.updateWordChoice(props.token, props.editData, formData);
-      // Re-intialize the request errror and message
-      props.freshWordChoice();
+      /**
+       * Re-intialize the request errror and message
+       * Only run this funciton if requestError is false
+       * We need to use === false because the first initialization of
+       * requestError in reducer is undefined
+       */
+      if (props.requestError === false) {
+        props.freshWordChoice();
+      }
     }
   };
 
@@ -181,46 +183,17 @@ const Words = (props) => {
 
   return (
     <React.Fragment>
-      <Paper sx={{ width: "100%", overflow: "hidden", p: 5 }}>
-        <Grid container>
-          <Grid item lg={2} md={2} sm={4} xs={6}>
-            <Typography variant="h6" sx={{ m: 3 }}>
-              Add Words
-            </Typography>
-          </Grid>
-          <Grid item lg={10} md={10} sm={8} xs={6}>
-            <Button
-              sx={{ float: "right", mt: 2, mr: 2 }}
-              onClick={handleBackNavigation}
-            >
-              Go Back
-            </Button>
-          </Grid>
-        </Grid>
-        <Divider />
+      {props.requestErrorMessage !== "" ? (
+        <AlertContent
+          isError={props.requestError}
+          message={props.requestErrorMessage}
+        />
+      ) : null}
+      <Paper
+        sx={{ width: "100%", overflow: "hidden", pt: 2, pb: 5, pl: 5, pr: 5 }}
+      >
         {props.wordContentData != null ? (
           <React.Fragment>
-            <Grid container sx={{ mt: 2, ml: 3 }}>
-              <Grid item lg={4} md={4} sm={4} xs={12}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: 600,
-                  }}
-                >
-                  {props.wordContentData.categoryName}
-                </Typography>
-              </Grid>
-              <Grid item lg={8} md={8} sm={8} xs={12}>
-                {props.requestErrorMessage !== "" ? (
-                  <AlertContent
-                    isError={props.requestError}
-                    message={props.requestErrorMessage}
-                  />
-                ) : null}
-              </Grid>
-            </Grid>
             <Container component="form" noValidate onSubmit={handleSubmit}>
               <Grid container sx={{ mt: 5, mb: 5 }} spacing={3}>
                 <TextField
@@ -228,6 +201,12 @@ const Words = (props) => {
                   id="submitType"
                   name="submitType"
                   value={props.submitType}
+                />
+                <TextField
+                  sx={{ display: "none" }}
+                  id="categoryId"
+                  name="categoryId"
+                  value={props.wordContentData.categoryId}
                 />
                 <TextField
                   sx={{ display: "none" }}
@@ -448,6 +427,7 @@ const Words = (props) => {
                       <Table>
                         <TableHead>
                           <TableRow>
+                            <TableCell sx={{ fontSize: "15px" }}>#</TableCell>
                             <TableCell sx={{ fontSize: "15px" }}>
                               Word
                             </TableCell>
@@ -475,11 +455,28 @@ const Words = (props) => {
                                           }
                                     }
                                   >
-                                    <TableCell>{word.name}</TableCell>
+                                    <TableCell>{parseInt(key) + 1}</TableCell>
+                                    <TableCell
+                                      sx={{ textTransform: "capitalize" }}
+                                    >
+                                      {word.name}
+                                    </TableCell>
                                     <TableCell>
                                       {Object.entries(word.choices).map(
                                         ([key2, choice]) => (
-                                          <span key={key2}>
+                                          <span
+                                            key={key2}
+                                            style={
+                                              parseInt(
+                                                choice.is_correct_answer
+                                              ) == 1
+                                                ? {
+                                                    fontWeight: "900",
+                                                    color: "#1976D2",
+                                                  }
+                                                : null
+                                            }
+                                          >
                                             {choice.name} {" | "}
                                           </span>
                                         )
