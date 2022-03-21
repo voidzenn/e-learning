@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 
 import {
+  Avatar,
+  Button,
   Container,
   Grid,
   MenuItem,
@@ -14,14 +17,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import { AccountBox } from "@mui/icons-material";
 
+import { setUri } from "../../actions/header";
 import { fetchUsers, changeRole, freshUser } from "../../actions/user";
 import AlertContent from "../contents/subcontents/AlertContent";
 import Pagination from "../contents/subcontents/Pagination";
 
 const UserList = (props) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Remove the cookie current page to go back to first page
     props.cookies.remove("currentPage");
@@ -80,6 +88,16 @@ const UserList = (props) => {
     from: props.userData.length !== 0 ? props.userData.from : 1,
   };
 
+  const handleViewProfile = (e, userId) => {
+    e.preventDefault();
+    // Set cookie data with a specific id of a user
+    props.cookies.set("profileData", userId, { path: "/" });
+    // Set uri to profile
+    props.setUri("/profile");
+    // Navigate to profile page
+    navigate("profile");
+  };
+
   return (
     <React.Fragment>
       <Container>
@@ -104,22 +122,56 @@ const UserList = (props) => {
           <Table stickyHeader aria-label="sticky table" sx={{ p: 5 }}>
             <TableHead style={{ backgroundColor: "orange" }}>
               <TableRow>
-                <TableCell sx={tableCellStyles}>#</TableCell>
-                <TableCell sx={tableCellStyles}>Name</TableCell>
-                <TableCell sx={tableCellStyles}>Email</TableCell>
-                <TableCell sx={tableCellStyles}>Avatar</TableCell>
-                <TableCell sx={tableCellStyles}>Role</TableCell>
+                <TableCell sx={tableCellStyles} style={{ width: "5%" }}>
+                  #
+                </TableCell>
+                <TableCell
+                  sx={tableCellStyles}
+                  style={{ width: "5%" }}
+                ></TableCell>
+                <TableCell sx={tableCellStyles} style={{ width: "35%" }}>
+                  Name
+                </TableCell>
+                <TableCell sx={tableCellStyles} style={{ width: "35%" }}>
+                  Email
+                </TableCell>
+                {
+                  // Only show column if admin
+                  props.userAuth.isAdmin === 1 ? (
+                    <TableCell sx={tableCellStyles} style={{ width: "20%" }}>
+                      Role
+                    </TableCell>
+                  ) : (
+                    <TableCell
+                      sx={tableCellStyles}
+                      style={{ width: "30%" }}
+                    ></TableCell>
+                  )
+                }
               </TableRow>
             </TableHead>
             <TableBody>
               {props.userData.length !== 0
                 ? Object.entries(props.userData.data).map(([key, user]) => {
                     var finalKey = {};
-                    // Make iteration to the itemKey value
+                    /**
+                     * Make iteration to the itemKey value. The from value
+                     * is the paginate.from function in laravel controller.
+                     */
                     finalKey = { ...itemKey, from: itemKey.from++ };
                     return (
                       <TableRow key={key}>
-                        <TableCell>{props.userData.from++}</TableCell>
+                        <TableCell>{finalKey.from}</TableCell>
+                        <TableCell>
+                          <Avatar
+                            alt="img"
+                            src="images/avatars/profile.png"
+                            sx={{
+                              width: 40,
+                              height: 40,
+                            }}
+                          />
+                        </TableCell>
                         <TableCell>
                           <span style={{ textTransform: "capitalize" }}>
                             {user.fname}
@@ -129,37 +181,56 @@ const UserList = (props) => {
                           </span>
                         </TableCell>
                         <TableCell>{user.email}</TableCell>
-                        <TableCell>{user.avatar}</TableCell>
-                        <TableCell>
-                          <Select
-                            fullWidth
-                            sx={{ maxWidth: "150px" }}
-                            size="small"
-                            value={user.is_admin === 0 ? 0 : 1}
-                            onChange={() => {
-                              onChangeRole({
-                                userId: user.id,
-                                key: key,
-                                isAdmin: user.is_admin,
-                              });
-                            }}
-                          >
-                            <MenuItem
-                              value={1}
-                              selected={user.is_admin === 1 ? true : false}
-                              disabled={user.is_admin === 1 ? true : false}
-                            >
-                              Admin
-                            </MenuItem>
-                            <MenuItem
-                              value={0}
-                              selected={user.is_admin === 0 ? true : false}
-                              disabled={user.is_admin === 0 ? true : false}
-                            >
-                              User
-                            </MenuItem>
-                          </Select>
-                        </TableCell>
+                        {
+                          // Only show role column if admin
+                          props.userAuth.isAdmin === 1 ? (
+                            <TableCell>
+                              <Select
+                                fullWidth
+                                sx={{ maxWidth: "150px" }}
+                                size="small"
+                                value={user.is_admin === 0 ? 0 : 1}
+                                onChange={() => {
+                                  onChangeRole({
+                                    userId: user.id,
+                                    key: key,
+                                    isAdmin: user.is_admin,
+                                  });
+                                }}
+                              >
+                                <MenuItem
+                                  value={1}
+                                  selected={user.is_admin === 1 ? true : false}
+                                  disabled={user.is_admin === 1 ? true : false}
+                                >
+                                  Admin
+                                </MenuItem>
+                                <MenuItem
+                                  value={0}
+                                  selected={user.is_admin === 0 ? true : false}
+                                  disabled={user.is_admin === 0 ? true : false}
+                                >
+                                  User
+                                </MenuItem>
+                              </Select>
+                            </TableCell>
+                          ) : (
+                            <TableCell align="right">
+                              <Tooltip
+                                title="Go to User Profile"
+                                placement="right"
+                              >
+                                <Button
+                                  onClick={(e) => {
+                                    handleViewProfile(e, user.id);
+                                  }}
+                                >
+                                  <AccountBox sx={{ width: 35, height: 35 }} />
+                                </Button>
+                              </Tooltip>
+                            </TableCell>
+                          )
+                        }
                       </TableRow>
                     );
                   })
@@ -183,6 +254,7 @@ const UserList = (props) => {
 const mapToStateProps = (state, ownProps) => {
   return {
     token: state.auth.userAuth.token,
+    userAuth: state.auth.userAuth,
     userData: state.user.userData,
     requestError: state.user.requestError,
     requestErrorMessage: state.user.requestErrorMessage,
@@ -191,5 +263,7 @@ const mapToStateProps = (state, ownProps) => {
 };
 
 export default withCookies(
-  connect(mapToStateProps, { fetchUsers, changeRole, freshUser })(UserList)
+  connect(mapToStateProps, { setUri, fetchUsers, changeRole, freshUser })(
+    UserList
+  )
 );
