@@ -6,12 +6,13 @@ import { withCookies } from "react-cookie";
 import { Box, Container } from "@mui/material";
 
 import { BASE_URL } from "../../config";
+import { signOut, setUserAuthDetails, freshState } from "../../actions/auth";
 import Header from "./Header";
 import Dashboard from "../contents/Dashboard";
 import Category from "../contents/Category";
 import CategoryAdmin from "../contents/admin/CategoryAdmin";
 import UserList from "../contents/UserList";
-import { signOut, setUserAuthDetails, freshState } from "../../actions/auth";
+import Profile from "../contents/Profile";
 
 const MainContent = (props) => {
   //  Retrieve data from storage
@@ -61,7 +62,7 @@ const MainContent = (props) => {
               <Container maxWidth="lg">
                 <Routes>
                   {props.userAuth.is_admin === 0 ? (
-                    <Route path="/dashboard" element={<Dashboard />}></Route>
+                    <Route path="/dashboard" element={<Dashboard />} />
                   ) : null}
                   <Route
                     path="/categories/*"
@@ -72,8 +73,9 @@ const MainContent = (props) => {
                         <Category />
                       )
                     }
-                  ></Route>
-                  <Route path="/user_lists" element={<UserList />}></Route>
+                  />
+                  <Route path="/user_lists" element={<UserList />} />
+                  <Route path="/profile" element={<Profile />} />
                 </Routes>
               </Container>
             </Box>

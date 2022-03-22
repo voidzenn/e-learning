@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+import headerReducer from "./header";
 import userAuthReducer from "./auth";
 import userReducer from "./user";
 import categoryReducer from "./category";
@@ -7,6 +8,7 @@ import wordReducer from "./word";
 import lessonReducer from "./lesson";
 
 export default combineReducers({
+  header: headerReducer,
   auth: userAuthReducer,
   user: userReducer,
   category: categoryReducer,

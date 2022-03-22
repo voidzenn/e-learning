@@ -17,11 +17,20 @@ import {
   Typography,
 } from "@mui/material";
 
+import { setUri } from "../../actions/header";
+
 const Header = (props) => {
   const navigate = useNavigate();
-  const [URI, setURI] = useState("");
   // Menu dropdown settings
-  const menuSettings = ["Profile", "Sign Out"];
+  const menuSettings = () => {
+    return props.userAuth
+      ? [
+          // Add the name as first index value
+          props.userAuth.fname + " " + props.userAuth.lname,
+          "Sign Out",
+        ]
+      : ["Sign Out"];
+  };
   // Style for active link buttons
   const activeBtnStyle = {
     color: "white",
@@ -40,25 +49,28 @@ const Header = (props) => {
     if (uriName !== undefined) {
       switch (uriName) {
         case "/dashboard":
-          setURI(uriName);
+          props.setUri(uriName);
           break;
         case "/categories":
-          setURI(uriName);
+          props.setUri(uriName);
           break;
         case "/user_lists":
-          setURI(uriName);
+          props.setUri(uriName);
+          break;
+        case "/profile":
+          props.setUri(uriName);
           break;
       }
     } else {
       // Go to home if uriName is unrecognized
       if (props.userAuth.is_admin === 0) {
-        setURI("/dashboard");
+        props.setUri("/dashboard");
         // Set active page on first load
         props.cookies.set("activePage", "/dashboard", {
           path: "/",
         });
       } else {
-        setURI("/categories");
+        props.setUri("/categories");
         // Set active page on first load
         props.cookies.set("activePage", "/categories", {
           path: "/",
@@ -69,10 +81,10 @@ const Header = (props) => {
 
   useEffect(() => {
     // Navigate based on the updated URI
-    if (URI !== "") {
-      navigate(URI);
+    if (props.uri !== "") {
+      navigate(props.uri);
     }
-  }, [URI]);
+  }, [props.uri]);
 
   const navigateToHome = (e) => {
     e.preventDefault();
@@ -82,10 +94,10 @@ const Header = (props) => {
     */
     if (props.userAuth.is_admin === 0) {
       navigate("/dashboard");
-      setURI("/dashboard");
+      props.setUri("/dashboard");
     } else {
       navigate("/categories");
-      setURI("/categories");
+      props.setUri("/categories");
     }
     // Set the activePage to stay on current page when the page reloads
     props.cookies.set("activePage", window.location.pathname, { path: "/" });
@@ -96,7 +108,7 @@ const Header = (props) => {
     navigate("/dashboard");
     // Set the activePage to stay on current page when the page reloads
     props.cookies.set("activePage", window.location.pathname, { path: "/" });
-    setURI("/dashboard");
+    props.setUri("/dashboard");
   };
 
   const navigateToCategory = (e) => {
@@ -104,7 +116,7 @@ const Header = (props) => {
     navigate("/categories");
     // Set the activePage to stay on current page when the page reloads
     props.cookies.set("activePage", window.location.pathname, { path: "/" });
-    setURI("/categories");
+    props.setUri("/categories");
   };
 
   const navigateToUserList = (e) => {
@@ -112,7 +124,21 @@ const Header = (props) => {
     navigate("/user_lists");
     // Set the activePage to stay on current page when the page reloads
     props.cookies.set("activePage", window.location.pathname, { path: "/" });
-    setURI("/user_lists");
+    props.setUri("/user_lists");
+  };
+
+  const navigateToProfile = (e) => {
+    e.preventDefault();
+    navigate("/profile");
+    // Set the activePage to stay on current page when the page reloads
+    props.cookies.set("activePage", window.location.pathname, { path: "/" });
+    // Add profile data to cookie
+    props.cookies.set(
+      "profileData",
+      { user_id: props.userAuth.id },
+      { path: "/" }
+    );
+    props.setUri("/profile");
   };
 
   const [anchorUser, setAnchorUser] = useState(null);
@@ -164,7 +190,7 @@ const Header = (props) => {
                   When you want to put some conditioning in MUI styles and you want
                   to pass style objects, you will need to you use this format.
                 */
-                    ...(URI === "/dashboard"
+                    ...(props.uri === "/dashboard"
                       ? activeBtnStyle
                       : inActiveBtnStyle),
                   }}
@@ -186,7 +212,7 @@ const Header = (props) => {
                     When you want to put some conditioning in MUI styles and you want
                     to pass style objects, you will need to you use this format.
                   */
-                  ...(URI === "/categories"
+                  ...(props.uri === "/categories"
                     ? activeBtnStyle
                     : inActiveBtnStyle),
                 }}
@@ -203,7 +229,7 @@ const Header = (props) => {
                   my: 1,
                   mx: 1.5,
                   textDecoration: "none",
-                  ...(URI === "/user_lists"
+                  ...(props.uri === "/user_lists"
                     ? activeBtnStyle
                     : inActiveBtnStyle),
                 }}
@@ -214,11 +240,9 @@ const Header = (props) => {
           </Grid>
           <Grid item xs={1}>
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Admin" src="" />
-                </IconButton>
-              </Tooltip>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Admin" src="" />
+              </IconButton>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -235,17 +259,43 @@ const Header = (props) => {
                 open={Boolean(anchorUser)}
                 onClose={handleCloseUserMenu}
               >
-                {menuSettings.map((setting) => (
-                  <MenuItem
-                    key={setting}
-                    onClick={handleCloseUserMenu}
-                    onClick={
-                      setting === "Sign Out" ? props.handleSignOut : null
-                    }
-                  >
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                {menuSettings().length !== 0
+                  ? menuSettings().map((setting, index) => {
+                      // Apply to name
+                      return index === 0 ? (
+                        <Tooltip
+                          title="Go to Your Profile Page"
+                          placement="left"
+                          key={index}
+                        >
+                          <MenuItem
+                            key={setting}
+                            onClick={(e) => {
+                              handleCloseUserMenu();
+                              navigateToProfile(e);
+                            }}
+                          >
+                            <Typography
+                              textAlign="center"
+                              sx={{ fontWeight: "900" }}
+                            >
+                              {setting}
+                            </Typography>
+                          </MenuItem>
+                        </Tooltip>
+                      ) : (
+                        <MenuItem
+                          key={setting}
+                          onClick={() => {
+                            handleCloseUserMenu();
+                            props.handleSignOut();
+                          }}
+                        >
+                          <Typography textAlign="center">{setting}</Typography>
+                        </MenuItem>
+                      );
+                    })
+                  : null}
               </Menu>
             </Box>
           </Grid>
@@ -257,10 +307,16 @@ const Header = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    // Handles the navigation state
+    uri: state.header.uri,
     userAuth: state.auth.userAuth,
     handleSignOut: ownProps.handleSignOut,
     cookies: ownProps.cookies,
   };
 };
 
-export default withCookies(connect(mapStateToProps)(Header));
+export default withCookies(
+  connect(mapStateToProps, {
+    setUri,
+  })(Header)
+);
