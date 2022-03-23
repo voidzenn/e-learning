@@ -91,11 +91,11 @@ const UserList = (props) => {
   const handleViewProfile = (e, userId) => {
     e.preventDefault();
     // Set cookie data with a specific id of a user
-    props.cookies.set("profileData", userId, { path: "/" });
+    props.cookies.set("profileData", { userId: userId }, { path: "/" });
     // Set uri to profile
     props.setUri("/profile");
-    // Navigate to profile page
-    navigate("profile");
+    // Set the activePage to stay on current page when the page reloads
+    props.cookies.set("activePage", "/profile", { path: "/" });
   };
 
   return (
@@ -137,7 +137,7 @@ const UserList = (props) => {
                 </TableCell>
                 {
                   // Only show column if admin
-                  props.userAuth.isAdmin === 1 ? (
+                  props.userAuth.is_admin === 1 ? (
                     <TableCell sx={tableCellStyles} style={{ width: "20%" }}>
                       Role
                     </TableCell>
@@ -183,7 +183,7 @@ const UserList = (props) => {
                         <TableCell>{user.email}</TableCell>
                         {
                           // Only show role column if admin
-                          props.userAuth.isAdmin === 1 ? (
+                          props.userAuth.is_admin === 1 ? (
                             <TableCell>
                               <Select
                                 fullWidth

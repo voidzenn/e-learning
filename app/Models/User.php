@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($password);
     }
+
+    public function followings()
+    {
+        return $this->hasMany(Follow::class, 'user_id');
+    }
+
+    public function followers()
+    {
+        return $this->hasMany(Follow::class, 'followed_id');
+    }
 }
