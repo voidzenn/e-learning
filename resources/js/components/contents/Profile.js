@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 
@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 
 import { fetchSingleUser } from "../../actions/user";
+import { fetchAllAnswers } from "../../actions/lesson";
 import {
   fetchFollowData,
   followUser,
@@ -23,8 +24,10 @@ import {
   setToUnfollow,
   freshFollow,
 } from "../../actions/follow";
+import Activity from "./Activity";
 
 const Profile = (props) => {
+  const [wordCount, setWordCount] = useState(0);
   // Get profile data from cookie
   const profileData = () => {
     return props.cookies.get("profileData") !== undefined
@@ -39,6 +42,8 @@ const Profile = (props) => {
     props.fetchSingleUser(props.token, profileData().userId);
     // Get the currently signed in user follows data
     props.fetchFollowData(props.token, props.userAuth.id);
+    // Get all lesson answers based on user id
+    props.fetchAllAnswers(props.token, profileData().userId);
   }, []);
 
   useEffect(() => {
@@ -48,6 +53,33 @@ const Profile = (props) => {
       followersFollowing();
     }
   }, [props.singleUserData]);
+
+  useEffect(() => {
+    if (props.allAnswers.length !== 0) {
+      var count = 0;
+      Object.entries(props.allAnswers).map(([key, answer]) => {
+        count += answer.answer_users.length;
+      });
+      // Set state with word count
+      setWordCount(count);
+    }
+  }, [props.allAnswers]);
+
+  useEffect(() => {
+    return props.followData.length !== 0
+      ? // Get the follows data and assign to variables
+        Object.entries(props.followData).map(([key2, data]) => {
+          /**
+           * Check if already followed, if already followed then update
+           * follow button to unfollow.
+           */
+          if (data.followed_id === profileData().userId) {
+            // Set follow to unfollow butotn
+            props.setToUnfollow();
+          }
+        })
+      : null;
+  }, [props.followData]);
 
   const userData = () => {
     return props.singleUserData.length !== 0
@@ -79,22 +111,6 @@ const Profile = (props) => {
       followed_id: data.followedId,
     });
   };
-
-  useEffect(() => {
-    return props.followData.length !== 0
-      ? // Get the follows data and assign to variables
-        Object.entries(props.followData).map(([key2, data]) => {
-          /**
-           * Check if already followed, if already followed then update
-           * follow button to unfollow.
-           */
-          if (data.followed_id === profileData().userId) {
-            // Set follow to unfollow butotn
-            props.setToUnfollow();
-          }
-        })
-      : null;
-  }, [props.followData]);
 
   return (
     <React.Fragment>
@@ -174,35 +190,48 @@ const Profile = (props) => {
                 {
                   // We can follow and unfollow others but not it's own
                   profileData().userId !== props.userAuth.id ? (
-                    <Grid item sx={{ mt: 4 }}>
-                      {props.isFollowButton ? (
-                        <Button
-                          variant="outlined"
-                          size="small"
-                          onClick={() => {
-                            handleFollow({
-                              userId: props.userAuth.id,
-                              followedId: profileData().userId,
-                            });
+                    <React.Fragment>
+                      <Grid item>
+                        <Typography
+                          style={{
+                            fontSize: "15px",
+                            color: "#777777",
+                            marginTop: "15px",
                           }}
                         >
-                          Follow
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="contained"
-                          size="small"
-                          onClick={() => {
-                            handleUnfollow({
-                              userId: props.userAuth.id,
-                              followedId: profileData().userId,
-                            });
-                          }}
-                        >
-                          Unfollow
-                        </Button>
-                      )}
-                    </Grid>
+                          Learned {wordCount} words
+                        </Typography>
+                      </Grid>
+                      <Grid item sx={{ mt: 2 }}>
+                        {props.isFollowButton ? (
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            onClick={() => {
+                              handleFollow({
+                                userId: props.userAuth.id,
+                                followedId: profileData().userId,
+                              });
+                            }}
+                          >
+                            Follow
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            size="small"
+                            onClick={() => {
+                              handleUnfollow({
+                                userId: props.userAuth.id,
+                                followedId: profileData().userId,
+                              });
+                            }}
+                          >
+                            Unfollow
+                          </Button>
+                        )}
+                      </Grid>
+                    </React.Fragment>
                   ) : null
                 }
               </Grid>
@@ -210,7 +239,7 @@ const Profile = (props) => {
             <Grid item lg={8} md={8} sm={8} xs={12}>
               <Paper>
                 <Box sx={{ p: 5 }}>
-                  <Typography>Activity Log</Typography>
+                  <Activity userId={profileData().userId} type="profile" />
                 </Box>
               </Paper>
             </Grid>
@@ -226,6 +255,7 @@ const mapToStateProps = (state, ownProps) => {
     token: state.auth.userAuth.token,
     userAuth: state.auth.userAuth,
     singleUserData: state.user.singleUserData,
+    allAnswers: state.lesson.allAnswers,
     followData: state.follow.followData,
     followers: state.follow.followers,
     following: state.follow.following,
@@ -237,6 +267,7 @@ const mapToStateProps = (state, ownProps) => {
 export default withCookies(
   connect(mapToStateProps, {
     fetchSingleUser,
+    fetchAllAnswers,
     fetchFollowData,
     followUser,
     setFollower,

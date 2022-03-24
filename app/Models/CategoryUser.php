@@ -27,6 +27,11 @@ class CategoryUser extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function categories()
+    {
+        return $this->hasMany(Category::class, "id", "category_id");
+    }
+
     public function answerUsers()
     {
         return $this->hasMany(AnswerUser::class, 'category_user_id');

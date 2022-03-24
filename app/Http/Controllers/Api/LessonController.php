@@ -7,6 +7,7 @@ use App\Http\Requests\AnswerUser\AnswerUserGetRequest;
 use App\Http\Requests\AnswerUser\AnswerUserStoreRequest;
 use App\Http\Requests\Category\CategoryGetRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
+use App\Http\Requests\CategoryUser\CategoryUserAllGetRequest;
 use App\Http\Requests\CategoryUser\CategoryUserGetRequest;
 use App\Http\Requests\CategoryUser\CategoryUserStoreRequest;
 use App\Http\Requests\CategoryUser\CategoryUserUpdateRequest;
@@ -40,13 +41,17 @@ class LessonController extends Controller
 
     /**
      * If user answered all the words then update category_user completed
-     * to 1. We also need to add a new acitivity log that the user has 
+     * to 1. We also need to add a new acitivity log that the user has
      * finished answering a category.
      */
     public function updateComplete(CategoryUserUpdateRequest $request)
     {
         try {
-            $categoryUser = CategoryUser::where("user_id", "=", $request->user_id)
+            $categoryUser = CategoryUser::where(
+                "user_id",
+                "=",
+                $request->user_id
+            )
                 ->where("category_id", "=", $request->category_id)
                 ->update(["completed" => "1"]);
 
@@ -55,7 +60,7 @@ class LessonController extends Controller
                 Activity::create([
                     "user_id" => $request->user_id,
                     "activable_id" => $request->category_id,
-                    "activable_type" => "category"
+                    "activable_type" => "category",
                 ]);
 
                 return response()->json([
@@ -113,6 +118,78 @@ class LessonController extends Controller
                 "error" => false,
                 "message" => "Error in getting data. Try Again",
                 "error_message" => $e,
+            ]);
+        }
+    }
+
+    /**
+     * This function gets the category user data. This helps in
+     * determining how many lessons has a user completed.
+     */
+    public function getAllCategoryUser(CategoryUserAllGetRequest $request)
+    {
+        try {
+            $categoryUser = CategoryUser::where(
+                "user_id",
+                "=",
+                $request->user_id
+            )
+                ->where("completed", "=", "1")
+                ->get();
+            if ($categoryUser) {
+                return response()->json([
+                    "error" => false,
+                    "message" => "Successfully queried data",
+                    "category_user" => $categoryUser,
+                ]);
+            } else {
+                return response()->json([
+                    "error" => true,
+                    "message" => "Error in getting data. Try Again",
+                    "category_user" => [],
+                ]);
+            }
+        } catch (QueryException $e) {
+            return response()->json([
+                "error" => false,
+                "message" => "Error in getting data. Try Again",
+                "error_message" => $e,
+            ]);
+        }
+    }
+
+    /**
+     * Get all the words and its choices based on user id
+     */
+    public function getWords($user_id)
+    {
+        try {
+            $categoryUser =  CategoryUser::where(
+                "user_id",
+                "=",
+                $user_id
+            )->with("categories.words.choices")
+            ->with("answerUsers")
+            ->get();
+
+            if ($categoryUser) {
+                return response()->json([
+                    "error" => false,
+                    "message" => "Successfully queried data",
+                    "category_user" => $categoryUser,
+                ]);
+            } else {
+                return response()->json([
+                    "error" => true,
+                    "message" => "Error in getting data. Try Again",
+                    "category_user" => [],
+                ]);
+            }
+        } catch (QueryException $e) {
+            return response()->json([
+                "error" => true,
+                "message" => "Error in getting data. Try Again",
+                "error_message" => $e
             ]);
         }
     }

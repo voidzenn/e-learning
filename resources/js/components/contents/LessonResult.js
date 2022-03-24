@@ -58,7 +58,6 @@ const LessonResult = (props) => {
 
     if (props.answer_results.length !== 0 && props.category.length !== 0) {
       return Object.entries(props.answer_results).map(([key1, answer]) => {
-        const itemKey = key1;
         return words
           .filter((data1) => data1.word_id === answer.word_id)
           .map((word) =>
@@ -66,7 +65,7 @@ const LessonResult = (props) => {
               .filter((choice) => choice.choice_id === answer.choice_id)
               .map((data2) => {
                 // Add 1 to score if true
-                isCorrect(data2.is_correct_answer) ? ++score : null;
+                isCorrect(answer.is_correct) ? ++score : null;
                 // Handle score if last rendered key
                 const timer = setTimeout(() => {
                   props.setScore(score);

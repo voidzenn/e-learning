@@ -21,6 +21,8 @@ class Choice extends Model
         'is_correct_answer'
     ];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function word()
     {
         return $this->belongsTo(Word::class);
