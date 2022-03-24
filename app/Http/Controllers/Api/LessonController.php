@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AnswerUser\AnswerUserGetRequest;
 use App\Http\Requests\AnswerUser\AnswerUserStoreRequest;
 use App\Http\Requests\Category\CategoryGetRequest;
+use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Http\Requests\CategoryUser\CategoryUserGetRequest;
 use App\Http\Requests\CategoryUser\CategoryUserStoreRequest;
+use App\Http\Requests\CategoryUser\CategoryUserUpdateRequest;
+use App\Models\Activity;
 use App\Models\AnswerUser;
 use App\Models\CategoryUser;
 use Illuminate\Database\QueryException;
@@ -30,6 +33,45 @@ class LessonController extends Controller
             return response()->json([
                 "error" => false,
                 "message" => "Error in Storing to Category User. Try Again",
+                "error_message" => $e,
+            ]);
+        }
+    }
+
+    /**
+     * If user answered all the words then update category_user completed
+     * to 1. We also need to add a new acitivity log that the user has 
+     * finished answering a category.
+     */
+    public function updateComplete(CategoryUserUpdateRequest $request)
+    {
+        try {
+            $categoryUser = CategoryUser::where("user_id", "=", $request->user_id)
+                ->where("category_id", "=", $request->category_id)
+                ->update(["completed" => "1"]);
+
+            if ($categoryUser) {
+                // Store activity
+                Activity::create([
+                    "user_id" => $request->user_id,
+                    "activable_id" => $request->category_id,
+                    "activable_type" => "category"
+                ]);
+
+                return response()->json([
+                    "error" => false,
+                    "message" => "Successfully Updated To Complete",
+                ]);
+            }
+
+            return response()->json([
+                "error" => true,
+                "message" => "Error in updating Category User",
+            ]);
+        } catch (QueryException $e) {
+            return response()->json([
+                "error" => false,
+                "message" => "Error in updating Category User",
                 "error_message" => $e,
             ]);
         }
@@ -123,7 +165,7 @@ class LessonController extends Controller
     public function getAllAnswers(CategoryGetRequest $request)
     {
         try {
-            $categoryUser =  CategoryUser::where(
+            $categoryUser = CategoryUser::where(
                 "user_id",
                 "=",
                 $request->user_id

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Follow\FollowDestroyRequest;
 use App\Http\Requests\Follow\FollowStoreRequest;
+use App\Models\Activity;
 use App\Models\Follow;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -35,6 +36,11 @@ class FollowController extends Controller
         }
     }
 
+    /**
+     * This functions stores to follows table. We also need
+     * to store an activity to activties table.
+     */
+
     public function store(FollowStoreRequest $request)
     {
         try {
@@ -46,6 +52,13 @@ class FollowController extends Controller
                 $follow = Follow::create($request->all());
 
                 if ($follow) {
+                    // Store activity 
+                    Activity::create([
+                        "user_id" => $request->user_id,
+                        "activable_id" => $request->followed_id,
+                        "activable_type" => "follow"
+                    ]);
+
                     return response()->json([
                         "error" => false,
                         "message" => "Successfully Followed User",
@@ -67,7 +80,8 @@ class FollowController extends Controller
     }
 
     /**
-     * Delete data in follows based on user_id and followed_id
+     * Delete data in follows based on user_id and followed_id. We
+     * also need to delete the activity in the activities table.
      */
 
     public function destroy(FollowDestroyRequest $request)
@@ -78,6 +92,12 @@ class FollowController extends Controller
                 ->delete();
 
             if ($follow) {
+                // Delete activity and checks if type is follow
+                Activity::where("user_id", "=", $request->user_id)
+                ->where("activable_id", "=", $request->followed_id)
+                ->where("activable_type", "=", "follow")
+                ->delete();
+
                 return response()->json([
                     "error" => false,
                     "message" => "Successfully Unfollowed User",

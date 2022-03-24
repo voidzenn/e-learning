@@ -16,6 +16,7 @@ import {
   setLessonData,
   setCategoryUserId,
   storeCategoryUser,
+  updateCategoryUserComplete,
   checkCategoryUser,
   storeAnswerUser,
   setAnswerData,
@@ -35,6 +36,8 @@ const LessonAnswer = (props) => {
   const categoryUserId = props.cookies.get("categoryUserId");
   // Get cookie value
   const active = props.cookies.get("activeWord");
+  // Get cookie value
+  const answerLength = props.cookies.get("answerLength");
   // Run on first load
   useEffect(() => {
     if (activeLesson !== undefined) {
@@ -66,8 +69,6 @@ const LessonAnswer = (props) => {
     if (active !== undefined) {
       setActiveWord(parseInt(active));
     }
-    // Get cookie value
-    const answerLength = props.cookies.get("answerLength");
     /**
      * Assign the word if exist in cookie
      * answerLength will have a value if the user has answered all
@@ -127,6 +128,8 @@ const LessonAnswer = (props) => {
      */
     if (props.answerLength > 0) {
       setActiveWord(props.answerLength + 1);
+      // Update cookie value with state
+      props.cookies.set("answerLength", props.answerLength + 1, { path: "/" });
     }
   }, [props.answerLength]);
   // Run if words choices changes and if activeWord state changes
@@ -153,7 +156,7 @@ const LessonAnswer = (props) => {
          * and the user is in the last words and choices, the submit
          * button title will be "See Results".
          */
-        if (parseInt(active) === props.wordsChoices.data.data.length - 1) {
+        if (ifLastWord()) {
           setSubmitName("See Results");
         } else {
           // Default title of submit
@@ -162,6 +165,17 @@ const LessonAnswer = (props) => {
       }
     }
   }, [props.wordsChoices, activeWord]);
+  // Check if in the last word to be answered
+  const ifLastWord = () => {
+    if (
+      parseInt(answerLength) === props.wordsChoices.data.data.length ||
+      parseInt(active) === props.wordsChoices.data.data.length - 1
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   // This runs if user clicks on choice button
   const handleSelectedBtn = (key, data) => {
     // This will help in highlighting the button
@@ -190,6 +204,13 @@ const LessonAnswer = (props) => {
        * pass answer data as second arguemnt.
        */
       props.storeAnswerUser(props.token, props.answerData);
+      if (ifLastWord()) {
+        // Update category_user category to completed
+        props.updateCategoryUserComplete(props.token, {
+          user_id: props.userId,
+          category_id: props.lessonData.categoryId,
+        });
+      }
     }
     // Disable submit button
     setDisabledSubmit(true);
@@ -347,6 +368,7 @@ export default withCookies(
     setLessonData,
     setCategoryUserId,
     storeCategoryUser,
+    updateCategoryUserComplete,
     checkCategoryUser,
     setAnswerData,
     storeAnswerUser,

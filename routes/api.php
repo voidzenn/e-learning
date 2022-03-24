@@ -101,6 +101,10 @@ Route::prefix("v1")->group(function () {
                 App\Http\Controllers\Api\LessonController::class,
                 "storeCategoryUser",
             ]);
+            Route::put("/update-complete", [
+                App\Http\Controllers\Api\LessonController::class,
+                "updateComplete",
+            ]);
             Route::get("/check-category-user", [
                 App\Http\Controllers\Api\LessonController::class,
                 "checkCategoryUser",

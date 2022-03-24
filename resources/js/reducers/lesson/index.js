@@ -4,6 +4,7 @@ import {
   SET_ANSWER_DATA,
   CHECK_CATEGORY_USER,
   STORE_CATEGORY_USER,
+  UPDATE_CATEGORY_USER_COMPLETE,
   STORE_ANSWER_USER,
   FETCH_ANSWER_USER_DATA,
   FETCH_ALL_ANSWER,
@@ -46,6 +47,12 @@ export default (state = initializeState, action) => {
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage,
         categoryUserId: action.categoryUserId,
+      };
+    case UPDATE_CATEGORY_USER_COMPLETE:
+      return {
+        ...state,
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage,
       };
     case CHECK_CATEGORY_USER:
       return {

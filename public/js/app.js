@@ -37070,7 +37070,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "setLessonData": () => (/* binding */ setLessonData),
 /* harmony export */   "setScore": () => (/* binding */ setScore),
 /* harmony export */   "storeAnswerUser": () => (/* binding */ storeAnswerUser),
-/* harmony export */   "storeCategoryUser": () => (/* binding */ storeCategoryUser)
+/* harmony export */   "storeCategoryUser": () => (/* binding */ storeCategoryUser),
+/* harmony export */   "updateCategoryUserComplete": () => (/* binding */ updateCategoryUserComplete)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -37172,19 +37173,80 @@ var storeCategoryUser = function storeCategoryUser(token, requestData) {
     };
   }();
 };
-var checkCategoryUser = function checkCategoryUser(token, requestData) {
+var updateCategoryUserComplete = function updateCategoryUserComplete(token, requestData) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              if (!(token !== "" && data !== "")) {
+              if (!(token !== "" && requestData !== "")) {
                 _context2.next = 5;
                 break;
               }
 
               _context2.next = 3;
+              return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_2__["default"])("/lessons/update-complete", {
+                method: "put",
+                headers: {
+                  Authorization: "Bearer ".concat(token)
+                },
+                data: requestData
+              }).then(function (response) {
+                data = {
+                  requestError: response.data.error,
+                  requestErrorMessage: response.data.message
+                };
+              })["catch"](function (error) {
+                data = {
+                  requestError: error.response.data.error,
+                  requestErrorMessage: error.response.data.message
+                };
+              });
+
+            case 3:
+              _context2.next = 6;
+              break;
+
+            case 5:
+              data = {
+                requestError: true,
+                requestErrorMessage: "Unauthorized Action"
+              };
+
+            case 6:
+              dispatch({
+                type: _types__WEBPACK_IMPORTED_MODULE_1__.UPDATE_CATEGORY_USER_COMPLETE,
+                requestError: data.requestError,
+                requestErrorMessage: data.requestErrorMessage
+              });
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+var checkCategoryUser = function checkCategoryUser(token, requestData) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!(token !== "" && data !== "")) {
+                _context3.next = 5;
+                break;
+              }
+
+              _context3.next = 3;
               return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_2__["default"])("lessons/check-category-user?user_id=".concat(requestData.user_id, "&category_id=").concat(requestData.category_id), {
                 method: "get",
                 headers: {
@@ -37207,7 +37269,7 @@ var checkCategoryUser = function checkCategoryUser(token, requestData) {
               });
 
             case 3:
-              _context2.next = 6;
+              _context3.next = 6;
               break;
 
             case 5:
@@ -37229,14 +37291,14 @@ var checkCategoryUser = function checkCategoryUser(token, requestData) {
 
             case 7:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }));
 
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
     };
   }();
 };
@@ -37250,17 +37312,17 @@ var setAnswerData = function setAnswerData(requestData) {
 };
 var storeAnswerUser = function storeAnswerUser(token, requestData) {
   return /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               if (!(token !== "" && requestData !== "")) {
-                _context3.next = 5;
+                _context4.next = 5;
                 break;
               }
 
-              _context3.next = 3;
+              _context4.next = 3;
               return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_2__["default"])("/lessons/store-answer-user", {
                 method: "post",
                 headers: {
@@ -37280,7 +37342,7 @@ var storeAnswerUser = function storeAnswerUser(token, requestData) {
               });
 
             case 3:
-              _context3.next = 6;
+              _context4.next = 6;
               break;
 
             case 5:
@@ -37298,30 +37360,30 @@ var storeAnswerUser = function storeAnswerUser(token, requestData) {
 
             case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
 
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
     };
   }();
 };
 var fetchAnswerUserData = function fetchAnswerUserData(token, request) {
   return /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(dispatch) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               if (!(token !== "" && request !== "")) {
-                _context4.next = 5;
+                _context5.next = 5;
                 break;
               }
 
-              _context4.next = 3;
+              _context5.next = 3;
               return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_2__["default"])("/lessons/get-answers?user_id=".concat(request.user_id, "&category_id=").concat(request.category_user_id), {
                 method: "get",
                 headers: {
@@ -37342,7 +37404,7 @@ var fetchAnswerUserData = function fetchAnswerUserData(token, request) {
               });
 
             case 3:
-              _context4.next = 6;
+              _context5.next = 6;
               break;
 
             case 5:
@@ -37362,30 +37424,30 @@ var fetchAnswerUserData = function fetchAnswerUserData(token, request) {
 
             case 7:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }));
 
-    return function (_x4) {
-      return _ref4.apply(this, arguments);
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
     };
   }();
 };
 var fetchAllAnswers = function fetchAllAnswers(token, user_id) {
   return /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(dispatch) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(dispatch) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
               if (!(token !== "" && user_id !== "")) {
-                _context5.next = 5;
+                _context6.next = 5;
                 break;
               }
 
-              _context5.next = 3;
+              _context6.next = 3;
               return (0,_apis_userApi__WEBPACK_IMPORTED_MODULE_2__["default"])("/lessons/get-all-answers?user_id=".concat(user_id), {
                 method: "get",
                 headers: {
@@ -37406,7 +37468,7 @@ var fetchAllAnswers = function fetchAllAnswers(token, user_id) {
               });
 
             case 3:
-              _context5.next = 6;
+              _context6.next = 6;
               break;
 
             case 5:
@@ -37426,14 +37488,14 @@ var fetchAllAnswers = function fetchAllAnswers(token, user_id) {
 
             case 7:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
         }
-      }, _callee5);
+      }, _callee6);
     }));
 
-    return function (_x5) {
-      return _ref5.apply(this, arguments);
+    return function (_x6) {
+      return _ref6.apply(this, arguments);
     };
   }();
 };
@@ -37473,11 +37535,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SET_LESSON_DATA": () => (/* binding */ SET_LESSON_DATA),
 /* harmony export */   "SET_SCORE": () => (/* binding */ SET_SCORE),
 /* harmony export */   "STORE_ANSWER_USER": () => (/* binding */ STORE_ANSWER_USER),
-/* harmony export */   "STORE_CATEGORY_USER": () => (/* binding */ STORE_CATEGORY_USER)
+/* harmony export */   "STORE_CATEGORY_USER": () => (/* binding */ STORE_CATEGORY_USER),
+/* harmony export */   "UPDATE_CATEGORY_USER_COMPLETE": () => (/* binding */ UPDATE_CATEGORY_USER_COMPLETE)
 /* harmony export */ });
 var SET_LESSON_DATA = "SET_LESSON_DATA";
 var SET_CATEGORY_USER_ID = "SET_CATEGORY_USER_ID";
 var STORE_CATEGORY_USER = "STORE_CATEGORY_USER";
+var UPDATE_CATEGORY_USER_COMPLETE = "UPDATE_CATEGORY_USER_COMPLETE";
 var CHECK_CATEGORY_USER = "CHECK_CATEGORY_USER";
 var SET_ANSWER_DATA = "SET_ANSWER_DATA";
 var STORE_ANSWER_USER = "STORE_ANSWER_USER";
@@ -39622,7 +39686,9 @@ var LessonAnswer = function LessonAnswer(props) {
 
   var categoryUserId = props.cookies.get("categoryUserId"); // Get cookie value
 
-  var active = props.cookies.get("activeWord"); // Run on first load
+  var active = props.cookies.get("activeWord"); // Get cookie value
+
+  var answerLength = props.cookies.get("answerLength"); // Run on first load
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (activeLesson !== undefined) {
@@ -39656,10 +39722,7 @@ var LessonAnswer = function LessonAnswer(props) {
 
     if (active !== undefined) {
       setActiveWord(parseInt(active));
-    } // Get cookie value
-
-
-    var answerLength = props.cookies.get("answerLength");
+    }
     /**
      * Assign the word if exist in cookie
      * answerLength will have a value if the user has answered all
@@ -39667,6 +39730,7 @@ var LessonAnswer = function LessonAnswer(props) {
      * to answer if user has already started answering.
      *
      */
+
 
     if (answerLength !== undefined) {
       setActiveWord(parseInt(answerLength));
@@ -39718,7 +39782,11 @@ var LessonAnswer = function LessonAnswer(props) {
      * props.answerLength value is greater than 0
      */
     if (props.answerLength > 0) {
-      setActiveWord(props.answerLength + 1);
+      setActiveWord(props.answerLength + 1); // Update cookie value with state
+
+      props.cookies.set("answerLength", props.answerLength + 1, {
+        path: "/"
+      });
     }
   }, [props.answerLength]); // Run if words choices changes and if activeWord state changes
 
@@ -39747,7 +39815,7 @@ var LessonAnswer = function LessonAnswer(props) {
          */
 
 
-        if (parseInt(active) === props.wordsChoices.data.data.length - 1) {
+        if (ifLastWord()) {
           setSubmitName("See Results");
         } else {
           // Default title of submit
@@ -39755,7 +39823,16 @@ var LessonAnswer = function LessonAnswer(props) {
         }
       }
     }
-  }, [props.wordsChoices, activeWord]); // This runs if user clicks on choice button
+  }, [props.wordsChoices, activeWord]); // Check if in the last word to be answered
+
+  var ifLastWord = function ifLastWord() {
+    if (parseInt(answerLength) === props.wordsChoices.data.data.length || parseInt(active) === props.wordsChoices.data.data.length - 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }; // This runs if user clicks on choice button
+
 
   var handleSelectedBtn = function handleSelectedBtn(key, data) {
     // This will help in highlighting the button
@@ -39785,6 +39862,14 @@ var LessonAnswer = function LessonAnswer(props) {
        * pass answer data as second arguemnt.
        */
       props.storeAnswerUser(props.token, props.answerData);
+
+      if (ifLastWord()) {
+        // Update category_user category to completed
+        props.updateCategoryUserComplete(props.token, {
+          user_id: props.userId,
+          category_id: props.lessonData.categoryId
+        });
+      }
     } // Disable submit button
 
 
@@ -39968,6 +40053,7 @@ var mapToStateProps = function mapToStateProps(state, ownProps) {
   setLessonData: _actions_lesson__WEBPACK_IMPORTED_MODULE_3__.setLessonData,
   setCategoryUserId: _actions_lesson__WEBPACK_IMPORTED_MODULE_3__.setCategoryUserId,
   storeCategoryUser: _actions_lesson__WEBPACK_IMPORTED_MODULE_3__.storeCategoryUser,
+  updateCategoryUserComplete: _actions_lesson__WEBPACK_IMPORTED_MODULE_3__.updateCategoryUserComplete,
   checkCategoryUser: _actions_lesson__WEBPACK_IMPORTED_MODULE_3__.checkCategoryUser,
   setAnswerData: _actions_lesson__WEBPACK_IMPORTED_MODULE_3__.setAnswerData,
   storeAnswerUser: _actions_lesson__WEBPACK_IMPORTED_MODULE_3__.storeAnswerUser
@@ -43744,6 +43830,12 @@ var initializeState = {
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage,
         categoryUserId: action.categoryUserId
+      });
+
+    case _actions_lesson_types__WEBPACK_IMPORTED_MODULE_0__.UPDATE_CATEGORY_USER_COMPLETE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage
       });
 
     case _actions_lesson_types__WEBPACK_IMPORTED_MODULE_0__.CHECK_CATEGORY_USER:
