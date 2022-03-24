@@ -3,6 +3,7 @@ import {
   SET_CATEGORY_USER_ID,
   SET_ANSWER_DATA,
   STORE_CATEGORY_USER,
+  UPDATE_CATEGORY_USER_COMPLETE,
   CHECK_CATEGORY_USER,
   STORE_ANSWER_USER,
   FRESH_LESSON,
@@ -71,6 +72,41 @@ export const storeCategoryUser = (token, requestData) => async (dispatch) => {
     categoryUserId: data.categoryUserId,
   });
 };
+
+export const updateCategoryUserComplete =
+  (token, requestData) => async (dispatch) => {
+    if (token !== "" && requestData !== "") {
+      await userApi("/lessons/update-complete", {
+        method: "put",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: requestData,
+      })
+        .then((response) => {
+          data = {
+            requestError: response.data.error,
+            requestErrorMessage: response.data.message,
+          };
+        })
+        .catch((error) => {
+          data = {
+            requestError: error.response.data.error,
+            requestErrorMessage: error.response.data.message,
+          };
+        });
+    } else {
+      data = {
+        requestError: true,
+        requestErrorMessage: "Unauthorized Action",
+      };
+    }
+    dispatch({
+      type: UPDATE_CATEGORY_USER_COMPLETE,
+      requestError: data.requestError,
+      requestErrorMessage: data.requestErrorMessage,
+    });
+  };
 
 export const checkCategoryUser = (token, requestData) => async (dispatch) => {
   if (token !== "" && data !== "") {
@@ -223,7 +259,7 @@ export const fetchAllAnswers = (token, user_id) => async (dispatch) => {
     data = {
       requestError: true,
       requestErrorMessage: "Unauthorized Action",
-      allAnswers: [], 
+      allAnswers: [],
     };
   }
   dispatch({
