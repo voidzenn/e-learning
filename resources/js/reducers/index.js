@@ -6,6 +6,7 @@ import userReducer from "./user";
 import categoryReducer from "./category";
 import wordReducer from "./word";
 import lessonReducer from "./lesson";
+import followReducer from "./follow";
 
 export default combineReducers({
   header: headerReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   category: categoryReducer,
   word: wordReducer,
   lesson: lessonReducer,
+  follow: followReducer,
 });

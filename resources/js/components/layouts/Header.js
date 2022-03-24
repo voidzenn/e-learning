@@ -132,10 +132,12 @@ const Header = (props) => {
     navigate("/profile");
     // Set the activePage to stay on current page when the page reloads
     props.cookies.set("activePage", window.location.pathname, { path: "/" });
+    // We need to delete the cookie first then add again
+    props.cookies.remove("profileData");
     // Add profile data to cookie
     props.cookies.set(
       "profileData",
-      { user_id: props.userAuth.id },
+      { userId: props.userAuth.id },
       { path: "/" }
     );
     props.setUri("/profile");

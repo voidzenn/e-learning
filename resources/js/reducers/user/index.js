@@ -1,7 +1,13 @@
-import { FETCH_USERS, CHANGE_ROLE, FRESH_USER } from "../../actions/user/types";
+import {
+  FETCH_USERS,
+  FETCH_SINGLE_USER,
+  CHANGE_ROLE,
+  FRESH_USER,
+} from "../../actions/user/types";
 
 const initializeState = {
   userData: [],
+  singleUserData: [],
   requestError: "",
   requestErrorMessage: "",
 };
@@ -12,6 +18,11 @@ export default (state = initializeState, action) => {
       return {
         ...state,
         userData: action.userData,
+      };
+    case FETCH_SINGLE_USER:
+      return {
+        ...state,
+        singleUserData: action.singleUserData,
       };
     case CHANGE_ROLE:
       return {
@@ -34,10 +45,8 @@ export default (state = initializeState, action) => {
         ...state,
         requestError: "",
         requestErrorMessage: "",
-      }
+      };
     default:
       return state;
   }
 };
-
-

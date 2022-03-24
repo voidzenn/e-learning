@@ -1,4 +1,9 @@
-import { FETCH_USERS, CHANGE_ROLE, FRESH_USER } from "./types";
+import {
+  FETCH_USERS,
+  FETCH_SINGLE_USER,
+  CHANGE_ROLE,
+  FRESH_USER,
+} from "./types";
 import userApi from "../../apis/userApi";
 
 var data = {};
@@ -22,6 +27,43 @@ export const fetchUsers = (token, page) => async (dispatch) => {
   dispatch({
     type: FETCH_USERS,
     userData: data.userData,
+  });
+};
+
+export const fetchSingleUser = (token, userId) => async (dispatch) => {
+  if (token !== "" && userId !== "") {
+    await userApi(`/users/${userId}/show`, {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        data = {
+          requestError: response.data.error,
+          requestErrorMessage: response.data.message,
+          singleUserData: response.data.data,
+        };
+      })
+      .catch((error) => {
+        data = {
+          requestError: error.response.data.error,
+          requestErrorMessage: error.response.data.message,
+          singleUserData: [],
+        };
+      });
+  } else {
+    data = {
+      requestError: true,
+      requestErrorMessage: "Unauthorized Action",
+      singleUserData: [],
+    };
+  }
+  dispatch({
+    type: FETCH_SINGLE_USER,
+    requestError: data.requestError,
+    requestErrorMessage: data.requestErrorMessage,
+    singleUserData: data.singleUserData,
   });
 };
 

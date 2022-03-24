@@ -14,6 +14,28 @@ class UserController extends Controller
         return response()->json(User::paginate(10));
     }
 
+    public function show($user_id)
+    {
+        try {
+            $user = User::where("id", "=", $user_id)
+                ->with("followings")
+                ->with("followers")
+                ->get();
+
+            return response()->json([
+                "error" => false,
+                "message" => "Succesffuly queried data",
+                "data" => $user,
+            ]);
+        } catch (QueryException $e) {
+            return response()->json([
+                "error" => false,
+                "message" => "Failed to get data",
+                "error_message" => $e,
+            ]);
+        }
+    }
+
     //Change or update the user role
     public function changeRole(User $user, UserChangeRoleRequest $request)
     {
