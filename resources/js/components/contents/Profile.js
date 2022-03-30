@@ -12,6 +12,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import { Settings } from "@mui/icons-material";
 
 import { fetchSingleUser } from "../../actions/user";
 import { fetchAllAnswers } from "../../actions/lesson";
@@ -25,8 +26,10 @@ import {
   freshFollow,
 } from "../../actions/follow";
 import Activity from "./Activity";
+import EditProfile from "./EditProfile";
 
 const Profile = (props) => {
+  const [openEdit, setOpenEdit] = useState(false);
   const [wordCount, setWordCount] = useState(0);
   // Get profile data from cookie
   const profileData = () => {
@@ -111,6 +114,14 @@ const Profile = (props) => {
       followed_id: data.followedId,
     });
   };
+  // Close edit profile then open activity list
+  const handleViewActivity = () => {
+    setOpenEdit(false);
+  };
+
+  const handleEditProfile = (data) => {
+    setOpenEdit(true);
+  };
 
   return (
     <React.Fragment>
@@ -135,22 +146,36 @@ const Profile = (props) => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item>
-                  <Avatar
-                    alt="img"
-                    variant="square"
-                    src="images/avatars/profile.png"
-                    sx={{ width: 200, height: 200 }}
-                  />
-                </Grid>
-                <Grid item sx={{ mt: 2 }}>
+                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 2 }}>
                   <Typography>
                     {userData().fname + " " + userData().lname}
                   </Typography>
                 </Grid>
-                <Grid item sx={{ mt: 1 }}>
-                  <Divider sx={{ mb: "5px" }} />
-                  <Grid container spacing={5}>
+                <Grid item lg={12} md={12} sm={12} xs={12}>
+                  <Avatar
+                    alt="img"
+                    variant="square"
+                    src={
+                      userData().avatar === null
+                        ? "images/avatars/profile.png"
+                        : userData().avatar
+                    }
+                    sx={{ width: "200px", height: "200px" }}
+                    style={{
+                      borderRadius: "100%",
+                      boxShadow: "inset 0 0 0px 11px #1976D266",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                </Grid>
+
+                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 1 }}>
+                  <Grid
+                    container
+                    spacing={5}
+                    alignItems="center"
+                    justifyContent="center"
+                  >
                     <Grid item>
                       <Grid
                         container
@@ -159,10 +184,14 @@ const Profile = (props) => {
                         justifyContent="centerF"
                       >
                         <Grid item>
-                          <Typography>{props.followers}</Typography>
+                          <Typography sx={{ color: "#000000B2" }}>
+                            {props.followers}
+                          </Typography>
                         </Grid>
                         <Grid>
-                          <Typography sx={{ fontSize: "14px" }}>
+                          <Typography
+                            sx={{ fontSize: "14px", color: "#000000B2" }}
+                          >
                             Followers
                           </Typography>
                         </Grid>
@@ -176,14 +205,21 @@ const Profile = (props) => {
                         justifyContent="centerF"
                       >
                         <Grid item>
-                          <Typography>{props.following}</Typography>
+                          <Typography sx={{ color: "#000000B2" }}>
+                            {props.following}
+                          </Typography>
                         </Grid>
                         <Grid>
-                          <Typography sx={{ fontSize: "14px" }}>
+                          <Typography
+                            sx={{ fontSize: "14px", color: "#000000B2" }}
+                          >
                             Following
                           </Typography>
                         </Grid>
                       </Grid>
+                    </Grid>
+                    <Grid item lg={12} md={12} sm={12} sx={{ mt: "-25px" }}>
+                      <Divider />
                     </Grid>
                   </Grid>
                 </Grid>
@@ -232,14 +268,49 @@ const Profile = (props) => {
                         )}
                       </Grid>
                     </React.Fragment>
-                  ) : null
+                  ) : (
+                    <Grid item sx={{ mt: 4 }}>
+                      <Button
+                        variant={openEdit ? "outlined" : "contained"}
+                        size="small"
+                        onClick={() => {
+                          !openEdit
+                            ? handleEditProfile({
+                                userId: props.userAuth.id,
+                              })
+                            : handleViewActivity();
+                        }}
+                      >
+                        {!openEdit ? (
+                          <React.Fragment>
+                            <Settings sx={{ pr: 1 }} />
+                            Edit Profile
+                          </React.Fragment>
+                        ) : (
+                          "View Activity"
+                        )}
+                      </Button>
+                    </Grid>
+                  )
                 }
               </Grid>
             </Grid>
             <Grid item lg={8} md={8} sm={8} xs={12}>
               <Paper>
                 <Box sx={{ p: 5 }}>
-                  <Activity userId={profileData().userId} type="profile" />
+                  {!openEdit ? (
+                    <React.Fragment>
+                      <Container sx={{ mb: 2 }}>
+                        <Typography>User Activity</Typography>
+                      </Container>
+                      <Activity userId={profileData().userId} type="profile" />
+                    </React.Fragment>
+                  ) : (
+                    <EditProfile
+                      userData={userData()}
+                      setOpenEdit={setOpenEdit}
+                    />
+                  )}
                 </Box>
               </Paper>
             </Grid>

@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 
 import { setUri } from "../../actions/header";
+import UserAvatar from "../contents/UserAvatar";
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -243,7 +244,10 @@ const Header = (props) => {
           <Grid item xs={1}>
             <Box sx={{ flexGrow: 0 }}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Admin" src="" />
+                <UserAvatar
+                  alt={props.userAuth.fname}
+                  avatar={props.userAuth.avatar}
+                />
               </IconButton>
               <Menu
                 sx={{ mt: "45px" }}

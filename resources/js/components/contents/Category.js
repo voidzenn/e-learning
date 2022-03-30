@@ -17,11 +17,14 @@ import { fetchAllCategories } from "../../actions/category";
 import { freshLesson, fetchAllAnswers } from "../../actions/lesson";
 import ProgressBar from "./ProgressBar";
 import LessonAnswer from "./LessonAnswer";
+import { findLastKey } from "lodash";
 
 const Category = (props) => {
   const [openLesson, setOpenLesson] = useState(false);
   const [title, setTitle] = useState("Categories");
-
+  // This is for rendering data after rendering the category user data
+  var lastData = [];
+  var completedData = [];
   useEffect(() => {
     // Check if activeLesson is true then open lesson page on reload
     const activeLesson = props.cookies.get("activeLesson");
@@ -151,29 +154,34 @@ const Category = (props) => {
       </Container>
       {!openLesson ? (
         <Grid container spacing={3}>
-          {props.categories.length !== 0
-            ? Object.entries(props.categories).map(([key, category]) => {
-                // Display only categories with words and ignore categories without words
-                if (category.id !== null) {
-                  /**
-                   * We first need to check has answers, if has answers then
-                   * get the data and assign to varible.
-                   */
-                  const ans = isValidLength(props.allAnswers)
-                    ? props.allAnswers
-                        .filter((answer) => answer.category_id === category.id)
-                        .map((item) => {
-                          return {
-                            categoryId: item.category_id,
-                            answerLength: item.answer_users,
-                          };
-                        })
-                    : [];
-                  var newAns = [];
-                  if (isValidLength(ans)) {
-                    // We need to get the first index of the object ans
-                    newAns = ans[Object.keys(ans)[0]];
-                  }
+          {props.categories.length !== 0 ? (
+            Object.entries(props.categories).map(([key, category]) => {
+              // Display only categories with words and ignore categories without words
+              if (category.id !== null) {
+                /**
+                 * We first need to check has answers, if has answers then
+                 * get the data and assign to varible.
+                 */
+                const ans = isValidLength(props.allAnswers)
+                  ? props.allAnswers
+                      .filter((answer) => answer.category_id === category.id)
+                      .map((item) => {
+                        return {
+                          categoryId: item.category_id,
+                          categoryCompleted: item.completed,
+                          answerLength: item.answer_users,
+                        };
+                      })
+                  : [];
+                var newAns = [];
+                if (isValidLength(ans)) {
+                  // We need to get the first index of the object ans
+                  newAns = ans[Object.keys(ans)[0]];
+                }
+                if (
+                  category.id === newAns.categoryId &&
+                  newAns.categoryCompleted === 0
+                ) {
                   return (
                     <Grid
                       key={key}
@@ -257,9 +265,144 @@ const Category = (props) => {
                       </Card>
                     </Grid>
                   );
+                } else if (
+                  category.id === newAns.categoryId &&
+                  newAns.categoryCompleted === 1
+                ) {
+                  completedData.push(category);
+                } else {
+                  lastData.push(category);
                 }
-              })
-            : null}
+                /**
+                 * Render last data after mapping all of the category data.
+                 * We need to check if the key is the last key. If it is the
+                 * last key then run mapping function.
+                 */
+                if (props.categories.length - 1 === parseInt(key)) {
+                  // Combine the two arrays
+                  const finalData = completedData.concat(lastData);
+                  // Get length of completed data
+                  const completeLength = completedData.length;
+                  return Object.entries(finalData).map(([lastKey, data]) => {
+                    // If data within the completed data then make complete design card
+                    if (lastKey < completeLength) {
+                      return (
+                        <Grid
+                          key={lastKey}
+                          item
+                          lg={4}
+                          md={4}
+                          sm={6}
+                          xs={6}
+                          sx={{ pb: 5 }}
+                        >
+                          <Card
+                            sx={{
+                              minHeight: "220px",
+                              maxHeight: "220px",
+                              border: "1px solid #1976D2",
+                            }}
+                          >
+                            <ProgressBar
+                              sx={{ mt: -2 }}
+                              index={data.words.length}
+                              length={data.words.length}
+                            />
+                            <CardContent sx={{ p: 3, height: "155px" }}>
+                              <Typography
+                                sx={{
+                                  fontWeight: 700,
+                                  textTransform: "capitalize",
+                                }}
+                              >
+                                {data.name}
+                              </Typography>
+                              <br />
+                              {formatText(data.description)}
+                            </CardContent>
+                            <CardActions>
+                              <Grid container justifyContent="flex-end">
+                                <Button
+                                  variant="contained"
+                                  size="small"
+                                  style={{ bottom: -5, right: 10 }}
+                                  onClick={() => {
+                                    handleStart({
+                                      categoryId: data.id,
+                                      categoryName: data.name,
+                                      categoryDescription: data.description,
+                                    });
+                                  }}
+                                >
+                                  View Result
+                                </Button>
+                              </Grid>
+                            </CardActions>
+                          </Card>
+                        </Grid>
+                      );
+                    } else {
+                      return (
+                        <Grid
+                          key={lastKey}
+                          item
+                          lg={4}
+                          md={4}
+                          sm={6}
+                          xs={6}
+                          sx={{ pb: 5 }}
+                        >
+                          <Card
+                            sx={{
+                              minHeight: "220px",
+                              maxHeight: "220px",
+                            }}
+                          >
+                            <CardContent sx={{ p: 3, height: "155px" }}>
+                              <Typography
+                                sx={{
+                                  fontWeight: 700,
+                                  textTransform: "capitalize",
+                                }}
+                              >
+                                {data.name}
+                              </Typography>
+                              <br />
+                              {formatText(data.description)}
+                            </CardContent>
+                            <CardActions>
+                              <Grid container justifyContent="flex-end">
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  style={{ bottom: -5, right: 10 }}
+                                  onClick={() => {
+                                    handleStart({
+                                      categoryId: data.id,
+                                      categoryName: data.name,
+                                      categoryDescription: data.description,
+                                    });
+                                  }}
+                                >
+                                  Start
+                                </Button>
+                              </Grid>
+                            </CardActions>
+                          </Card>
+                        </Grid>
+                      );
+                    }
+                  });
+                }
+              }
+            })
+          ) : (
+            <Container>
+              <Typography variant="h6" sx={{ textAlign: "center", mt: 5 }}>
+                No category data
+              </Typography>
+            </Container>
+          )}
         </Grid>
       ) : null}
       {openLesson ? <LessonAnswer setTitle={setTitle} /> : null}

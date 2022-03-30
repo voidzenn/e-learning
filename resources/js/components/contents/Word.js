@@ -10,7 +10,7 @@ const Word = (props) => {
     // Fetch all word from lessons based on user id
     props.fetchWords(props.userAuth.token, props.userAuth.id);
   }, []);
-  
+
   const renderWords = () => {
     var answer = "";
     if (props.wordsData.length !== 0) {
@@ -44,7 +44,7 @@ const Word = (props) => {
                         <Typography>{correctChoice.name}</Typography>
                       </Grid>
                       <Grid item lg={12} md={12} sm={12} xs={12}>
-                        <Divider sx={{ pb: 1}} />
+                        <Divider sx={{ pb: 1 }} />
                       </Grid>
                     </React.Fragment>
                   );
@@ -55,22 +55,29 @@ const Word = (props) => {
         });
       });
       return wordData;
+    } else {
+      return <Typography>No Words Learned</Typography>;
     }
   };
 
   return (
     <Container sx={{ maxHeight: "1000px", overflow: "auto" }}>
       <Grid container>
-        <Grid item lg={4} md={4} sm={4} xs={4}>
-          <Typography sx={{ fontWeight: "900" }}>Words</Typography>
-        </Grid>
-        <Grid item lg={4} md={4} sm={4} xs={4}>
-          <Typography sx={{ fontWeight: "900" }}>Answers</Typography>
-        </Grid>
-        <Grid item lg={4} md={4} sm={4} xs={4}>
-          <Typography sx={{ fontWeight: "900" }}>Correct Answer</Typography>
-        </Grid>
+        {props.wordsData.length !== 0 ? (
+          <React.Fragment>
+            <Grid item lg={4} md={4} sm={4} xs={4}>
+              <Typography sx={{ fontWeight: "900" }}>Words</Typography>
+            </Grid>
+            <Grid item lg={4} md={4} sm={4} xs={4}>
+              <Typography sx={{ fontWeight: "900" }}>Answers</Typography>
+            </Grid>
+            <Grid item lg={4} md={4} sm={4} xs={4}>
+              <Typography sx={{ fontWeight: "900" }}>Correct Answer</Typography>
+            </Grid>
+          </React.Fragment>
+        ) : null}
       </Grid>
+
       <Grid container sx={{ mt: 2 }}>
         {renderWords()}
       </Grid>

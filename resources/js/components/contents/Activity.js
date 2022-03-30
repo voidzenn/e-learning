@@ -16,6 +16,7 @@ import {
 
 import { fetchActivity, fetchSingleActivity } from "../../actions/activity";
 import { setUri } from "../../actions/header";
+import UserAvatar from "./UserAvatar";
 
 const Activity = (props) => {
   // Get cookie value
@@ -82,51 +83,65 @@ const Activity = (props) => {
                         <Grid item key={key}>
                           <Card sx={{ border: "1px solid #00000026", p: 2 }}>
                             <Grid container>
-                              <Grid item lg={12} md={12} sm={12} xs={12}>
-                                <Link
-                                  href=""
-                                  style={{
-                                    display: "inline-block",
-                                    marginRight: "5px",
-                                  }}
-                                  onClick={(e) => {
-                                    handleProfileLink(e, {
-                                      userId: props.userAuth.id,
-                                    });
-                                  }}
-                                >
-                                  <Typography>You</Typography>
-                                </Link>
-                                <Typography
-                                  style={{
-                                    display: "inline-block",
-                                    marginRight: "5px",
-                                  }}
-                                >
-                                  followed
-                                </Typography>
-                                <Link
-                                  href=""
-                                  style={{ display: "inline-block" }}
-                                  onClick={(e) => {
-                                    handleProfileLink(e, {
-                                      userId: activity.followed.id,
-                                    });
-                                  }}
-                                >
-                                  <Typography>
-                                    {activity.followed.fname +
-                                      " " +
-                                      activity.followed.lname}
-                                  </Typography>
-                                </Link>
+                              <Grid item lg={2} md={2} sm={2} xs={2}>
+                                <UserAvatar
+                                  height="50px"
+                                  width="50px"
+                                  avatar={activity.user.avatar}
+                                />
                               </Grid>
-                              <Grid item lg={12} md={12} sm={12} xs={12}>
-                                <Typography
-                                  sx={{ color: "#777777", fontSize: "14px" }}
-                                >
-                                  {formatTime(activity.created_at)}
-                                </Typography>
+                              <Grid item lg={10} md={10} sm={10} xs={10}>
+                                <Grid container direction="column">
+                                  <Grid item>
+                                    <Link
+                                      href=""
+                                      style={{
+                                        display: "inline-block",
+                                        marginRight: "5px",
+                                      }}
+                                      onClick={(e) => {
+                                        handleProfileLink(e, {
+                                          userId: props.userAuth.id,
+                                        });
+                                      }}
+                                    >
+                                      <Typography>You</Typography>
+                                    </Link>
+                                    <Typography
+                                      style={{
+                                        display: "inline-block",
+                                        marginRight: "5px",
+                                      }}
+                                    >
+                                      followed
+                                    </Typography>
+                                    <Link
+                                      href=""
+                                      style={{ display: "inline-block" }}
+                                      onClick={(e) => {
+                                        handleProfileLink(e, {
+                                          userId: activity.followed.id,
+                                        });
+                                      }}
+                                    >
+                                      <Typography>
+                                        {activity.followed.fname +
+                                          " " +
+                                          activity.followed.lname}
+                                      </Typography>
+                                    </Link>
+                                  </Grid>
+                                  <Grid item>
+                                    <Typography
+                                      sx={{
+                                        color: "#777777",
+                                        fontSize: "14px",
+                                      }}
+                                    >
+                                      {formatTime(activity.created_at)}
+                                    </Typography>
+                                  </Grid>
+                                </Grid>
                               </Grid>
                             </Grid>
                           </Card>
@@ -138,61 +153,78 @@ const Activity = (props) => {
                       <Grid item key={key} lg={12} md={12} sm={12} xs={12}>
                         <Card sx={{ border: "1px solid #00000026", p: 2 }}>
                           <Grid container>
-                            <Grid item lg={12} md={12} sm={12} xs={12}>
-                              <Link
-                                href=""
-                                style={{
-                                  display: "inline-block",
-                                  marginRight: "5px",
-                                }}
-                                onClick={(e) => {
-                                  handleProfileLink(e, {
-                                    userId: activity.user_id,
-                                  });
-                                }}
-                              >
-                                <Typography>
-                                  {props.userAuth.id === activity.user_id
-                                    ? "You"
-                                    : activity.user.fname +
-                                      " " +
-                                      activity.user.lname}
-                                </Typography>
-                              </Link>
-                              <Typography
-                                style={{
-                                  display: "inline-block",
-                                  marginRight: "5px",
-                                }}
-                              >
-                                learned {activity.category.words.length} words
-                                in
-                              </Typography>
-                              <Link
-                                href=""
-                                style={{ display: "inline-block" }}
-                                onClick={(e) => {
-                                  handleLessonLink(e, {
-                                    categoryId: activity.category.id,
-                                    categoryName: activity.category.name,
-                                    categoryDescription:
-                                      activity.category.description,
-                                  });
-                                }}
-                              >
-                                <Typography
-                                  sx={{ textTransform: "capitalize" }}
-                                >
-                                  {activity.category.name}
-                                </Typography>
-                              </Link>
+                            <Grid item lg={2} md={2} sm={2} xs={2}>
+                              <UserAvatar
+                                height="50px"
+                                width="50px"
+                                avatar={activity.user.avatar}
+                              />
                             </Grid>
-                            <Grid item lg={12} md={12} sm={12} xs={12}>
-                              <Typography
-                                sx={{ color: "#777777", fontSize: "14px" }}
-                              >
-                                {formatTime(activity.created_at)}
-                              </Typography>
+                            <Grid item lg={10} md={10} sm={10} xs={10}>
+                              <Grid container direction="column">
+                                <Grid item sx={{ width: "350px" }}>
+                                  <Link
+                                    href=""
+                                    style={{
+                                      display: "inline-block",
+                                      marginRight: "5px",
+                                    }}
+                                    onClick={(e) => {
+                                      handleProfileLink(e, {
+                                        userId: activity.user_id,
+                                      });
+                                    }}
+                                  >
+                                    <Typography>
+                                      {props.userAuth.id === activity.user_id
+                                        ? "You"
+                                        : activity.user.fname +
+                                          " " +
+                                          activity.user.lname}
+                                    </Typography>
+                                  </Link>
+                                  <Typography
+                                    style={{
+                                      display: "inline-block",
+                                      marginRight: "5px",
+                                    }}
+                                  >
+                                    learned {activity.category.words.length}{" "}
+                                    words in
+                                  </Typography>
+                                  <Link
+                                    href=""
+                                    style={{ display: "inline-block" }}
+                                    onClick={(e) => {
+                                      handleLessonLink(e, {
+                                        categoryId: activity.category.id,
+                                        categoryName: activity.category.name,
+                                        categoryDescription:
+                                          activity.category.description,
+                                      });
+                                    }}
+                                  >
+                                    <Typography
+                                      sx={{
+                                        textTransform: "capitalize",
+                                        fontSize: "14px",
+                                      }}
+                                    >
+                                      {activity.category.name}
+                                    </Typography>
+                                  </Link>
+                                </Grid>
+                                <Grid item>
+                                  <Typography
+                                    sx={{
+                                      color: "#777777",
+                                      fontSize: "14px",
+                                    }}
+                                  >
+                                    {formatTime(activity.created_at)}
+                                  </Typography>
+                                </Grid>
+                              </Grid>
                             </Grid>
                           </Grid>
                         </Card>
@@ -205,7 +237,7 @@ const Activity = (props) => {
         </Container>
       ) : (
         <Container sx={{ maxHeight: "300px", overflow: "auto" }}>
-          <Typography>No activity for this user</Typography>
+          <Typography sx={{ mt: 2 }}>No User activity</Typography>
         </Container>
       )}
     </React.Fragment>

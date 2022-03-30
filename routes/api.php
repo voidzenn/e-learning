@@ -30,7 +30,7 @@ Route::prefix("v1")->group(function () {
     ]);
 
     Route::middleware("auth:sanctum")->group(function () {
-        // Userlist routes
+        // Users routes
         Route::prefix("users")->group(function () {
             Route::get("/", [
                 \App\Http\Controllers\Api\UserController::class,
@@ -43,6 +43,14 @@ Route::prefix("v1")->group(function () {
             Route::put("/{user}/changeRole", [
                 \App\Http\Controllers\Api\UserController::class,
                 "changeRole",
+            ]);
+            Route::put("/{user}/update", [
+                \App\Http\Controllers\Api\UserController::class,
+                "updateUser",
+            ]);
+            Route::put("/{user}/update-password", [
+                \App\Http\Controllers\Api\UserController::class,
+                "updatePassword",
             ]);
         });
         // Category routes
@@ -158,6 +166,13 @@ Route::prefix("v1")->group(function () {
             Route::get("/{user_id}/show", [
                 App\Http\Controllers\Api\ActivityController::class,
                 "show",
+            ]);
+        });
+        // File Routes
+        Route::prefix("files")->group(function () {
+            Route::post("/upload-image", [
+                App\Http\Controllers\Api\FileUploadController::class,
+                "uploadImage",
             ]);
         });
     });
