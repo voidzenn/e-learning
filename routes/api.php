@@ -105,6 +105,10 @@ Route::prefix("v1")->group(function () {
                 App\Http\Controllers\Api\LessonController::class,
                 "updateComplete",
             ]);
+            Route::get("/get-all-category-user", [
+                App\Http\Controllers\Api\LessonController::class,
+                "getAllCategoryUser",
+            ]);
             Route::get("/check-category-user", [
                 App\Http\Controllers\Api\LessonController::class,
                 "checkCategoryUser",
@@ -112,6 +116,10 @@ Route::prefix("v1")->group(function () {
             Route::get("/check-answer-user", [
                 App\Http\Controllers\Api\LessonController::class,
                 "checkAnswerUser",
+            ]);
+            Route::get("/{user_id}/get-words", [
+                \App\Http\Controllers\Api\LessonController::class,
+                "getWords",
             ]);
             Route::post("/store-answer-user", [
                 App\Http\Controllers\Api\LessonController::class,
@@ -136,7 +144,21 @@ Route::prefix("v1")->group(function () {
                 App\Http\Controllers\Api\FollowController::class,
                 "store",
             ]);
-            Route::delete("/destroy", [App\Http\Controllers\Api\FollowController::class, "destroy"]);
+            Route::delete("/destroy", [
+                App\Http\Controllers\Api\FollowController::class,
+                "destroy",
+            ]);
+        });
+        // Activity Routes
+        Route::prefix("activities")->group(function () {
+            Route::get("/", [
+                App\Http\Controllers\Api\ActivityController::class,
+                "index",
+            ]);
+            Route::get("/{user_id}/show", [
+                App\Http\Controllers\Api\ActivityController::class,
+                "show",
+            ]);
         });
     });
 });

@@ -42,6 +42,7 @@ class CreateAnswerUserTable extends Migration
                 ->references("id")
                 ->on("choices")
                 ->onDelete("cascade");
+            $table->boolean("is_correct")->default('0');
             $table->timestamps();
         });
     }

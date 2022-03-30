@@ -24,9 +24,10 @@ class AnswerUserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_user_id' => ['required'],
-            'word_id' => ['required'],
-            'choice_id' => ['required'],
+            "category_user_id" => ["required"],
+            "word_id" => ["required"],
+            "choice_id" => ["required"],
+            "is_correct" => ["required"],
         ];
     }
 }

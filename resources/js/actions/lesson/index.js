@@ -4,11 +4,13 @@ import {
   SET_ANSWER_DATA,
   STORE_CATEGORY_USER,
   UPDATE_CATEGORY_USER_COMPLETE,
+  FETCH_CATEGORY_USER,
   CHECK_CATEGORY_USER,
   STORE_ANSWER_USER,
   FRESH_LESSON,
   FETCH_ANSWER_USER_DATA,
   FETCH_ALL_ANSWER,
+  FETCH_WORDS,
   SET_SCORE,
 } from "./types";
 import userApi from "../../apis/userApi";
@@ -152,6 +154,46 @@ export const checkCategoryUser = (token, requestData) => async (dispatch) => {
   });
 };
 
+export const fetchCategoryUser = (token, user_id) => async (dispatch) => {
+  if (token !== "" && user_id !== "") {
+    await userApi(
+      `lessons/get-all-category-user?user_id=${user_id}`,
+      {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => {
+        data = {
+          requestError: response.data.error,
+          requestErrorMessage: "",
+          categoryUserData: response.data.category_user,
+        };
+      })
+      .catch((error) => {
+        data = {
+          requestError: true,
+          requestErrorMessage: error.response.data.message,
+          categoryUserData: [],
+        };
+      });
+  } else {
+    data = {
+      requestError: false,
+      requestErrorMessage: "",
+      categoryUserData: [],
+    };
+  }
+  dispatch({
+    type: FETCH_CATEGORY_USER,
+    requestError: data.requestError,
+    requestErrorMessage: data.requestErrorMessage,
+    categoryUserData: data.categoryUserData,
+  });
+};
+
 export const setAnswerData = (requestData) => (dispatch) => {
   dispatch({
     type: SET_ANSWER_DATA,
@@ -267,6 +309,43 @@ export const fetchAllAnswers = (token, user_id) => async (dispatch) => {
     requestError: data.requestError,
     requestErrorMessage: data.requestErrorMessage,
     allAnswers: data.allAnswers,
+  });
+};
+
+export const fetchWords = (token, user_id) => async (dispatch) => {
+  if (token !== "" && user_id !== "") {
+    await userApi(`/lessons/${user_id}/get-words`, {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        data = {
+          requestError: response.data.error,
+          requestErrorMessage: response.data.message,
+          wordsData: response.data.category_user,
+        };
+      })
+      .catch((error) => {
+        data = {
+          requestError: error.response.data.error,
+          requestErrorMessage: error.response.data.message,
+          wordsData: [],
+        };
+      });
+  } else {
+    data = {
+      requestError: true,
+      requestErrorMessage: "Unauthorized Action",
+      wordsData: [],
+    };
+  }
+  dispatch({
+    type: FETCH_WORDS,
+    requestError: data.requestError,
+    requestErrorMessage: data.requestErrorMessage,
+    wordsData: data.wordsData,
   });
 };
 

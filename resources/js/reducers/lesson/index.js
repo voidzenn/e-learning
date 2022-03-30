@@ -5,9 +5,11 @@ import {
   CHECK_CATEGORY_USER,
   STORE_CATEGORY_USER,
   UPDATE_CATEGORY_USER_COMPLETE,
+  FETCH_CATEGORY_USER,
   STORE_ANSWER_USER,
   FETCH_ANSWER_USER_DATA,
   FETCH_ALL_ANSWER,
+  FETCH_WORDS,
   SET_SCORE,
   FRESH_LESSON,
 } from "../../actions/lesson/types";
@@ -17,6 +19,8 @@ const initializeState = {
   answerData: "",
   answerLength: null,
   categoryUserId: null,
+  categoryUserData: [],
+  wordsData: [],
   requestError: "",
   requestErrorMessage: "",
   answer_results: [],
@@ -62,6 +66,13 @@ export default (state = initializeState, action) => {
         categoryUserId: action.categoryUserId,
         answerLength: action.answerLength,
       };
+    case FETCH_CATEGORY_USER:
+      return {
+        ...state,
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage,
+        categoryUserData: action.categoryUserData,
+      };
     case STORE_ANSWER_USER:
       return {
         ...state,
@@ -82,6 +93,13 @@ export default (state = initializeState, action) => {
         requestErrorMessage: action.requestErrorMessage,
         allAnswers: action.allAnswers,
       };
+    case FETCH_WORDS:
+      return {
+        ...state,
+        requestError: action.requestError,
+        requestErrorMessage: action.requestErrorMessage,
+        wordsData: action.wordsData,
+      }
     case SET_SCORE:
       return {
         ...state,

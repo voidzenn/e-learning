@@ -15,6 +15,7 @@ class AnswerUser extends Model
         'category_user_id',
         'word_id',
         'choice_id',
+        'is_correct'
     ];
 
     protected $hidden = [

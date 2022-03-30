@@ -114,6 +114,7 @@ const LessonAnswer = (props) => {
             category_user_id: props.categoryUserId,
             word_id: props.answerData.word_id,
             choice_id: props.answerData.choice_id,
+            is_correct: props.answerData.is_correct,
           });
         }
       }
@@ -188,6 +189,26 @@ const LessonAnswer = (props) => {
   // This runs if user clicks on submit
   const handleSubmit = () => {
     /**
+     * Check if user picks the right choice, then if correct we
+     * need to update answer_user is_correct column to 1 or 0.
+     */
+    // Get the specific word from the state data based on word_id
+    const word = Object.entries(props.wordsChoices.data.data)
+      .map(([key, data]) => {
+        return data;
+      })
+      .filter((data) => data.id === props.answerData.word_id);
+    // Get the specific choice inside the words data
+    const choice = Object.entries(word[Object.keys(word)[0]].choices)
+      .map(([key2, choice]) => {
+        return choice;
+      })
+      .filter((choice) => choice.id === props.answerData.choice_id);
+    const isCorrect =
+      choice[Object.keys(choice)[0]].is_correct_answer === 1 ? 1 : 0;
+    // Iterate the answerData state with the new is_correct value
+    props.setAnswerData({ ...props.answerData, is_correct: isCorrect });
+    /**
      * This function runs if the user first clicks the start and
      * starts a new category without data in category_user and
      * answer_user data.
@@ -203,7 +224,11 @@ const LessonAnswer = (props) => {
        * This will store answer data on second, third submit and so on.
        * pass answer data as second arguemnt.
        */
-      props.storeAnswerUser(props.token, props.answerData);
+      props.storeAnswerUser(props.token, {
+        ...props.answerData,
+        // Iterate answerData with isCorrect
+        is_correct: isCorrect,
+      });
       if (ifLastWord()) {
         // Update category_user category to completed
         props.updateCategoryUserComplete(props.token, {
