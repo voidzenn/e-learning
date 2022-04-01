@@ -10,8 +10,11 @@ import {
   Divider,
   Grid,
   Paper,
+  Tab,
+  Tabs,
   Typography,
 } from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Settings } from "@mui/icons-material";
 
 import { fetchSingleUser } from "../../actions/user";
@@ -27,10 +30,12 @@ import {
 } from "../../actions/follow";
 import Activity from "./Activity";
 import EditProfile from "./EditProfile";
+import Word from "./Word";
 
 const Profile = (props) => {
   const [openEdit, setOpenEdit] = useState(false);
   const [wordCount, setWordCount] = useState(0);
+  const [tabValue, setTabValue] = useState("1");
   // Get profile data from cookie
   const profileData = () => {
     return props.cookies.get("profileData") !== undefined
@@ -121,6 +126,10 @@ const Profile = (props) => {
 
   const handleEditProfile = (data) => {
     setOpenEdit(true);
+  };
+
+  const handleChange = (e, value) => {
+    setTabValue(value);
   };
 
   return (
@@ -297,13 +306,31 @@ const Profile = (props) => {
             </Grid>
             <Grid item lg={8} md={8} sm={8} xs={12}>
               <Paper>
-                <Box sx={{ p: 5 }}>
+                <Box sx={{ p: 2 }}>
                   {!openEdit ? (
                     <React.Fragment>
-                      <Container sx={{ mb: 2 }}>
-                        <Typography>User Activity</Typography>
-                      </Container>
-                      <Activity userId={profileData().userId} type="profile" />
+                      <Box sx={{ p: 5 }}>
+                        <TabContext value={tabValue}>
+                          <Box>
+                            <TabList onChange={handleChange}>
+                              <Tab label="User Activities" value="1" />
+                              <Tab label="Words Learned" value="2" />
+                            </TabList>
+                          </Box>
+                          <TabPanel value="1">
+                            <Activity
+                              userId={profileData().userId}
+                              type="profile"
+                            />
+                          </TabPanel>
+                          <TabPanel value="2">
+                            <Word
+                              userId={profileData().userId}
+                              type="profile"
+                            />
+                          </TabPanel>
+                        </TabContext>
+                      </Box>
                     </React.Fragment>
                   ) : (
                     <EditProfile

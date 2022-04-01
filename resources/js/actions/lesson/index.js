@@ -10,7 +10,7 @@ import {
   FRESH_LESSON,
   FETCH_ANSWER_USER_DATA,
   FETCH_ALL_ANSWER,
-  FETCH_WORDS,
+  FETCH_CATEGORY_WORDS,
   SET_SCORE,
 } from "./types";
 import userApi from "../../apis/userApi";
@@ -312,9 +312,9 @@ export const fetchAllAnswers = (token, user_id) => async (dispatch) => {
   });
 };
 
-export const fetchWords = (token, user_id) => async (dispatch) => {
+export const fetchCategoryWords = (token, user_id) => async (dispatch) => {
   if (token !== "" && user_id !== "") {
-    await userApi(`/lessons/${user_id}/get-words`, {
+    await userApi(`/lessons/${user_id}/get-category-words`, {
       method: "get",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -324,28 +324,28 @@ export const fetchWords = (token, user_id) => async (dispatch) => {
         data = {
           requestError: response.data.error,
           requestErrorMessage: response.data.message,
-          wordsData: response.data.category_user,
+          categoryWordsData: response.data.category_user,
         };
       })
       .catch((error) => {
         data = {
           requestError: error.response.data.error,
           requestErrorMessage: error.response.data.message,
-          wordsData: [],
+          categoryWordsData: [],
         };
       });
   } else {
     data = {
       requestError: true,
       requestErrorMessage: "Unauthorized Action",
-      wordsData: [],
+      categoryWordsData: [],
     };
   }
   dispatch({
-    type: FETCH_WORDS,
+    type: FETCH_CATEGORY_WORDS,
     requestError: data.requestError,
     requestErrorMessage: data.requestErrorMessage,
-    wordsData: data.wordsData,
+    categoryWordsData: data.categoryWordsData,
   });
 };
 

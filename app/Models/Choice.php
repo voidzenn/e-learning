@@ -23,6 +23,10 @@ class Choice extends Model
 
     protected $hidden = ["created_at", "updated_at"];
 
+    protected $casts = [
+        'is_correct_answer' => 'integer'
+    ];
+
     public function word()
     {
         return $this->belongsTo(Word::class);

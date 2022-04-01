@@ -23,6 +23,10 @@ class AnswerUser extends Model
         'updated_at',
     ];
 
+    protected $casts = [
+        'is_correct' => 'integer'
+    ];
+
     public function categoryUser()
     {
         return $this->belongsTo(CategoryUser::class);

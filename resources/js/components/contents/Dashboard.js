@@ -35,8 +35,11 @@ const Dashboard = (props) => {
   useEffect(() => {
     if (props.allAnswers.length !== 0) {
       var count = 0;
-      Object.entries(props.allAnswers).map(([key, answer]) => {
-        count += answer.answer_users.length;
+      Object.entries(props.allAnswers).map(([key, category]) => {
+        // Check if the category has been completed
+        if (category.completed === 1) {
+          count += category.answer_users.length;
+        }
       });
       // Set state with word count
       setWordCount(count);
@@ -51,13 +54,6 @@ const Dashboard = (props) => {
 
   const handleChange = (e, value) => {
     setTabValue(value);
-  };
-
-  const wordsCount = () => {
-    return props.allAnswers.length !== 0
-      ? // Get the first array of object
-        props.allAnswers[Object.keys(props.allAnswers)[0]].answer_users.length
-      : 0;
   };
 
   const lessonCount = () => {
@@ -155,6 +151,7 @@ const Dashboard = (props) => {
                         userId={
                           userAuthData() !== null ? userAuthData().id : null
                         }
+                        type="dashboard"
                       />
                     </TabPanel>
                   </TabContext>

@@ -161,15 +161,16 @@ class LessonController extends Controller
     /**
      * Get all the words and its choices based on user id
      */
-    public function getWords($user_id)
+    public function getCategoryWords($user_id)
     {
         try {
             $categoryUser =  CategoryUser::where(
                 "user_id",
                 "=",
                 $user_id
-            )->with("categories.words.choices")
-            ->with("answerUsers")
+            )
+            ->where("completed", "=", "1")
+            ->with("categories.words.choices")
             ->get();
 
             if ($categoryUser) {

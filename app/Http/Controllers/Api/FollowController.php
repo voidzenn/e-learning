@@ -8,8 +8,6 @@ use App\Http\Requests\Follow\FollowStoreRequest;
 use App\Models\Activity;
 use App\Models\Follow;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
 {
