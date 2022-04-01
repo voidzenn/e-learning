@@ -89,8 +89,6 @@ export default (state = initializeState, action) => {
     case FETCH_ALL_ANSWER:
       return {
         ...state,
-        requestError: action.requestError,
-        requestErrorMessage: action.requestErrorMessage,
         allAnswers: action.allAnswers,
       };
     case FETCH_WORDS:

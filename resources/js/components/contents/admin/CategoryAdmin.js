@@ -212,17 +212,22 @@ const CategoryAdmin = (props) => {
           </Button>
           <TableContainer sx={{ maxHeight: 1200 }}>
             <Table stickyHeader aria-label="sticky table" sx={{ p: 5 }}>
-              <TableHead style={{ backgroundColor: "orange" }}>
-                <TableRow>
-                  <TableCell sx={tableCellStyles}>#</TableCell>
-                  <TableCell sx={tableCellStyles}>Title</TableCell>
-                  <TableCell sx={tableCellStyles}>Description</TableCell>
-                  <TableCell sx={tableCellStyles}>Action</TableCell>
-                </TableRow>
-              </TableHead>
+              {props.categories.length !== 0 ? (
+                props.categories.data.length !== 0 ? (
+                  <TableHead style={{ backgroundColor: "orange" }}>
+                    <TableRow>
+                      <TableCell sx={tableCellStyles}>#</TableCell>
+                      <TableCell sx={tableCellStyles}>Title</TableCell>
+                      <TableCell sx={tableCellStyles}>Description</TableCell>
+                      <TableCell sx={tableCellStyles}>Action</TableCell>
+                    </TableRow>
+                  </TableHead>
+                ) : null
+              ) : null}
               <TableBody>
-                {props.categories.length !== 0
-                  ? Object.entries(props.categories.data).map(
+                {props.categories.length !== 0 ? (
+                  props.categories.data.length !== 0 ? (
+                    Object.entries(props.categories.data).map(
                       ([key, category]) => {
                         var finalKey = {};
                         // Make iteration to the itemKey value
@@ -337,16 +342,28 @@ const CategoryAdmin = (props) => {
                         );
                       }
                     )
-                  : null}
+                  ) : (
+                    <Container>
+                      <Typography
+                        variant="h6"
+                        sx={{ textAlign: "center", mt: 5 }}
+                      >
+                        No category data
+                      </Typography>
+                    </Container>
+                  )
+                ) : null}
               </TableBody>
             </Table>
             {props.categories.length !== 0 ? (
-              <Pagination
-                total={props.categories.total}
-                page={props.categories.current_page}
-                rowsPerPage={props.categories.per_page}
-                handleOnPageChange={handleOnPageChange}
-              />
+              props.categories.data.length !== 0 ? (
+                <Pagination
+                  total={props.categories.total}
+                  page={props.categories.current_page}
+                  rowsPerPage={props.categories.per_page}
+                  handleOnPageChange={handleOnPageChange}
+                />
+              ) : null
             ) : null}
           </TableContainer>
         </Paper>

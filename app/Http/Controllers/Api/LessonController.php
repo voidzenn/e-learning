@@ -248,6 +248,7 @@ class LessonController extends Controller
                 $request->user_id
             )
                 ->with("answerUsers")
+                ->orderBy("completed", "DESC")
                 ->get();
             // Check if empty queried data
             if (count($categoryUser) > 0) {

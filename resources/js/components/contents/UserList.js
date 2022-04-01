@@ -26,6 +26,7 @@ import { setUri } from "../../actions/header";
 import { fetchUsers, changeRole, freshUser } from "../../actions/user";
 import AlertContent from "../contents/subcontents/AlertContent";
 import Pagination from "../contents/subcontents/Pagination";
+import UserAvatar from "./UserAvatar";
 
 const UserList = (props) => {
   const navigate = useNavigate();
@@ -163,13 +164,10 @@ const UserList = (props) => {
                       <TableRow key={key}>
                         <TableCell>{finalKey.from}</TableCell>
                         <TableCell>
-                          <Avatar
-                            alt="img"
-                            src="images/avatars/profile.png"
-                            sx={{
-                              width: 40,
-                              height: 40,
-                            }}
+                          <UserAvatar
+                            height="40px"
+                            width="40px"
+                            avatar={user.avatar}
                           />
                         </TableCell>
                         <TableCell>

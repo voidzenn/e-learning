@@ -8,6 +8,8 @@ import wordReducer from "./word";
 import lessonReducer from "./lesson";
 import followReducer from "./follow";
 import activityReducer from "./activity";
+import profileReducer from "./profile";
+import fileReducer from "./file";
 
 export default combineReducers({
   header: headerReducer,
@@ -18,4 +20,6 @@ export default combineReducers({
   lesson: lessonReducer,
   follow: followReducer,
   activity: activityReducer,
+  profile: profileReducer,
+  file: fileReducer,
 });

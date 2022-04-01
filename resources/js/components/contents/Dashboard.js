@@ -19,6 +19,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { fetchAllAnswers, fetchCategoryUser } from "../../actions/lesson";
 import Activity from "./Activity";
 import Word from "./Word";
+import UserAvatar from "./UserAvatar";
 
 const Dashboard = (props) => {
   const [tabValue, setTabValue] = useState("1");
@@ -84,11 +85,12 @@ const Dashboard = (props) => {
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <Grid container sx={{ p: 5 }}>
                 <Grid item lg={6} md={6} sm={6} xs={6}>
-                  <Avatar
-                    alt="img"
-                    variant="square"
-                    src="images/avatars/profile.png"
-                    sx={{ width: 140, height: 140, p: 2 }}
+                  <UserAvatar
+                    height="120px"
+                    width="120px"
+                    avatar={
+                      userAuthData() !== null ? userAuthData().avatar : null
+                    }
                   />
                 </Grid>
                 <Grid item lg={6} md={6} sm={6} xs={6} sx={{ mt: 2 }}>
@@ -101,7 +103,9 @@ const Dashboard = (props) => {
                           textAlign: "center",
                         }}
                       >
-                        {userAuthData().fname + " " + userAuthData().lname}
+                        {userAuthData() !== null
+                          ? userAuthData().fname + " " + userAuthData().lname
+                          : null}
                       </Typography>
                     </Grid>
                     <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -139,10 +143,19 @@ const Dashboard = (props) => {
                       </TabList>
                     </Box>
                     <TabPanel value="1">
-                      <Activity userId={userAuthData().id} type="dashboard" />
+                      <Activity
+                        userId={
+                          userAuthData() !== null ? userAuthData().id : null
+                        }
+                        type="dashboard"
+                      />
                     </TabPanel>
                     <TabPanel value="2">
-                      <Word userId={userAuthData().id} />
+                      <Word
+                        userId={
+                          userAuthData() !== null ? userAuthData().id : null
+                        }
+                      />
                     </TabPanel>
                   </TabContext>
                 </Box>
