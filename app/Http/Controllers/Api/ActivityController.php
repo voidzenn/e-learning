@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Category;
-use Carbon\Carbon;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 
 class ActivityController extends Controller
 {

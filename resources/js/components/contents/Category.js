@@ -17,14 +17,15 @@ import { fetchAllCategories } from "../../actions/category";
 import { freshLesson, fetchAllAnswers } from "../../actions/lesson";
 import ProgressBar from "./ProgressBar";
 import LessonAnswer from "./LessonAnswer";
-import { findLastKey } from "lodash";
 
 const Category = (props) => {
   const [openLesson, setOpenLesson] = useState(false);
   const [title, setTitle] = useState("Categories");
   // This is for rendering data after rendering the category user data
+  var pendingData = [];
   var lastData = [];
   var completedData = [];
+  var newKey = 0;
   useEffect(() => {
     // Check if activeLesson is true then open lesson page on reload
     const activeLesson = props.cookies.get("activeLesson");
@@ -121,6 +122,20 @@ const Category = (props) => {
   const isValidLength = (answer) => {
     return answer.length !== 0 ? true : false;
   };
+  // This will output specific answer based on the category
+  const getUserAnswer = (id, allAnswers) => {
+    return isValidLength(allAnswers)
+      ? props.allAnswers
+          .filter((answer) => answer.category_id === id)
+          .map((item) => {
+            return {
+              categoryId: item.category_id,
+              categoryCompleted: item.completed,
+              answerLength: item.answer_users,
+            };
+          })
+      : [];
+  };
 
   return (
     <React.Fragment>
@@ -162,17 +177,7 @@ const Category = (props) => {
                  * We first need to check has answers, if has answers then
                  * get the data and assign to varible.
                  */
-                const ans = isValidLength(props.allAnswers)
-                  ? props.allAnswers
-                      .filter((answer) => answer.category_id === category.id)
-                      .map((item) => {
-                        return {
-                          categoryId: item.category_id,
-                          categoryCompleted: item.completed,
-                          answerLength: item.answer_users,
-                        };
-                      })
-                  : [];
+                const ans = getUserAnswer(category.id, props.allAnswers);
                 var newAns = [];
                 if (isValidLength(ans)) {
                   // We need to get the first index of the object ans
@@ -182,89 +187,7 @@ const Category = (props) => {
                   category.id === newAns.categoryId &&
                   newAns.categoryCompleted === 0
                 ) {
-                  return (
-                    <Grid
-                      key={key}
-                      item
-                      lg={4}
-                      md={4}
-                      sm={6}
-                      xs={6}
-                      sx={{ pb: 5 }}
-                    >
-                      <Card
-                        sx={{
-                          minHeight: "220px",
-                          maxHeight: "220px",
-                          border: `${
-                            // Check if has answer
-                            isValidLength(ans)
-                              ? // Check if has answered all
-                                newAns.answerLength.length ===
-                                category.words.length
-                                ? "1px solid #1976D2"
-                                : ""
-                              : ""
-                          }`,
-                        }}
-                      >
-                        {
-                          /**
-                           * We need to check if category has been answered, if has
-                           * been answered then show progress bar. Check if ans has
-                           * value.
-                           */
-                          isValidLength(ans) ? (
-                            isValidLength(newAns.answerLength) ? (
-                              <ProgressBar
-                                sx={{ mt: -2 }}
-                                index={newAns.answerLength.length}
-                                length={category.words.length}
-                              />
-                            ) : null
-                          ) : null
-                        }
-                        <CardContent sx={{ p: 3, height: "155px" }}>
-                          <Typography
-                            sx={{
-                              fontWeight: 700,
-                              textTransform: "capitalize",
-                            }}
-                          >
-                            {category.name}
-                          </Typography>
-                          <br />
-                          {formatText(category.description)}
-                        </CardContent>
-                        <CardActions>
-                          <Grid container justifyContent="flex-end">
-                            <Button
-                              variant={
-                                isValidLength(ans) ? "contained" : "outlined"
-                              }
-                              size="small"
-                              style={{ bottom: -5, right: 10 }}
-                              onClick={() => {
-                                handleStart({
-                                  categoryId: category.id,
-                                  categoryName: category.name,
-                                  categoryDescription: category.description,
-                                });
-                              }}
-                            >
-                              {isValidLength(ans)
-                                ? // Check if has answered all
-                                  newAns.answerLength.length ===
-                                  category.words.length
-                                  ? "View Result"
-                                  : "Continue"
-                                : "Start"}
-                            </Button>
-                          </Grid>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  );
+                  pendingData.push(category);
                 } else if (
                   category.id === newAns.categoryId &&
                   newAns.categoryCompleted === 1
@@ -279,119 +202,120 @@ const Category = (props) => {
                  * last key then run mapping function.
                  */
                 if (props.categories.length - 1 === parseInt(key)) {
-                  // Combine the two arrays
-                  const finalData = completedData.concat(lastData);
-                  // Get length of completed data
-                  const completeLength = completedData.length;
+                  // Combine all the array data
+                  const finalData = Array.prototype.concat.apply(
+                    [],
+                    [pendingData, completedData, lastData]
+                  );
+
                   return Object.entries(finalData).map(([lastKey, data]) => {
-                    // If data within the completed data then make complete design card
-                    if (lastKey < completeLength) {
-                      return (
-                        <Grid
-                          key={lastKey}
-                          item
-                          lg={4}
-                          md={4}
-                          sm={6}
-                          xs={6}
-                          sx={{ pb: 5 }}
-                        >
-                          <Card
-                            sx={{
-                              minHeight: "220px",
-                              maxHeight: "220px",
-                              border: "1px solid #1976D2",
-                            }}
-                          >
-                            <ProgressBar
-                              sx={{ mt: -2 }}
-                              index={data.words.length}
-                              length={data.words.length}
-                            />
-                            <CardContent sx={{ p: 3, height: "155px" }}>
-                              <Typography
-                                sx={{
-                                  fontWeight: 700,
-                                  textTransform: "capitalize",
-                                }}
-                              >
-                                {data.name}
-                              </Typography>
-                              <br />
-                              {formatText(data.description)}
-                            </CardContent>
-                            <CardActions>
-                              <Grid container justifyContent="flex-end">
-                                <Button
-                                  variant="contained"
-                                  size="small"
-                                  style={{ bottom: -5, right: 10 }}
-                                  onClick={() => {
-                                    handleStart({
-                                      categoryId: data.id,
-                                      categoryName: data.name,
-                                      categoryDescription: data.description,
-                                    });
-                                  }}
-                                >
-                                  View Result
-                                </Button>
-                              </Grid>
-                            </CardActions>
-                          </Card>
-                        </Grid>
-                      );
-                    } else {
-                      return (
-                        <Grid
-                          key={lastKey}
-                          item
-                          lg={4}
-                          md={4}
-                          sm={6}
-                          xs={6}
-                          sx={{ pb: 5 }}
-                        >
-                          <Card
-                            sx={{
-                              minHeight: "220px",
-                              maxHeight: "220px",
-                            }}
-                          >
-                            <CardContent sx={{ p: 3, height: "155px" }}>
-                              <Typography
-                                sx={{
-                                  fontWeight: 700,
-                                  textTransform: "capitalize",
-                                }}
-                              >
-                                {data.name}
-                              </Typography>
-                              <br />
-                              {formatText(data.description)}
-                            </CardContent>
-                            <CardActions>
-                              <Grid container justifyContent="flex-end">
-                                <Button
-                                  variant="outlined"
-                                  size="small"
-                                  style={{ bottom: -5, right: 10 }}
-                                  onClick={() => {
-                                    handleStart({
-                                      categoryId: data.id,
-                                      categoryName: data.name,
-                                      categoryDescription: data.description,
-                                    });
-                                  }}
-                                >
-                                  Start
-                                </Button>
-                              </Grid>
-                            </CardActions>
-                          </Card>
-                        </Grid>
-                      );
+                    /**
+                     * We first need to check has answers, if has answers then
+                     * get the data and assign to varible.
+                     */
+                    const ans = getUserAnswer(data.id, props.allAnswers);
+                    var newAns = [];
+                    if (isValidLength(ans)) {
+                      // We need to get the first index of the object ans
+                      newAns = ans[Object.keys(ans)[0]];
                     }
+                    return (
+                      <Grid
+                        key={lastKey}
+                        item
+                        lg={4}
+                        md={4}
+                        sm={6}
+                        xs={6}
+                        sx={{ pb: 5 }}
+                      >
+                        <Card
+                          sx={{
+                            minHeight: "220px",
+                            maxHeight: "220px",
+                            border: `${
+                              // Check if has answer
+                              isValidLength(data.category_users)
+                                ? // Check if has answered all
+                                  isValidLength(newAns)
+                                  ? newAns.answerLength.length ===
+                                    data.words.length
+                                    ? "1px solid #1976D2"
+                                    : ""
+                                  : ""
+                                : ""
+                            }`,
+                          }}
+                        >
+                          {
+                            /**
+                             * We need to check if category has been answered, if has
+                             * been answered then show progress bar. Check if ans has
+                             * value.
+                             */
+                            isValidLength(data.category_users) ? (
+                              isValidLength(newAns) ? (
+                                isValidLength(newAns.answerLength) ? (
+                                  <ProgressBar
+                                    sx={{ mt: -2 }}
+                                    index={newAns.answerLength.length}
+                                    length={data.words.length}
+                                  />
+                                ) : null
+                              ) : null
+                            ) : null
+                          }
+                          <CardContent sx={{ p: 3, height: "155px" }}>
+                            <Typography
+                              sx={{
+                                fontWeight: 700,
+                                textTransform: "capitalize",
+                              }}
+                            >
+                              {data.name}
+                            </Typography>
+                            <br />
+                            {formatText(data.description)}
+                          </CardContent>
+                          <CardActions>
+                            <Grid container justifyContent="flex-end">
+                              <Button
+                                variant={
+                                  isValidLength(data.category_users)
+                                    ? // Check if has answered all
+                                      isValidLength(newAns)
+                                      ? newAns.answerLength.length ===
+                                        data.words.length
+                                        ? "contained"
+                                        : "contained"
+                                      : "outlined"
+                                    : "outlined"
+                                }
+                                size="small"
+                                style={{ bottom: -5, right: 10 }}
+                                onClick={() => {
+                                  handleStart({
+                                    categoryId: data.id,
+                                    categoryName: data.name,
+                                    categoryDescription: data.description,
+                                  });
+                                }}
+                              >
+                                {isValidLength(data.category_users)
+                                  ? // Check if has answered all
+                                    isValidLength(newAns)
+                                    ? newAns.answerLength.length ===
+                                      data.words.length
+                                      ? "View Result"
+                                      : "Continue"
+                                    : "Start"
+                                  : "Start"}
+                              </Button>
+                            </Grid>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    );
                   });
                 }
               }

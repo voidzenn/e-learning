@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Word\WordStoreRequest;
 use App\Http\Requests\Word\WordUpdateRequest;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 
 use function PHPSTORM_META\map;
 

@@ -9,7 +9,7 @@ import {
   STORE_ANSWER_USER,
   FETCH_ANSWER_USER_DATA,
   FETCH_ALL_ANSWER,
-  FETCH_WORDS,
+  FETCH_CATEGORY_WORDS,
   SET_SCORE,
   FRESH_LESSON,
 } from "../../actions/lesson/types";
@@ -20,7 +20,7 @@ const initializeState = {
   answerLength: null,
   categoryUserId: null,
   categoryUserData: [],
-  wordsData: [],
+  categoryWordsData: [],
   requestError: "",
   requestErrorMessage: "",
   answer_results: [],
@@ -91,12 +91,12 @@ export default (state = initializeState, action) => {
         ...state,
         allAnswers: action.allAnswers,
       };
-    case FETCH_WORDS:
+    case FETCH_CATEGORY_WORDS:
       return {
         ...state,
         requestError: action.requestError,
         requestErrorMessage: action.requestErrorMessage,
-        wordsData: action.wordsData,
+        categoryWordsData: action.categoryWordsData,
       }
     case SET_SCORE:
       return {

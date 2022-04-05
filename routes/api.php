@@ -125,9 +125,9 @@ Route::prefix("v1")->group(function () {
                 App\Http\Controllers\Api\LessonController::class,
                 "checkAnswerUser",
             ]);
-            Route::get("/{user_id}/get-words", [
+            Route::get("/{user_id}/get-category-words", [
                 \App\Http\Controllers\Api\LessonController::class,
-                "getWords",
+                "getCategoryWords",
             ]);
             Route::post("/store-answer-user", [
                 App\Http\Controllers\Api\LessonController::class,
