@@ -2,39 +2,39 @@
 
 ##### Prerequisite 
 - ##### Install depedencies
-  - yarn
-  - npm install
+  - ###### yarn
+  - ###### npm install
 - ##### Install composer
-  - composer install
+  - ###### composer install
 - ##### Edit ENV file
-  - Edit .env.example to .env and change the db credentials
+  - ###### Edit .env.example to .env and change the db credentials
 - ##### Run migration | Make sure that your table exists in your database 
-  - php artisan migrate
+  - ###### php artisan migrate
 - ##### Run seeder for sample data
-  - php artisan db:seed
+  - ###### php artisan db:seed
 - ##### Run Laravel backend
-  - php artisan serve  
+  - ###### php artisan serve  
 - ##### Run Laravel generate key
-  - php artisan key:generate
+  - ###### php artisan key:generate
 - ##### Run React frontend
-  - npm run watch
+  - ###### npm run watch
 ##### Accessing App
-- Access the application via this http://localhost:8000
-- For admin admin@admin.com || admin
-- For user user@user.com || user
+- ###### Access the application via this http://localhost:8000
+- ###### For admin admin@admin.com || admin
+- ###### For user user@user.com || user
 ##### About App
 - ##### Admin Functions
-  - Categories CRUD
-  - Words and Choices CRUD
-  - User list
+  - ###### Categories CRUD
+  - ###### Words and Choices CRUD
+  - ###### User list
 - ##### User Functions
-  - View Categories
-  - View and Answer lessons
-  - Lesson Results
-  - Add Folow other User
-  - Self and Other user activity logs
-  - Profile edit 
-  - Dashboard
+  - ###### View Categories
+  - ###### View and Answer lessons
+  - ###### Lesson Results
+  - ###### Add Folow other User
+  - ###### Self and Other user activity logs
+  - ###### Profile edit 
+  - ###### Dashboard
 ##### App Images
 ![151329499-0638f440-b4fe-415e-b616-c3da3e76fe43.png](https://user-images.githubusercontent.com/47482620/209609603-0718eae3-aea9-4526-9a00-c6007025eca8.png)
 ![152720403-d7ed4edd-84af-4efd-b626-9e51362c9bb2](https://user-images.githubusercontent.com/47482620/209609605-80599257-9c98-464d-bf07-df38e70d1336.png)
